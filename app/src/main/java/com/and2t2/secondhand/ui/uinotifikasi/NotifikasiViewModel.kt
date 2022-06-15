@@ -22,7 +22,6 @@ class NotifikasiViewModel(private val notifikasiRepo: NotifikasiRepo) : ViewMode
             try {
                 val result = notifikasiRepo.getNotifikasi("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTUyNzkxMjZ9.rQs7fzE9b3IbnbaadoSzzVpcYPj4skUs2cFa4727edU")
                 _dataNotifikasi.postValue(result)
-                Log.e("Notifi","$dataNotifikasi")
             }catch (ex : IOException){
                 Log.e("ViewModel",ex.message.toString())
             }

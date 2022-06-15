@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentNotifikasiBinding
@@ -19,6 +20,8 @@ import kotlinx.coroutines.launch
 
 class NotifikasiFragment : Fragment() {
 
+
+    private lateinit var notifAdapter: NotifikasiAdapter
     private val notifikasiRepo : NotifikasiRepo by lazy { NotifikasiRepo(ApiClient.instance,
         NotifikasiMapper()
     ) }
@@ -45,15 +48,20 @@ class NotifikasiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Notifikasi"
+        initRecycler()
+        getDataNotifikasi()
+    }
 
+    private fun initRecycler(){
+        notifAdapter = NotifikasiAdapter()
+        binding.rvNotifikasi.adapter = notifAdapter
+        binding.rvNotifikasi.layoutManager = LinearLayoutManager(requireContext())
+    }
 
-            viewModel.dataNotifikasi.observe(viewLifecycleOwner){
-                Log.e("Notifikasi err","$it")
-            }
-
-
-
-
+    private fun getDataNotifikasi(){
+        viewModel.dataNotifikasi.observe(viewLifecycleOwner){
+            notifAdapter.updateDataNotif(it)
+        }
 
     }
 
