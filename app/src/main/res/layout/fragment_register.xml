@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="@string/uilogin_title_daftar"
+        android:text="@string/uiregister_title_daftar"
         android:fontFamily="@font/poppins_bold"
         android:textSize="24sp"
         android:textColor="@color/black"
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uilogin_label_nama"
+            android:text="@string/uiregister_label_nama"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -47,7 +47,7 @@
             android:id="@+id/edit_nama_lengkap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uilogin_hint_namalengkap"
+            android:hint="@string/uiregister_hint_namalengkap"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
@@ -77,7 +77,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uilogin_label_email"
+            android:text="@string/uiregister_label_email"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -86,7 +86,7 @@
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uilogin_hint_email"
+            android:hint="@string/uiregister_hint_email"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
@@ -117,7 +117,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uilogin_label_buatpassword"
+            android:text="@string/uiregister_label_buatpassword"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -126,7 +126,7 @@
             android:id="@+id/edit_buatpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uilogin_hint_buatpassword"
+            android:hint="@string/uiregister_hint_buatpassword"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
@@ -148,14 +148,14 @@
     </LinearLayout>
     
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_masuk"
+        android:id="@+id/btn_daftar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:paddingVertical="16dp"
         android:paddingHorizontal="24dp"
         android:backgroundTint="@color/main_purple"
-        android:text="@string/uilogin_button_daftar"
+        android:text="@string/uiregister_button_daftar"
         android:fontFamily="@font/poppins_medium"
         android:textSize="14sp"
         android:textColor="@color/white"
@@ -176,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="@string/uilogin_masuk_sudahpunyaakun"
+            android:text="@string/uiregister_sudahpunyaakun"
             android:fontFamily="@font/poppins_regular"
             android:textSize="14sp"
             android:textColor="@color/txt_belumpunyakaun"/>
@@ -185,7 +185,7 @@
             android:id="@+id/clickable_text_daftar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/uilogin_masuk_masukdisini"
+            android:text="@string/uiregister_masukdisini"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:textColor="@color/main_purple"/>
