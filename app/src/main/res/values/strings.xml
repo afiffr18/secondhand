@@ -21,4 +21,19 @@
     <string name="uilogin_button_masuk">Masuk</string>
     <string name="uilogin_belumpunyaakun">Belum punya akun?</string>
     <string name="uilogin_daftardisini">Daftar disini</string>
+    <string name="uilogin_hint_buatpassword">Buat Password</string>
+    <string name="uilogin_button_daftar">Daftar</string>
+    <string name="uilogin_masuk_sudahpunyaakun">Sudah punya akun?</string>
+    <string name="uilogin_masuk_masukdisini">Masuk disini</string>
+
+    <string name="uiprofile_title">Lengkapi Info Akun</string>
+    <string name="uiprofile_label_nama">Nama*</string>
+    <string name="uiprofile_label_kota">Kota*</string>
+    <string name="uiprofile_label_alamat">Alamat*</string>
+    <string name="uiprofile_label_nohp">No Handphone*</string>
+    <string name="uiprofile_hint_nama">Nama</string>
+    <string name="uiprofile_hint_kota">Pilih Kota</string>
+    <string name="uiprofile_hint_alamat">Contoh: Jalan Ikan Hiu 33</string>
+    <string name="uiprofile_hint_nohp">Contoh: +628123456789</string>
+    <string name="uiprofile_button_simpan">Simpan</string>
 </resources>
