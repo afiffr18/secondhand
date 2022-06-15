@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="@string/uilogin_title_masuk"
+        android:text="@string/masuk"
         android:fontFamily="@font/poppins_bold"
         android:textSize="24sp"
         android:textColor="@color/black"
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uilogin_label_email"
+            android:text="@string/email"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -47,12 +47,12 @@
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uilogin_hint_email"
+            android:hint="@string/hint_email"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/main_purple"
+            app:boxStrokeColor="@color/darkblue04"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -78,7 +78,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uilogin_label_password"
+            android:text="@string/password"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -87,12 +87,12 @@
             android:id="@+id/edit_buatpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uilogin_hint_password"
+            android:hint="@string/hint_password"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/main_purple"
+            app:boxStrokeColor="@color/darkblue04"
             app:endIconMode="password_toggle"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -115,8 +115,8 @@
         android:layout_marginTop="20dp"
         android:paddingVertical="16dp"
         android:paddingHorizontal="24dp"
-        android:backgroundTint="@color/main_purple"
-        android:text="@string/uilogin_button_masuk"
+        android:backgroundTint="@color/darkblue04"
+        android:text="@string/masuk"
         android:fontFamily="@font/poppins_medium"
         android:textSize="14sp"
         android:textColor="@color/white"
@@ -137,19 +137,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="@string/uilogin_belumpunyaakun"
+            android:text="@string/belumpunyaakun"
             android:fontFamily="@font/poppins_regular"
             android:textSize="14sp"
-            android:textColor="@color/txt_belumpunyakaun"/>
+            android:textColor="@color/neutral05"/>
 
         <TextView
             android:id="@+id/clickable_text_daftar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/uilogin_daftardisini"
+            android:text="@string/daftardisini"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
-            android:textColor="@color/main_purple"/>
+            android:textColor="@color/darkblue04"/>
 
     </LinearLayout>
 

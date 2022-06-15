@@ -1,39 +1,30 @@
 <resources>
     <string name="app_name">Second Hand</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="uiregister_title_daftar">Daftar</string>
-    <string name="uiregister_label_nama">Nama</string>
-    <string name="uiregister_label_email">Email</string>
-    <string name="uiregister_label_buatpassword">Buat Password</string>
-    <string name="uiregister_hint_namalengkap">Nama Lengkap</string>
-    <string name="uiregister_hint_email">Contoh: johndee@gmail.com</string>
-    <string name="uiregister_hint_buatpassword">Buat Password</string>
-    <string name="uiregister_button_daftar">Daftar</string>
-    <string name="uiregister_sudahpunyaakun">Sudah punya akun?</string>
-    <string name="uiregister_masukdisini">Masuk disini</string>
+    <!--    -->
+    <string name="daftar">Daftar</string>
+    <string name="nama">Nama</string>
+    <string name="email">Email</string>
+    <string name="buatpassword">Buat Password</string>
+    <string name="namalengkap">Nama Lengkap</string>
+    <string name="hint_email">Contoh: johndee@gmail.com</string>
+    <string name="sudahpunyaakun">Sudah punya akun?</string>
+    <string name="masukdisini">Masuk disini</string>
 
-    <string name="uilogin_title_masuk">Masuk</string>
-    <string name="uilogin_label_email">Email</string>
-    <string name="uilogin_label_password">Password</string>
-    <string name="uilogin_hint_email">Contoh: johndee@gmail.com</string>
-    <string name="uilogin_hint_password">Masukkan Password</string>
-    <string name="uilogin_button_masuk">Masuk</string>
-    <string name="uilogin_belumpunyaakun">Belum punya akun?</string>
-    <string name="uilogin_daftardisini">Daftar disini</string>
-    <string name="uilogin_hint_buatpassword">Buat Password</string>
-    <string name="uilogin_button_daftar">Daftar</string>
-    <string name="uilogin_masuk_sudahpunyaakun">Sudah punya akun?</string>
-    <string name="uilogin_masuk_masukdisini">Masuk disini</string>
+    <string name="masuk">Masuk</string>
+    <string name="password">Password</string>
+    <string name="hint_password">Masukkan Password</string>
+    <string name="belumpunyaakun">Belum punya akun?</string>
+    <string name="daftardisini">Daftar disini</string>
 
-    <string name="uiprofile_title">Lengkapi Info Akun</string>
-    <string name="uiprofile_label_nama">Nama*</string>
-    <string name="uiprofile_label_kota">Kota*</string>
-    <string name="uiprofile_label_alamat">Alamat*</string>
-    <string name="uiprofile_label_nohp">No Handphone*</string>
-    <string name="uiprofile_hint_nama">Nama</string>
-    <string name="uiprofile_hint_kota">Pilih Kota</string>
-    <string name="uiprofile_hint_alamat">Contoh: Jalan Ikan Hiu 33</string>
-    <string name="uiprofile_hint_nohp">Contoh: +628123456789</string>
-    <string name="uiprofile_button_simpan">Simpan</string>
+    <string name="lengkapiinfoakun">Lengkapi Info Akun</string>
+    <string name="label_nama">Nama*</string>
+    <string name="label_kota">Kota*</string>
+    <string name="label_alamat">Alamat*</string>
+    <string name="label_nohp">No Handphone*</string>
+    <string name="hint_kota">Pilih Kota</string>
+    <string name="hint_alamat">Contoh: Jalan Ikan Hiu 33</string>
+    <string name="hint_nohp">Contoh: +628123456789</string>
+    <string name="simpan">Simpan</string>
+    <!--    -->
 </resources>
