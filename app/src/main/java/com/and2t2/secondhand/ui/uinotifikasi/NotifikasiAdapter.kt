@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.domain.model.Notifikasi
 
 class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewHolder>() {
@@ -42,7 +43,7 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
         val tvPenawaran = view.findViewById<TextView>(R.id.tv_penawaran)
 
         fun bind(notifikasi : Notifikasi){
-            tvPenawaran.text = notifikasi.bidPrice.toString()
+            tvPenawaran.text = notifikasi.bidPrice.toRp()
         }
     }
 }
