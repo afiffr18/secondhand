@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Kazakimaru/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_main.xml" value="0.1671195652173913" />
+        <entry key="..\:/Users/wisah/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/ic_back_button.xml" value="0.32" />
+        <entry key="..\:/Users/wisah/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/ic_fi_camera.xml" value="0.3165" />
+        <entry key="..\:/Users/wisah/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Users/wisah/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/wisah/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_tes.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
