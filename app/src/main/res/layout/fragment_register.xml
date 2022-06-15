@@ -52,7 +52,7 @@
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/black"
+            app:boxStrokeColor="@color/main_purple"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -90,14 +90,15 @@
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/black"
+            app:boxStrokeColor="@color/main_purple"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"/>
+                android:textSize="@dimen/text_size_textfield"
+                android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,7 +129,7 @@
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/black"
+            app:boxStrokeColor="@color/main_purple"
             app:endIconMode="password_toggle"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -136,7 +137,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"/>
+                android:textSize="@dimen/text_size_textfield"
+                android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
