@@ -1,5 +1,6 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.toFormatDate
 import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.domain.model.Notifikasi
 
@@ -41,9 +43,14 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
 
     inner class NotifikasiViewHolder(view : View) : RecyclerView.ViewHolder(view){
         val tvPenawaran = view.findViewById<TextView>(R.id.tv_penawaran)
-
+        val tvUpdateDate = view.findViewById<TextView>(R.id.tv_tanggal)
         fun bind(notifikasi : Notifikasi){
+            if(notifikasi.status == "success"){
+                tvPenawaran.paintFlags = tvPenawaran.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                tvPenawaran.text = notifikasi.bidPrice.toRp()
+            }
             tvPenawaran.text = notifikasi.bidPrice.toRp()
+            tvUpdateDate.text = notifikasi.updatedAt.toFormatDate()
         }
     }
 }

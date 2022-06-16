@@ -1,21 +1,16 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentNotifikasiBinding
 import com.and2t2.secondhand.domain.model.NotifikasiMapper
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class NotifikasiFragment : Fragment() {
@@ -61,6 +56,8 @@ class NotifikasiFragment : Fragment() {
     private fun getDataNotifikasi(){
         viewModel.dataNotifikasi.observe(viewLifecycleOwner){
             notifAdapter.updateDataNotif(it)
+
+
         }
 
     }

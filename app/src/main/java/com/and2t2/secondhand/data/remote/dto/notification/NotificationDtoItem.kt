@@ -1,4 +1,4 @@
-package com.and2t2.secondhand.data.remote.dto
+package com.and2t2.secondhand.data.remote.dto.notification
 
 
 import com.google.gson.annotations.SerializedName

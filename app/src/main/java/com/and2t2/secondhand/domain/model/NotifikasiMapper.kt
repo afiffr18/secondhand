@@ -1,7 +1,7 @@
 package com.and2t2.secondhand.domain.model
 
 import com.and2t2.secondhand.common.DomainMapper
-import com.and2t2.secondhand.data.remote.dto.NotificationDtoItem
+import com.and2t2.secondhand.data.remote.dto.notification.NotificationDtoItem
 
 class NotifikasiMapper : DomainMapper<NotificationDtoItem,Notifikasi> {
 
