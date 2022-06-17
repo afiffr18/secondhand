@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.remote.dto.ApiClient
@@ -44,6 +45,8 @@ class Login : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         doLogin()
+        moveToRegisterViaClickableText()
+        getBundleSnackbar()
     }
 
     private fun doLogin() {
@@ -98,5 +101,18 @@ class Login : Fragment() {
         }
 
         return result
+    }
+
+    private fun moveToRegisterViaClickableText() {
+        binding.clickableTextDaftar.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_register)
+        }
+    }
+
+    private fun getBundleSnackbar() {
+        val getValue = arguments?.getInt("idSnackbar")
+        if (getValue == 1) {
+            showSnackbar(requireContext(), requireView(), "Berhasil Daftar", R.color.success)
+        }
     }
 }

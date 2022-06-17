@@ -16,6 +16,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/title_masuk"
         android:layout_width="match_parent"
@@ -182,7 +189,7 @@
             android:textColor="@color/neutral05"/>
 
         <TextView
-            android:id="@+id/clickable_text_daftar"
+            android:id="@+id/clickable_text_masuk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/masukdisini"
