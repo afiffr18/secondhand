@@ -1,6 +1,8 @@
 package com.and2t2.secondhand.data.remote
 
 import com.and2t2.secondhand.data.remote.dto.seller.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 
@@ -13,10 +15,12 @@ interface SellerService {
         @Header("access_token") token : String
     ) : SellerBannerDto
 
+    @Multipart
     @POST("seller/banner")
     fun setSellerBanner(
         @Header("access_token") token : String,
-        @Body sellerBannerBody: SellerBannerBody
+        @Part("name") name : RequestBody,
+        @Part file : MultipartBody.Part?
     ) : SellerBannerDtoItem
 
     @GET("seller/banner/{id}")
@@ -43,9 +47,10 @@ interface SellerService {
         @Path("id") id : Int
     ) : SellerCategoryDtoItem
 
+    @Multipart
     @POST("seller/category")
     fun setSellerCategory(
-        @Body sellerCategoryBody: SellerCategoryBody
+        @Part("name") name : RequestBody
     ) : SellerCategoryDtoItem
 
     //need review
@@ -67,19 +72,30 @@ interface SellerService {
         @Path("id") id : Int
     ) : SellerCategoryDtoItem
 
-    //need review
+    @Multipart
     @POST("seller/product")
     fun setSellerProduct(
         @Header("access_token") token : String,
-        @Body sellerProductBody: SellerProductBody
+        @Part("name") name: RequestBody,
+        @Part("description") description : RequestBody,
+        @Part("base_price") basePrice : RequestBody,
+        @Part("category_ids") categoryId : RequestBody,
+        @Part("location") location : RequestBody,
+        @Part image : MultipartBody.Part?
+
     ) : SellerProductDtoPutPost
 
-    //need review
+    @Multipart
     @PUT("seller/product/{id}")
     fun updateSellerProduct(
         @Header("access_token") token : String,
         @Path("id") id : Int,
-        @Body sellerProductBody: SellerProductBody
+        @Part("name") name: RequestBody?,
+        @Part("description") description : RequestBody?,
+        @Part("base_price") basePrice : RequestBody?,
+        @Part("category_ids") categoryId : RequestBody?,
+        @Part("location") location : RequestBody?,
+        @Part image : MultipartBody.Part?
     ) : SellerProductDtoPutPost
 
     @DELETE("seller/product/{id}")

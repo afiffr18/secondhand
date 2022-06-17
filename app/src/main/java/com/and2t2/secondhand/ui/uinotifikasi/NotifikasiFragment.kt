@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentNotifikasiBinding
 import com.and2t2.secondhand.domain.model.NotifikasiMapper
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
+import id.afif.binarchallenge7.Model.Status
 
 
 class NotifikasiFragment : Fragment() {
@@ -54,8 +56,20 @@ class NotifikasiFragment : Fragment() {
     }
 
     private fun getDataNotifikasi(){
-        viewModel.dataNotifikasi.observe(viewLifecycleOwner){
-            notifAdapter.updateDataNotif(it)
+        viewModel.getNotifikasi().observe(viewLifecycleOwner){
+            when(it.status){
+                Status.LOADING ->{
+
+                }
+                Status.SUCCESS->{
+                    it.data?.let{ dataNotif ->
+                        notifAdapter.updateDataNotif(dataNotif)
+                    }
+                }
+                Status.ERROR->{
+                    Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
     }
