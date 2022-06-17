@@ -13,7 +13,7 @@ import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
 import com.and2t2.secondhand.databinding.FragmentLoginBinding
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.LoginRepo
+import com.and2t2.secondhand.domain.repository.AuthRepo
 
 
 class Login : Fragment() {
@@ -21,8 +21,8 @@ class Login : Fragment() {
     private val binding get() = _binding!!
 
     private val loginService: LoginService by lazy { ApiClient.instanceLogin }
-    private val loginRepo: LoginRepo by lazy { LoginRepo(loginService) }
-    private val loginViewModel: LoginViewModel by viewModelsFactory { LoginViewModel(loginRepo) }
+    private val authRepo: AuthRepo by lazy { AuthRepo(loginService) }
+    private val loginViewModel: LoginViewModel by viewModelsFactory { LoginViewModel(authRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
     private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
