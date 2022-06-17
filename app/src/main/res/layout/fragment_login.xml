@@ -13,7 +13,15 @@
         android:layout_height="20dp"
         android:background="?android:selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back_button"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -84,7 +92,7 @@
             android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_buatpassword"
+            android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_password"
