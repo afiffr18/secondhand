@@ -14,7 +14,7 @@ class NotifikasiViewModel(private val notifikasiRepo: NotifikasiRepo) : ViewMode
     fun getNotifikasi() = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
         try {
-            emit(Resource.succes(notifikasiRepo.getNotifikasi("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTUyNzkxMjZ9.rQs7fzE9b3IbnbaadoSzzVpcYPj4skUs2cFa4727edU")))
+            emit(Resource.succes(notifikasiRepo.getNotifikasi("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzkxMzd9.NEn3MajCccdWpLkHiAFAhez3DaFEPIdor7-MDxG9HoE")))
         }catch (ex : IOException){
             emit(Resource.error(null,ex.message ?: "Error Occurred"))
         }
