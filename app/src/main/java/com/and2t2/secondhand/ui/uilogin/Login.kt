@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.remote.dto.ApiClient
-import com.and2t2.secondhand.data.remote.dto.LoginService
+import com.and2t2.secondhand.data.remote.dto.AuthService
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
 import com.and2t2.secondhand.databinding.FragmentLoginBinding
 import com.and2t2.secondhand.domain.repository.DatastoreManager
@@ -20,8 +20,8 @@ class Login : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val loginService: LoginService by lazy { ApiClient.instanceLogin }
-    private val authRepo: AuthRepo by lazy { AuthRepo(loginService) }
+    private val authService: AuthService by lazy { ApiClient.INSTANCE_AUTH }
+    private val authRepo: AuthRepo by lazy { AuthRepo(authService) }
     private val loginViewModel: LoginViewModel by viewModelsFactory { LoginViewModel(authRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }

@@ -24,12 +24,12 @@ object ApiClient {
         .build()
 
     // create instance ApiService
-    val instanceLogin : LoginService by lazy {
+    val INSTANCE_AUTH : AuthService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-        retrofit.create(LoginService::class.java)
+        retrofit.create(AuthService::class.java)
     }
 }

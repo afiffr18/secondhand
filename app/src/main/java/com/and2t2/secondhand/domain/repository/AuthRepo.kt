@@ -1,8 +1,8 @@
 package com.and2t2.secondhand.domain.repository
 
-import com.and2t2.secondhand.data.remote.dto.LoginService
+import com.and2t2.secondhand.data.remote.dto.AuthService
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
 
-class AuthRepo(private val loginService: LoginService) {
-    suspend fun postLogin(authLoginBody: AuthLoginBody) = loginService.postLogin(authLoginBody)
+class AuthRepo(private val authService: AuthService) {
+    suspend fun postLogin(authLoginBody: AuthLoginBody) = authService.postLogin(authLoginBody)
 }

@@ -5,7 +5,7 @@ import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginDtoItem
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface LoginService {
+interface AuthService {
     @POST("auth/login")
     suspend fun postLogin(
         @Body authLoginBody: AuthLoginBody
