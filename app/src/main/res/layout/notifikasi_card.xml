@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -27,10 +27,20 @@
     <TextView
         android:id="@+id/tv_tanggal"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_cirlce"
+        android:layout_marginEnd="7dp"
         android:text="20 Apr,14:04"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/iv_cirlce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_circle_24"
+        app:layout_constraintBottom_toBottomOf="@id/tv_tanggal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_tanggal" />
 
     <TextView
         android:id="@+id/tv_nama_barang"
@@ -68,14 +78,23 @@
         android:id="@+id/tv_notifikasi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lines="2"
-        android:maxLines="3"
         android:layout_marginTop="4dp"
+        android:visibility="gone"
         android:fontFamily="@font/poppins_regular"
-        android:text="Kamu akan segera dihubungi penjual via whatsapp"
+        android:text="Kamu akan segera dihubungi penjual\nvia whatsapp"
         android:textSize="11sp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:singleLine="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_penawaran"
         app:layout_constraintTop_toBottomOf="@id/tv_penawaran" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

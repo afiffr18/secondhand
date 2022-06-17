@@ -17,7 +17,7 @@ class NotifikasiFragment : Fragment() {
 
 
     private lateinit var notifAdapter: NotifikasiAdapter
-    private val notifikasiRepo : NotifikasiRepo by lazy { NotifikasiRepo(ApiClient.instance,
+    private val notifikasiRepo : NotifikasiRepo by lazy { NotifikasiRepo(ApiClient.instanceNotifikasi,
         NotifikasiMapper()
     ) }
     private val viewModel : NotifikasiViewModel by lazy { NotifikasiViewModel(notifikasiRepo) }
@@ -56,8 +56,6 @@ class NotifikasiFragment : Fragment() {
     private fun getDataNotifikasi(){
         viewModel.dataNotifikasi.observe(viewLifecycleOwner){
             notifAdapter.updateDataNotif(it)
-
-
         }
 
     }

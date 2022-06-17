@@ -27,7 +27,7 @@ object ApiClient {
 
     //Membuat instance
 
-    val instance: NotifikasiService by lazy {
+    val instanceNotifikasi: NotifikasiService by lazy {
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)

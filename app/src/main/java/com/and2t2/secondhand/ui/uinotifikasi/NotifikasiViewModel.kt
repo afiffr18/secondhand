@@ -17,7 +17,7 @@ class NotifikasiViewModel(private val notifikasiRepo: NotifikasiRepo) : ViewMode
     init {
         getNotifikasi()
     }
-    private fun getNotifikasi(){
+    fun getNotifikasi(){
         viewModelScope.launch {
             try {
                 val result = notifikasiRepo.getNotifikasi("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAbWFpbC5jb20iLCJpYXQiOjE2NTUyNzkxMjZ9.rQs7fzE9b3IbnbaadoSzzVpcYPj4skUs2cFa4727edU")

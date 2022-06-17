@@ -44,13 +44,18 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
     inner class NotifikasiViewHolder(view : View) : RecyclerView.ViewHolder(view){
         val tvPenawaran = view.findViewById<TextView>(R.id.tv_penawaran)
         val tvUpdateDate = view.findViewById<TextView>(R.id.tv_tanggal)
+        val tvNotif = view.findViewById<TextView>(R.id.tv_notifikasi)
+        val tvProductName = view.findViewById<TextView>(R.id.tv_nama_barang)
         fun bind(notifikasi : Notifikasi){
             if(notifikasi.status == "success"){
-                tvPenawaran.paintFlags = tvPenawaran.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                tvPenawaran.text = notifikasi.bidPrice.toRp()
+//                tvHarga.paintFlags = tvHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                tvNotif.visibility = View.VISIBLE
+                tvPenawaran.text = "Berhasil ditawar " + notifikasi.bidPrice?.toRp()
+            }else{
+                tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp() }"
             }
-            tvPenawaran.text = notifikasi.bidPrice.toRp()
-            tvUpdateDate.text = notifikasi.updatedAt.toFormatDate()
+            tvProductName.text = notifikasi.productId.toString()
+            tvUpdateDate.text = notifikasi.updatedAt
         }
     }
 }
