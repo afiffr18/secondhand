@@ -35,4 +35,13 @@ object ApiClient {
 
         retrofit.create(NotifikasiService::class.java)
     }
+
+    val instanceSeller: SellerService by lazy {
+        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        retrofit.create(SellerService::class.java)
+    }
 }
