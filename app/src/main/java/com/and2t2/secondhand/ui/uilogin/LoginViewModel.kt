@@ -15,7 +15,7 @@ class LoginViewModel(private val authRepo: AuthRepo): ViewModel() {
             Log.d("LOGIN RESPONSE", "LOGIN SUKSES")
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
-            Log.d("LOGIN RESPONSE", "LOGIN GAGAL")
+            Log.d("LOGIN RESPONSE", e.message.toString())
         }
     }
 }

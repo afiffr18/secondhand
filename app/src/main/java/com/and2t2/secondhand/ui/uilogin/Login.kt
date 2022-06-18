@@ -1,6 +1,7 @@
 package com.and2t2.secondhand.ui.uilogin
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,6 +90,9 @@ class Login : Fragment() {
         if (email.isEmpty()) { // jika kosong
             binding.editEmail.error = "Email tidak boleh kosong!"
             result = false
+        } else if (!isEmailValid(email)) {
+            binding.editEmail.error = "Email tidak valid!"
+            result = false
         } else {
             binding.editEmail.isErrorEnabled = false
         }
@@ -101,6 +105,10 @@ class Login : Fragment() {
         }
 
         return result
+    }
+
+    private fun isEmailValid(email: String?): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     private fun moveToRegisterViaClickableText() {

@@ -21,7 +21,7 @@ class RegisterViewModel(private val authRepo: AuthRepo): ViewModel() {
             Log.d("REGISTER RESPONSE", "REGISTER SUKSES")
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
-            Log.d("REGISTER RESPONSE", "REGISTER GAGAL")
+            Log.d("REGISTER RESPONSE", e.message.toString())
         }
     }
 }
