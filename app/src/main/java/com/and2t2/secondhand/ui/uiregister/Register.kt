@@ -72,7 +72,7 @@ class Register : Fragment() {
                         }
                         Status.ERROR -> {
                             hideLoading()
-                            showSnackbar(requireContext(), requireView(), "Gagal, Email sudah terpakai", R.color.danger)
+                            showSnackbar(requireContext(), requireView(), "Gagal, Email sudah terdaftar", R.color.danger)
                         }
                         Status.LOADING -> {
                             // Munculkan LoadingDialog
