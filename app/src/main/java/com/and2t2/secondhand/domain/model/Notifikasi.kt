@@ -1,12 +1,16 @@
 package com.and2t2.secondhand.domain.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity
 data class Notifikasi (
-    val id: Int? = null,
-    val bidPrice: Int? = null,
-    val productId : Int? = null,
-    val status: String? = null,
-    val transactionDate: String? = null,
-    val updatedAt: String? = null
+    @PrimaryKey val id: Int? = null,
+    @ColumnInfo(name = "bidPrice") val bidPrice: Int? = null,
+    @ColumnInfo(name = "productId") val productId : Int? = null,
+    @ColumnInfo(name = "status") val status: String? = null,
+    @ColumnInfo(name = "transactionDate") val transactionDate: String? = null,
+    @ColumnInfo(name = "updatedAt")val updatedAt: String? = null
 )
