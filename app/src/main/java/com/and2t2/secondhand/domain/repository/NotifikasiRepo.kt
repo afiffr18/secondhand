@@ -26,7 +26,6 @@ class NotifikasiRepo(
             notifikasiDao.getNotifikasi()
         },
         fetch = {
-            delay(1000)
             getNotifikasi(access_token)
         },
         saveFetchResult = { notif ->

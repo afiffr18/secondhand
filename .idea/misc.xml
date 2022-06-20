@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/ic_back_button_24.xml" value="0.1275" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.19" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/ic_baseline_circle_24.xml" value="0.126" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/ic_outline_camera_alt_24.xml" value="0.126" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/font-v26/poppins.xml" value="0.234375" />
@@ -10,8 +12,11 @@
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/card_add.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_akun.xml" value="0.33" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_buyer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_notifikasi.xml" value="0.25" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/notifikasi_card.xml" value="0.33" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/mipmap-anydpi-v26/ic_back_buttons_round.xml" value="0.1275" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1275" />
       </map>
     </option>
   </component>

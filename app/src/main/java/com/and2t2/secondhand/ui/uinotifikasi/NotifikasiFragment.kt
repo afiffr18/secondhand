@@ -16,6 +16,7 @@ import com.and2t2.secondhand.domain.model.NotifikasiMapper
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
 import id.afif.binarchallenge7.Model.Status
 import id.afif.binarchallenge8.domain.util.Resource
+import kotlinx.coroutines.delay
 
 
 class NotifikasiFragment : Fragment() {
@@ -58,18 +59,14 @@ class NotifikasiFragment : Fragment() {
     }
 
     private fun getDataNotifikasi(){
-
         viewModel.notifikasi.observe(viewLifecycleOwner){
-            it.data?.let{ dataNotif ->
-                notifAdapter.updateDataNotif(dataNotif)
-            }
             if (it.data.isNullOrEmpty()){
                 when(it.status){
                     Status.LOADING ->{
-                        binding.pbLoading.isVisible = true
+                        binding.pbLoading.visibility = View.VISIBLE
                     }
                     Status.SUCCESS ->{
-                        binding.pbLoading.isVisible = false
+                        binding.pbLoading.visibility = View.INVISIBLE
                         it.data?.let{ dataNotif ->
                             notifAdapter.updateDataNotif(dataNotif)
                         }
@@ -78,6 +75,10 @@ class NotifikasiFragment : Fragment() {
                         binding.pbLoading.isVisible = false
                         binding.tvError.text = it.message
                     }
+                }
+            }else{
+                it.data.let{ dataNotif ->
+                    notifAdapter.updateDataNotif(dataNotif)
                 }
             }
 
