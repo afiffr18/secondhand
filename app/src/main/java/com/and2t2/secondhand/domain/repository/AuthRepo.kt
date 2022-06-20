@@ -6,10 +6,11 @@ import okhttp3.RequestBody
 
 class AuthRepo(private val authService: AuthService) {
     suspend fun postLogin(authLoginBody: AuthLoginBody) = authService.postLogin(authLoginBody)
-    suspend fun postRegister(nama: RequestBody,
+    suspend fun postRegister(fullName: RequestBody,
                              email: RequestBody,
                              password: RequestBody,
-                             phone: RequestBody,
-                             alamat: RequestBody
-    ) = authService.postRegister(nama, email, password, phone, alamat, null)
+                             phoneNumber: RequestBody,
+                             address: RequestBody,
+                             city: RequestBody
+    ) = authService.postRegister(fullName, email, password, phoneNumber, address, city, null)
 }

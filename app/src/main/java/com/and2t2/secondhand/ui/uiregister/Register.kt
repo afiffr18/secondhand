@@ -54,15 +54,17 @@ class Register : Fragment() {
             val etPassword = binding.editBuatpassword.editText?.text.toString()
             val myPhone = "Ex. 082132xxx"
             val myAddress = "Ex. Jl. Raya Kebayoran Lama No. 39"
+            val myCity = "Ex. Jakarta"
 
             if (registerValidation(etNamaLengkap, etEmail, etPassword)) {
-                val namaLengkap = etNamaLengkap.toRequestBody("full_name".toMediaTypeOrNull())
+                val fullName = etNamaLengkap.toRequestBody("full_name".toMediaTypeOrNull())
                 val email = etEmail.toRequestBody("email".toMediaTypeOrNull())
                 val password = etPassword.toRequestBody("password".toMediaTypeOrNull())
                 val phoneNumber = myPhone.toRequestBody("phone_humber".toMediaTypeOrNull())
                 val address = myAddress.toRequestBody("address".toMediaTypeOrNull())
+                val city = myCity.toRequestBody("city".toMediaTypeOrNull())
 
-                registerViewModel.doRegister(namaLengkap,email,password,phoneNumber,address).observe(viewLifecycleOwner) {
+                registerViewModel.doRegister(fullName,email,password,phoneNumber,address,city).observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.SUCCESS -> {
                             hideLoading()

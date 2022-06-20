@@ -21,6 +21,7 @@ interface AuthService {
         @Part("password") password: RequestBody,
         @Part("phone_number") phoneNumber: RequestBody,
         @Part("address") address: RequestBody,
+        @Part("city") city: RequestBody,
         @Part image: MultipartBody.Part?
     ): AuthRegisterDtoItem
 }

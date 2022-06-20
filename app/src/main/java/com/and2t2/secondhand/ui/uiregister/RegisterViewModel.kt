@@ -9,15 +9,16 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.RequestBody
 
 class RegisterViewModel(private val authRepo: AuthRepo): ViewModel() {
-    fun doRegister(nama: RequestBody,
+    fun doRegister(fullName: RequestBody,
                    email: RequestBody,
                    password: RequestBody,
-                   phone: RequestBody,
-                   alamat: RequestBody
+                   phoneNumber: RequestBody,
+                   address: RequestBody,
+                   city: RequestBody
     ) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
         try {
-            emit(Resource.success(authRepo.postRegister(nama, email, password, phone, alamat)))
+            emit(Resource.success(authRepo.postRegister(fullName, email, password, phoneNumber, address, city)))
             Log.d("REGISTER RESPONSE", "REGISTER SUKSES")
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
