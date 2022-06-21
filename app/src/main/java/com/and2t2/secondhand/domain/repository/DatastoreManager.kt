@@ -3,6 +3,7 @@ package com.and2t2.secondhand.domain.repository
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +15,7 @@ class DatastoreManager(private val context: Context) {
         private const val DATA_STORE_NAME = "datastore_preference"
         private val LOGINSTATE_KEY = booleanPreferencesKey("loginstate_key")
         private val ACCESSTOKEN_KEY = stringPreferencesKey("accesstoken_key")
+        private val IDUSER_KEY = intPreferencesKey("iduser_key")
         private val Context.dataStore by preferencesDataStore(name = DATA_STORE_NAME)
     }
 
@@ -38,6 +40,18 @@ class DatastoreManager(private val context: Context) {
     fun readAccessTokenFromDataStore(): Flow<String> {
         return context.dataStore.data.map { pref ->
             pref[ACCESSTOKEN_KEY] ?: "default value"
+        }
+    }
+
+    suspend fun saveIdUserToDataStore(value: Int) {
+        context.dataStore.edit { pref ->
+            pref[IDUSER_KEY] = value
+        }
+    }
+
+    fun readIdUserFromDataStore(): Flow<Int> {
+        return context.dataStore.data.map { pref ->
+            pref[IDUSER_KEY] ?: 0
         }
     }
 

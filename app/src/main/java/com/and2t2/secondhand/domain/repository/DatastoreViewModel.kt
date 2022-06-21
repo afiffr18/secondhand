@@ -25,6 +25,16 @@ class DatastoreViewModel(private val pref: DatastoreManager): ViewModel() {
         return pref.readAccessTokenFromDataStore().asLiveData()
     }
 
+    fun saveIdUser(value: Int) {
+        viewModelScope.launch {
+            pref.saveIdUserToDataStore(value)
+        }
+    }
+
+    fun getIdUser() : LiveData<Int> {
+        return pref.readIdUserFromDataStore().asLiveData()
+    }
+
     fun deleteAllData() {
         viewModelScope.launch {
             pref.removeFromDataStore()

@@ -67,13 +67,14 @@ class Login : Fragment() {
                             datastoreViewModel.apply {
                                 saveLoginState(true)
                                 saveAccessToken(it.data?.accessToken!!)
+                                saveIdUser(it.data.id)
                             }
                             // Pindah ke Home (tambahkan findNavController dari Login ke Home dibawah ini)
 
                         }
                         Status.ERROR -> {
                             hideLoading()
-                            showSnackbar(requireContext(), requireView(), "Email atau Password salah!", R.color.danger,)
+                            showSnackbar(requireContext(), requireView(), "Email atau Password salah!", R.color.danger)
                         }
                         Status.LOADING -> {
                             // Munculkan LoadingDialog
