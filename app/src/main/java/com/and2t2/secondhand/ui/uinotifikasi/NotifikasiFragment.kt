@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.and2t2.secondhand.data.local.DatabaseNotifikasi
+import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentNotifikasiBinding
 import com.and2t2.secondhand.domain.model.NotifikasiMapper
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
 import id.afif.binarchallenge7.Model.Status
-import id.afif.binarchallenge8.domain.util.Resource
-import kotlinx.coroutines.delay
 
 
 class NotifikasiFragment : Fragment() {
@@ -24,7 +21,7 @@ class NotifikasiFragment : Fragment() {
 
     private lateinit var notifAdapter: NotifikasiAdapter
     private val notifikasiRepo : NotifikasiRepo by lazy { NotifikasiRepo(ApiClient.instanceNotifikasi,
-        NotifikasiMapper(), DatabaseNotifikasi.getInstance(requireContext())!!) }
+        NotifikasiMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val viewModel : NotifikasiViewModel by lazy { NotifikasiViewModel(notifikasiRepo) }
 
     private var _binding : FragmentNotifikasiBinding? = null

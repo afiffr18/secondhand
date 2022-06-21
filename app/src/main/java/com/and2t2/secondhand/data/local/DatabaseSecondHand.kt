@@ -7,17 +7,17 @@ import androidx.room.RoomDatabase
 import com.and2t2.secondhand.domain.model.Notifikasi
 
 @Database(entities = [Notifikasi::class], version = 1)
-abstract class DatabaseNotifikasi : RoomDatabase() {
+abstract class DatabaseSecondHand : RoomDatabase() {
     abstract fun notifikasiDao(): NotifikasiDao
     companion object {
-        private var INSTANCE: DatabaseNotifikasi? = null
+        private var INSTANCE: DatabaseSecondHand? = null
 
-        fun getInstance(context: Context): DatabaseNotifikasi? {
+        fun getInstance(context: Context): DatabaseSecondHand? {
             if (INSTANCE == null) {
-                synchronized(DatabaseNotifikasi::class) {
+                synchronized(DatabaseSecondHand::class) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        DatabaseNotifikasi::class.java, "Notifikasi.db"
+                        DatabaseSecondHand::class.java, "Notifikasi.db"
                     ).build()
                 }
             }
