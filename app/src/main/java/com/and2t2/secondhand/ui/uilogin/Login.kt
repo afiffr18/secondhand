@@ -1,60 +1,127 @@
 package com.and2t2.secondhand.ui.uilogin
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.*
+import com.and2t2.secondhand.data.remote.dto.ApiClient
+import com.and2t2.secondhand.data.remote.dto.AuthService
+import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
+import com.and2t2.secondhand.databinding.FragmentLoginBinding
+import com.and2t2.secondhand.domain.repository.DatastoreManager
+import com.and2t2.secondhand.domain.repository.DatastoreViewModel
+import com.and2t2.secondhand.domain.repository.AuthRepo
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Login.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Login : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val authService: AuthService by lazy { ApiClient.INSTANCE_AUTH }
+    private val authRepo: AuthRepo by lazy { AuthRepo(authService) }
+    private val loginViewModel: LoginViewModel by viewModelsFactory { LoginViewModel(authRepo) }
+
+    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
+    private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Login.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Login().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        doLogin()
+        moveToRegisterViaClickableText()
+        getBundleSnackbar()
+    }
+
+    private fun doLogin() {
+        binding.btnMasuk.setOnClickListener {
+            // Get value dari TextInputLayout
+            val etEmail = binding.editEmail.editText?.text.toString()
+            val etPassword = binding.editPassword.editText?.text.toString()
+            // Login Validation
+            if (loginValidation(etEmail, etPassword)) {
+                val dataUser = AuthLoginBody(etEmail, etPassword)
+                // Jalankan function di ViewModel
+                loginViewModel.doLogin(dataUser).observe(viewLifecycleOwner) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            // Simpan login state & access token
+                            datastoreViewModel.apply {
+                                saveLoginState(true)
+                                saveAccessToken(it.data?.accessToken!!)
+                                saveIdUser(it.data.id)
+                            }
+                            // Pindah ke Home (tambahkan findNavController dari Login ke Home dibawah ini)
+
+                        }
+                        Status.ERROR -> {
+                            hideLoading()
+                            showSnackbar(requireContext(), requireView(), "Email atau Password salah!", R.color.danger)
+                        }
+                        Status.LOADING -> {
+                            // Munculkan LoadingDialog
+                            showLoading(requireActivity())
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    private fun loginValidation(email: String, password: String): Boolean {
+        var result = true
+        if (email.isEmpty()) { // jika kosong
+            binding.editEmail.error = "Email tidak boleh kosong!"
+            result = false
+        } else if (!isEmailValid(email)) {
+            binding.editEmail.error = "Email tidak valid!"
+            result = false
+        } else {
+            binding.editEmail.isErrorEnabled = false
+        }
+
+        if (password.isEmpty()) { // jika kosong
+            binding.editPassword.error = "Password tidak boleh kosong!"
+            result = false
+        } else {
+            binding.editPassword.isErrorEnabled = false
+        }
+
+        return result
+    }
+
+    private fun isEmailValid(email: String?): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun moveToRegisterViaClickableText() {
+        binding.clickableTextDaftar.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_register)
+        }
+    }
+
+    private fun getBundleSnackbar() {
+        val getValue = arguments?.getInt("idSnackbar")
+        if (getValue == 1) {
+            showSnackbar(requireContext(), requireView(), "Berhasil Daftar", R.color.success)
+        }
     }
 }
