@@ -3,7 +3,7 @@ package com.and2t2.secondhand.data.remote.dto.auth
 
 import com.google.gson.annotations.SerializedName
 
-data class AuthRegisterDtoItem(
+data class AuthUserDtoItem(
     @SerializedName("address")
     val address: String,
     @SerializedName("createdAt")

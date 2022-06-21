@@ -2,7 +2,7 @@ package com.and2t2.secondhand.data.remote.dto
 
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginDtoItem
-import com.and2t2.secondhand.data.remote.dto.auth.AuthRegisterDtoItem
+import com.and2t2.secondhand.data.remote.dto.auth.AuthUserDtoItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -23,5 +23,5 @@ interface AuthService {
         @Part("address") address: RequestBody,
         @Part("city") city: RequestBody,
         @Part image: MultipartBody.Part?
-    ): AuthRegisterDtoItem
+    ): AuthUserDtoItem
 }
