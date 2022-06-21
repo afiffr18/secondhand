@@ -44,4 +44,13 @@ object ApiClient {
 
         retrofit.create(SellerService::class.java)
     }
+
+    val instanceBuyer: BuyerService by lazy {
+        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        retrofit.create(BuyerService::class.java)
+    }
 }
