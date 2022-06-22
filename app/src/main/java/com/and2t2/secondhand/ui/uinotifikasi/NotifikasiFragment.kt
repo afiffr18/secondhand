@@ -1,6 +1,8 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,10 +48,22 @@ class NotifikasiFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Notifikasi"
         initRecycler()
         getDataNotifikasi()
+        onSwipeRefreshLayout()
+    }
+
+    private fun onSwipeRefreshLayout(){
+        binding.swipe.setOnRefreshListener {
+            getDataNotifikasi()
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.swipe.isRefreshing = false
+            },2000)
+        }
     }
 
     private fun initRecycler(){
-        notifAdapter = NotifikasiAdapter()
+        notifAdapter = NotifikasiAdapter{ id: Int ->  
+            viewModel.updateNotifikasiRead("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzkxMzd9.NEn3MajCccdWpLkHiAFAhez3DaFEPIdor7-MDxG9HoE",id)
+        }
         binding.rvNotifikasi.adapter = notifAdapter
         binding.rvNotifikasi.layoutManager = LinearLayoutManager(requireContext())
     }

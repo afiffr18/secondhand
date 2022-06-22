@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -16,7 +17,7 @@ import com.and2t2.secondhand.domain.model.Notifikasi
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewHolder>() {
+class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewHolder>() {
 
     private val difCallback = object : DiffUtil.ItemCallback<Notifikasi>() {
         override fun areItemsTheSame(oldItem: Notifikasi, newItem: Notifikasi): Boolean {
@@ -52,6 +53,7 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
         private val tvProductName = itemView.findViewById<TextView>(R.id.tv_nama_barang)
         private val ivImage = itemView.findViewById<ImageView>(R.id.iv_barang)
         private val ivRead = itemView.findViewById<ImageView>(R.id.iv_cirlce)
+        private val cardClick = itemView.findViewById<ConstraintLayout>(R.id.constraint)
 
         private val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_image_24)
         fun bind(notifikasi : Notifikasi){
@@ -68,6 +70,9 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
             tvProductName.text = notifikasi.productId.toString()
             tvUpdateDate.text = notifikasi.updatedAt
             Glide.with(itemView.context).load(notifikasi.imageUrl).apply(bgOptions).into(ivImage)
+            cardClick.setOnClickListener {
+                listener.invoke(notifikasi.id)
+            }
         }
 
 
