@@ -9,13 +9,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentBuyerBinding
 import com.and2t2.secondhand.domain.model.BuyerProductMapper
 import com.and2t2.secondhand.domain.repository.BuyerRepo
 import com.bumptech.glide.Glide
-import id.afif.binarchallenge7.Model.Status
+//import id.afif.binarchallenge7.Model.Status
 
 
 class BuyerFragment : Fragment() {

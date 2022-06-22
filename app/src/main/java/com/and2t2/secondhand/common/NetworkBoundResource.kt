@@ -1,6 +1,6 @@
 package com.and2t2.secondhand.common
 
-import id.afif.binarchallenge8.domain.util.Resource
+
 import kotlinx.coroutines.flow.*
 
 inline fun<ResultType,RequestType> networkBoundResource(
@@ -15,12 +15,12 @@ inline fun<ResultType,RequestType> networkBoundResource(
         emit(Resource.loading(data))
         try {
             saveFetchResult(fetch())
-            query().map{Resource.succes(it)}
+            query().map{Resource.success(it)}
         }catch (throwable : Throwable){
             query().map {Resource.error(it, throwable.toString())}
         }
     }else{
-        query().map{Resource.succes(it)}
+        query().map{Resource.success(it)}
     }
 
     emitAll(flow)

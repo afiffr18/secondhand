@@ -8,12 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentNotifikasiBinding
 import com.and2t2.secondhand.domain.model.NotifikasiMapper
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
-import id.afif.binarchallenge7.Model.Status
+//import id.afif.binarchallenge7.Model.Status
 
 
 class NotifikasiFragment : Fragment() {
