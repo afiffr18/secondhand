@@ -2,7 +2,6 @@ package com.and2t2.secondhand.domain.model
 
 import com.and2t2.secondhand.common.DomainMapper
 import com.and2t2.secondhand.common.toFormatDate
-import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.data.remote.dto.notification.NotificationDtoItem
 
 class NotifikasiMapper : DomainMapper<NotificationDtoItem,Notifikasi> {
@@ -14,7 +13,10 @@ class NotifikasiMapper : DomainMapper<NotificationDtoItem,Notifikasi> {
             productId = modelDto.productId,
             status = modelDto.status,
             transactionDate = modelDto.transactionDate,
-            updatedAt = modelDto.updatedAt.toFormatDate()
+            updatedAt = modelDto.updatedAt.toFormatDate(),
+            read = modelDto.read,
+            imageUrl = modelDto.imageUrl
+
         )
     }
 

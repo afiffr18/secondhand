@@ -4,6 +4,7 @@ package com.and2t2.secondhand.ui.uinotifikasi
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -11,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.domain.model.Notifikasi
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.imageview.ShapeableImageView
+import kotlinx.coroutines.withContext
 
 class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewHolder>() {
 
@@ -46,6 +51,9 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
         private val tvUpdateDate = itemView.findViewById<TextView>(R.id.tv_tanggal)
         private val tvNotif = itemView.findViewById<TextView>(R.id.tv_notifikasi)
         private val tvProductName = itemView.findViewById<TextView>(R.id.tv_nama_barang)
+        private val ivImage = itemView.findViewById<ImageView>(R.id.iv_barang)
+
+        private val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_image_24)
         fun bind(notifikasi : Notifikasi){
             if(notifikasi.status == "success"){
 //                tvHarga.paintFlags = tvHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -56,6 +64,7 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
             }
             tvProductName.text = notifikasi.productId.toString()
             tvUpdateDate.text = notifikasi.updatedAt
+            Glide.with(itemView.context).load(notifikasi.imageUrl).apply(bgOptions).into(ivImage)
         }
     }
 
