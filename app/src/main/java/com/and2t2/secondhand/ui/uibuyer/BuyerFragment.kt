@@ -31,7 +31,6 @@ class BuyerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentBuyerBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -59,7 +58,6 @@ class BuyerFragment : Fragment() {
             }
             val isTrue: Boolean = it.data?.id == null
             binding.pbLoading.isVisible =  isTrue
-
         }
     }
 

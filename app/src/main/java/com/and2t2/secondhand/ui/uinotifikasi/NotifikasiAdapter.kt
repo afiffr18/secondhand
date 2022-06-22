@@ -1,7 +1,6 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +15,6 @@ import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.domain.model.Notifikasi
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.android.material.imageview.ShapeableImageView
-import kotlinx.coroutines.withContext
 
 class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewHolder>() {
 
@@ -63,7 +60,7 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
                 tvNotif.visibility = View.VISIBLE
                 tvPenawaran.text = "Berhasil ditawar " + notifikasi.bidPrice?.toRp()
             }else{
-                tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp() }"
+                tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp()}"
             }
             if(notifikasi.read == true){
                 ivRead.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral03), android.graphics.PorterDuff.Mode.SRC_IN)
@@ -72,6 +69,8 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
             tvUpdateDate.text = notifikasi.updatedAt
             Glide.with(itemView.context).load(notifikasi.imageUrl).apply(bgOptions).into(ivImage)
         }
+
+
     }
 
 
