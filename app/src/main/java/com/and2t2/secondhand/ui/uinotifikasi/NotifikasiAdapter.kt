@@ -1,11 +1,13 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -52,6 +54,7 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
         private val tvNotif = itemView.findViewById<TextView>(R.id.tv_notifikasi)
         private val tvProductName = itemView.findViewById<TextView>(R.id.tv_nama_barang)
         private val ivImage = itemView.findViewById<ImageView>(R.id.iv_barang)
+        private val ivRead = itemView.findViewById<ImageView>(R.id.iv_cirlce)
 
         private val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_image_24)
         fun bind(notifikasi : Notifikasi){
@@ -61,6 +64,9 @@ class NotifikasiAdapter : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewH
                 tvPenawaran.text = "Berhasil ditawar " + notifikasi.bidPrice?.toRp()
             }else{
                 tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp() }"
+            }
+            if(notifikasi.read == true){
+                ivRead.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral03), android.graphics.PorterDuff.Mode.SRC_IN)
             }
             tvProductName.text = notifikasi.productId.toString()
             tvUpdateDate.text = notifikasi.updatedAt
