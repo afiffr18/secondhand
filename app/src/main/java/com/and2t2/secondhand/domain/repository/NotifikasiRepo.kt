@@ -32,7 +32,6 @@ class NotifikasiRepo(
                 notifikasiDao.insertNotifikasi(notif)
             }
 
-
         }
 
     )

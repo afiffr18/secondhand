@@ -11,9 +11,9 @@ interface NotifikasiDao {
     fun getNotifikasi() : Flow<List<Notifikasi>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNotifikasi(notifikasi : List<Notifikasi>)
+    fun insertNotifikasi(notifikasi : List<Notifikasi>)
 
     @Query("DELETE FROM Notifikasi")
-    suspend fun deleteNotifikasi()
+    fun deleteNotifikasi()
 
 }

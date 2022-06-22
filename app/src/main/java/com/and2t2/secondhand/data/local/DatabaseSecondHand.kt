@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.and2t2.secondhand.domain.model.BuyerProduct
 import com.and2t2.secondhand.domain.model.Notifikasi
 
-@Database(entities = [Notifikasi::class], version = 1)
+@Database(entities = [Notifikasi::class,BuyerProduct::class], version = 3)
 abstract class DatabaseSecondHand : RoomDatabase() {
     abstract fun notifikasiDao(): NotifikasiDao
+    abstract fun buyerDao() : BuyerDao
     companion object {
         private var INSTANCE: DatabaseSecondHand? = null
 
@@ -18,7 +20,7 @@ abstract class DatabaseSecondHand : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         DatabaseSecondHand::class.java, "Notifikasi.db"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
                 }
             }
             return INSTANCE

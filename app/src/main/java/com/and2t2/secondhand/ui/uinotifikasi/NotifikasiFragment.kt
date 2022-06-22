@@ -32,7 +32,6 @@ class NotifikasiFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentNotifikasiBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -57,27 +56,22 @@ class NotifikasiFragment : Fragment() {
 
     private fun getDataNotifikasi(){
         viewModel.notifikasi.observe(viewLifecycleOwner){
-            if (it.data.isNullOrEmpty()){
-                when(it.status){
-                    Status.LOADING ->{
-                        binding.pbLoading.visibility = View.VISIBLE
-                    }
-                    Status.SUCCESS ->{
-                        binding.pbLoading.visibility = View.INVISIBLE
-                        it.data?.let{ dataNotif ->
-                            notifAdapter.updateDataNotif(dataNotif)
-                        }
-                    }
-                    Status.ERROR->{
-                        binding.pbLoading.isVisible = false
-                        binding.tvError.text = it.message
-                    }
+            it.data?.let{ dataNotif ->
+                notifAdapter.updateDataNotif(dataNotif)
+            }
+            val isTrue : Boolean = it.data.isNullOrEmpty()
+            binding.pbLoading.isVisible = isTrue
+            binding.tvError.text = when(it.status){
+                Status.ERROR ->{
+                    binding.pbLoading.isVisible = false
+                    binding.tvError.isVisible = true
+                    it.message
                 }
-            }else{
-                it.data.let{ dataNotif ->
-                    notifAdapter.updateDataNotif(dataNotif)
+                else -> {
+                    "Error Occured"
                 }
             }
+
 
         }
     }
