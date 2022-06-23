@@ -17,12 +17,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/lengkapi_info_akun"
         android:layout_width="248dp"
         android:layout_height="24dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="@string/uiprofile_title"
+        android:text="@string/lengkapiinfoakun"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
@@ -39,17 +46,19 @@
         android:clickable="true"
         android:elevation="0dp"
         android:focusable="true"
+        android:backgroundTint="@color/darkblue02"
         android:foreground="?selectableItemBackgroundBorderless"
         app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lengkapi_info_akun">
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <ImageView
             android:id="@+id/edit_iv_picture"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:background="@color/light_purple"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_img_profile"
+            android:src="@drawable/ic_fi_camera"
             android:elevation="0dp"
             android:scaleType="centerCrop" />
 
@@ -66,7 +75,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uiprofile_label_nama"
+            android:text="@string/label_nama"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -75,18 +84,19 @@
             android:id="@+id/etl_nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uiprofile_hint_nama"
+            android:hint="@string/nama"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/main_purple"
+            app:boxStrokeColor="@color/darkblue04"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="@dimen/text_size_textfield"/>
 
@@ -105,7 +115,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uiprofile_label_kota"
+            android:text="@string/label_kota"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -114,20 +124,20 @@
             android:id="@+id/etl_kota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uiprofile_hint_kota"
+            android:hint="@string/hint_kota"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/main_purple"
+            app:boxStrokeColor="@color/darkblue04"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"
-                android:inputType="none"/>
+                android:textSize="@dimen/text_size_textfield"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,7 +154,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uiprofile_label_alamat"
+            android:text="@string/label_alamat"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -153,18 +163,21 @@
             android:id="@+id/etl_alamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uiprofile_hint_alamat"
+            android:hint="@string/hint_alamat"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/main_purple"
+            app:boxStrokeColor="@color/darkblue04"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_alamat"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:lines="2"
+                android:maxLines="2"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="@dimen/text_size_textfield"/>
 
@@ -183,7 +196,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/uiprofile_label_nohp"
+            android:text="@string/label_nohp"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
@@ -192,20 +205,22 @@
             android:id="@+id/etl_nohp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/uiprofile_hint_nohp"
+            android:hint="@string/hint_nohp"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/main_purple"
+            app:boxStrokeColor="@color/darkblue04"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_nohp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"/>
+                android:textSize="@dimen/text_size_textfield"
+                android:inputType="phone"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -219,8 +234,8 @@
         android:layout_marginTop="24dp"
         android:paddingVertical="16dp"
         android:paddingHorizontal="24dp"
-        android:backgroundTint="@color/main_purple"
-        android:text="@string/uiprofile_button_simpan"
+        android:backgroundTint="@color/darkblue04"
+        android:text="@string/simpan"
         android:fontFamily="@font/poppins_medium"
         android:textSize="14sp"
         android:textColor="@color/white"

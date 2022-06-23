@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".ui.uiregister.Register">
+    tools:context=".ui.uilogin.Login">
 
     <ImageView
-        android:id="@+id/back_btn"
+        android:id="@+id/back_btn_masuk"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:background="?android:selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back_button"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -28,50 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="@string/daftar"
+        android:text="@string/masuk"
         android:fontFamily="@font/poppins_bold"
         android:textSize="24sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/back_btn"/>
-
-    <LinearLayout
-        android:id="@+id/textfield_namalengkap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_textfield"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/title_masuk">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nama"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/text_size_label_textfield"
-            android:textColor="@color/black"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_nama_lengkap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/namalengkap"
-            app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/darkblue04"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/back_btn_masuk"/>
 
     <LinearLayout
         android:id="@+id/textfield_email"
@@ -79,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_textfield"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/textfield_namalengkap">
+        app:layout_constraintTop_toBottomOf="@id/title_masuk">
 
         <TextView
             android:layout_width="match_parent"
@@ -124,16 +86,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/buatpassword"
+            android:text="@string/password"
             android:fontFamily="@font/poppins_regular"
             android:textSize="@dimen/text_size_label_textfield"
             android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_buatpassword"
+            android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/buatpassword"
+            android:hint="@string/hint_password"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
@@ -153,16 +115,16 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
-    
+
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_daftar"
+        android:id="@+id/btn_masuk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:paddingVertical="16dp"
         android:paddingHorizontal="24dp"
         android:backgroundTint="@color/darkblue04"
-        android:text="@string/daftar"
+        android:text="@string/masuk"
         android:fontFamily="@font/poppins_medium"
         android:textSize="14sp"
         android:textColor="@color/white"
@@ -183,16 +145,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="@string/sudahpunyaakun"
+            android:text="@string/belumpunyaakun"
             android:fontFamily="@font/poppins_regular"
             android:textSize="14sp"
             android:textColor="@color/neutral05"/>
 
         <TextView
-            android:id="@+id/clickable_text_masuk"
+            android:id="@+id/clickable_text_daftar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/masukdisini"
+            android:text="@string/daftardisini"
             android:fontFamily="@font/poppins_bold"
             android:textSize="14sp"
             android:textColor="@color/darkblue04"/>
