@@ -18,9 +18,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
+import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
-import com.and2t2.secondhand.data.remote.AuthService
 import com.and2t2.secondhand.databinding.FragmentProfileBinding
+import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.repository.AuthRepo
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
@@ -46,8 +47,7 @@ class Profile : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val authService: AuthService by lazy { ApiClient.INSTANCE_AUTH }
-    private val authRepo: AuthRepo by lazy { AuthRepo(authService) }
+    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val profileViewModel: ProfileViewModel by viewModelsFactory { ProfileViewModel(authRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
@@ -91,39 +91,35 @@ class Profile : Fragment() {
     private fun observeDataFromNetwork() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             profileViewModel.getUser(token).observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        binding.apply {
-                            if (it.data?.imageUrl != null) {
-                                editIvPicture.setPadding(0,0,0,0)
-                                Glide.with(requireContext())
-                                    .load(it.data.imageUrl)
-                                    .into(editIvPicture)
-                            }
+                it.data?.let { data ->
+                    binding.apply {
+                        if (data.imageUrl != null) {
+                            editIvPicture.setPadding(0,0,0,0)
+                            Glide.with(requireContext())
+                                .load(data.imageUrl)
+                                .into(editIvPicture)
+                        }
 
-                            etNama.setText(it.data?.fullName)
+                        etNama.setText(data.fullName)
 
-                            if (it.data?.city == "Ex. Jakarta") {
-                                etlKota.editText?.text?.clear()
-                            } else {
-                                etlKota.editText?.setText(it.data?.city)
-                            }
+                        if (data.city == "Ex. Jakarta") {
+                            etlKota.editText?.text?.clear()
+                        } else {
+                            etlKota.editText?.setText(data.city)
+                        }
 
-                            if (it.data?.address == "Ex. Jl. Raya Kebayoran Lama No. 39") {
-                                etAlamat.text?.clear()
-                            } else {
-                                etAlamat.setText(it.data?.address)
-                            }
+                        if (data.address == "Ex. Jl. Raya Kebayoran Lama No. 39") {
+                            etAlamat.text?.clear()
+                        } else {
+                            etAlamat.setText(data.address)
+                        }
 
-                            if (it.data?.phoneNumber == "Ex. 082132xxx") {
-                                etNohp.text?.clear()
-                            } else {
-                                etNohp.setText(it.data?.phoneNumber)
-                            }
+                        if (data.phoneNumber == "Ex. 082132xxx") {
+                            etNohp.text?.clear()
+                        } else {
+                            etNohp.setText(data.phoneNumber)
                         }
                     }
-                    Status.ERROR -> {}
-                    Status.LOADING -> {}
                 }
             }
         }
@@ -136,7 +132,10 @@ class Profile : Fragment() {
                 PICK_ID_IMAGE -> if (resultCode == AppCompatActivity.RESULT_OK && data != null) {
                     val img = data.data!!
                     // Munculkan image ke ImageView
-                    binding.editIvPicture.setImageURI(img)
+                    binding.editIvPicture.apply {
+                        setPadding(0,0,0,0)
+                        setImageURI(img)
+                    }
                     // Mendapatkan path
                     val imgPath = img.let { fileUtil.getPath(requireContext(), it) }
                     // Simpan ke variable global
