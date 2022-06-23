@@ -53,7 +53,6 @@ class NotifikasiFragment : Fragment() {
 
     private fun onSwipeRefreshLayout(){
         binding.swipe.setOnRefreshListener {
-            getDataNotifikasi()
             Handler(Looper.getMainLooper()).postDelayed({
                 binding.swipe.isRefreshing = false
             },2000)
@@ -85,8 +84,6 @@ class NotifikasiFragment : Fragment() {
                     "Error Occured"
                 }
             }
-
-
         }
     }
 
