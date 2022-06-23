@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
-import com.and2t2.secondhand.data.remote.dto.ApiClient
-import com.and2t2.secondhand.data.remote.dto.AuthService
+import com.and2t2.secondhand.data.remote.ApiClient
+import com.and2t2.secondhand.data.remote.AuthService
 import com.and2t2.secondhand.databinding.FragmentRegisterBinding
 import com.and2t2.secondhand.domain.repository.AuthRepo
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

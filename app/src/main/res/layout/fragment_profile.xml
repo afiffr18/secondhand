@@ -18,6 +18,13 @@
         app:layout_constraintTop_toTopOf="parent"
         android:clickable="true"/>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/lengkapi_info_akun"
         android:layout_width="248dp"
@@ -40,17 +47,19 @@
         android:clickable="true"
         android:elevation="0dp"
         android:focusable="true"
+        android:backgroundTint="@color/darkblue02"
         android:foreground="?selectableItemBackgroundBorderless"
         app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lengkapi_info_akun">
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <ImageView
             android:id="@+id/edit_iv_picture"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:background="@color/darkblue02"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_img_profile"
+            android:src="@drawable/ic_fi_camera"
             android:elevation="0dp"
             android:scaleType="centerCrop" />
 
@@ -88,6 +97,7 @@
                 android:id="@+id/et_nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="@dimen/text_size_textfield"/>
 
@@ -123,12 +133,12 @@
             app:boxStrokeColor="@color/darkblue04"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"
-                android:inputType="none"/>
+                android:textSize="@dimen/text_size_textfield"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,7 +175,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_alamat"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:lines="2"
+                android:maxLines="2"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="@dimen/text_size_textfield"/>
 
@@ -205,8 +218,10 @@
                 android:id="@+id/et_nohp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"/>
+                android:textSize="@dimen/text_size_textfield"
+                android:inputType="phone"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
