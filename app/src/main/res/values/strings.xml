@@ -26,5 +26,7 @@
     <string name="hint_alamat">Contoh: Jalan Ikan Hiu 33</string>
     <string name="hint_nohp">Contoh: +628123456789</string>
     <string name="simpan">Simpan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--    -->
 </resources>

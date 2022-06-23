@@ -70,6 +70,7 @@ class Login : Fragment() {
                                 saveIdUser(it.data.id)
                             }
                             // Pindah ke Home (tambahkan findNavController dari Login ke Home dibawah ini)
+                            findNavController().navigate(R.id.action_login_to_mainFragment)
 
                         }
                         Status.ERROR -> {

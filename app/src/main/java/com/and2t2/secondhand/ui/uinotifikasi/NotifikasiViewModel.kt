@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
 
+//import com.and2t2.secondhand.domain.repository.NotifikasiRepo
+
 class NotifikasiViewModel(notifikasiRepo: NotifikasiRepo) : ViewModel() {
 
     val notifikasi = notifikasiRepo
