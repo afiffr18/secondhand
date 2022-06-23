@@ -1,7 +1,7 @@
-package id.afif.binarchallenge7.Model
+package com.and2t2.secondhand.common
 
 enum class Status {
-    LOADING,
     SUCCESS,
-    ERROR
+    ERROR,
+    LOADING
 }

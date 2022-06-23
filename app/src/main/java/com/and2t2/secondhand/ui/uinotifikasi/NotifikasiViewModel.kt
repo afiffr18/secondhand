@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
 
 class NotifikasiViewModel(private val notifikasiRepo: NotifikasiRepo) : ViewModel() {
 

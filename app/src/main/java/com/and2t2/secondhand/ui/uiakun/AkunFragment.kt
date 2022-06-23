@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.databinding.FragmentAkunBinding
 
@@ -28,6 +29,18 @@ class AkunFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        button()
+        logoutButtonOnPressed()
+    }
+
+    private fun button(){
+        binding.tvUbahAkun.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_akun_to_profile)
+        }
+    }
+
+    private fun logoutButtonOnPressed() {
+//        binding.
     }
 
 }

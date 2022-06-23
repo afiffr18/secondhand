@@ -7,11 +7,24 @@
     android:padding="19dp"
     tools:context=".ui.uiakun.AkunFragment">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Akun Saya"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/iv_picture"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_marginTop="40dp"
+        android:layout_margin="30dp"
         android:clickable="true"
         android:elevation="0dp"
         android:focusable="true"
@@ -19,16 +32,16 @@
         app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_page">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/edit_iv_picture"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:background="#E2D4F0"
-            android:src="@drawable/ic_outline_camera_alt_24"
             android:elevation="0dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_outline_camera_alt_24" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -52,7 +65,8 @@
         app:layout_constraintStart_toEndOf="@id/iv_edit_akun"
         android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:clickable="true"/>
 
     <View
         android:layout_width="match_parent"
