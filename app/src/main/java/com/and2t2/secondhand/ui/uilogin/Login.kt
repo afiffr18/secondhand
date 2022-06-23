@@ -68,11 +68,10 @@ class Login : Fragment() {
                                 saveLoginState(true)
                                 saveAccessToken(it.data?.accessToken!!)
                                 saveIdUser(it.data.id)
-//                                Toast.makeText(requireContext(), it.data.accessToken, Toast.LENGTH_SHORT).show()
-//                                Toast.makeText(requireContext(), it.data.id, Toast.LENGTH_SHORT).show()
                             }
                             // Pindah ke Home (tambahkan findNavController dari Login ke Home dibawah ini)
-                            findNavController().navigate(R.id.action_login_to_profile)
+                            findNavController().navigate(R.id.action_login_to_mainFragment)
+
                         }
                         Status.ERROR -> {
                             hideLoading()

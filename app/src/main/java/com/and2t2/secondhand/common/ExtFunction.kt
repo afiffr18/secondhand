@@ -12,6 +12,28 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+fun Int.toRp() : String{
+    val locale = Locale.getDefault()
+
+    val numberFormat = NumberFormat.getCurrencyInstance(locale)
+    numberFormat.maximumFractionDigits = 0
+    val convert = numberFormat.format(this)
+
+    return convert
+}
+
+fun String.toFormatDate() : String {
+
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd MMMM,HH:mm", Locale.getDefault())
+
+
+    val inputDate = inputFormat.parse(this)
+    inputDate.let {
+        return outputFormat.format(it!!)
+    }
+}
+
 
 inline fun <reified T : ViewModel> ComponentActivity.viewModelsFactory(crossinline viewModelInitialization: () -> T): Lazy<T> {
     return viewModels {

@@ -61,6 +61,6 @@ class SplashScreen : Fragment() {
 
     private fun moveToHome() {
         // isi findnavcontroller dari splash ke halaman Home
-        findNavController().navigate(R.id.action_splashScreen_to_profile)
+        findNavController().navigate(R.id.action_splashScreen_to_mainFragment)
     }
 }

@@ -14,8 +14,8 @@
             android:id="@+id/action_login_to_register"
             app:destination="@id/register" />
         <action
-            android:id="@+id/action_login_to_profile"
-            app:destination="@id/profile" />
+            android:id="@+id/action_login_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreen"
@@ -26,8 +26,8 @@
             android:id="@+id/action_splashScreen_to_login"
             app:destination="@id/login" />
         <action
-            android:id="@+id/action_splashScreen_to_profile"
-            app:destination="@id/profile" />
+            android:id="@+id/action_splashScreen_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/register"
@@ -39,8 +39,8 @@
             app:destination="@id/login" />
     </fragment>
     <fragment
-        android:id="@+id/profile"
-        android:name="com.and2t2.secondhand.ui.uiprofile.Profile"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/mainFragment"
+        android:name="com.and2t2.secondhand.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
 </navigation>

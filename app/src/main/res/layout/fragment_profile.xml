@@ -15,7 +15,8 @@
         android:background="?android:selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"/>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/cl"

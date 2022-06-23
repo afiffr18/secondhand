@@ -6,11 +6,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    // Base URL
+
     private const val BASE_URL = "https://market-final-project.herokuapp.com/"
 
-    // Interceptor di level body
-    private val logging : HttpLoggingInterceptor
+    /**
+     * Bikin interceptor
+     */
+    private val logging: HttpLoggingInterceptor
         get() {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             return httpLoggingInterceptor.apply {
@@ -18,12 +20,40 @@ object ApiClient {
             }
         }
 
-    // Crate client untuk retrofit
+    //create object client untuk retorfit
     private val client = OkHttpClient.Builder()
         .addInterceptor(logging)
         .build()
 
-    // create instance ApiService
+    //Membuat instance
+
+    val instanceNotifikasi: NotifikasiService by lazy {
+        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        retrofit.create(NotifikasiService::class.java)
+    }
+
+    val instanceSeller: SellerService by lazy {
+        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        retrofit.create(SellerService::class.java)
+    }
+
+    val instanceBuyer: BuyerService by lazy {
+        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+
+        retrofit.create(BuyerService::class.java)
+    }
+
     val INSTANCE_AUTH : AuthService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

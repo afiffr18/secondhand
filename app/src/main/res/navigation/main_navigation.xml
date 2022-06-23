@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.and2t2.secondhand.ui.uihome.Home"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_notifikasi"
+        android:name="com.and2t2.secondhand.ui.uinotifikasi.NotifikasiFragment"
+        android:label="Notifikasi"
+        tools:layout="@layout/fragment_notifikasi" />
+
+    <fragment
+        android:id="@+id/navigation_akun"
+        android:name="com.and2t2.secondhand.ui.uiakun.AkunFragment"
+        android:label="Akun"
+        tools:layout="@layout/fragment_akun" >
+        <action
+            android:id="@+id/action_navigation_akun_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.and2t2.secondhand.ui.uiprofile.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
