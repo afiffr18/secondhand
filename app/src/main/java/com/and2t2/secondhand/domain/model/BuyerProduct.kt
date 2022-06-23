@@ -13,5 +13,5 @@ data class BuyerProduct(
     @ColumnInfo(name = "hargaBarang")val hargaBarang : Int,
     @ColumnInfo(name = "imageUrl")val imageUrl : String? =null,
     @ColumnInfo(name = "lokasi")val lokasi : String?=null,
-    @ColumnInfo(name = "kategori")val kategori : List<Category>?= listOf(),
+    @ColumnInfo(name = "kategori")val kategori : String,
 )

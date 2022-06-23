@@ -12,5 +12,7 @@ data class Notifikasi (
     @ColumnInfo(name = "productId") val productId : Int? = null,
     @ColumnInfo(name = "status") val status: String? = null,
     @ColumnInfo(name = "transactionDate") val transactionDate: String? = null,
-    @ColumnInfo(name = "updatedAt")val updatedAt: String? = null
+    @ColumnInfo(name = "updatedAt")val updatedAt: String? = null,
+    @ColumnInfo(name = "read") val read : Boolean? = false,
+    @ColumnInfo(name = "imageUrl") val imageUrl : String?=null
 )

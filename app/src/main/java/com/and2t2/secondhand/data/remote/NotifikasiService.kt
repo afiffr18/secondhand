@@ -4,6 +4,7 @@ import com.and2t2.secondhand.data.remote.dto.notification.NotificationDto
 import com.and2t2.secondhand.data.remote.dto.notification.NotificationDtoItem
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.Path
 
 interface NotifikasiService {
@@ -16,4 +17,11 @@ interface NotifikasiService {
         @Header("access_token")token: String,
         @Path("id") id : Int
     ) : NotificationDtoItem
+
+    @PATCH("notification/{id}")
+    suspend fun updateNotificationRead(
+        @Header("access_token") token : String,
+        @Path("id") id :Int
+    ) : NotificationDtoItem
+
 }

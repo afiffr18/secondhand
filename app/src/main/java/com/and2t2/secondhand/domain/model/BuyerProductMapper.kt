@@ -14,7 +14,11 @@ class BuyerProductMapper : DomainMapper<BuyerProductDtoItem,BuyerProduct> {
             hargaBarang = modelDto.basePrice,
             imageUrl = modelDto.imageUrl,
             lokasi = modelDto.location,
-            kategori = modelDto.categories
+            kategori = if(modelDto.categories.isNullOrEmpty()){
+                "Kategori"
+            }else{
+                modelDto.categories[0].name
+            }
         )
     }
 

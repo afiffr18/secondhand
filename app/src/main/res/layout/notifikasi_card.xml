@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraint"
     android:layout_width="match_parent"
+    android:foreground="?android:attr/selectableItemBackground"
     android:layout_height="wrap_content"
     android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/iv_notifikasi"
+        android:id="@+id/iv_barang"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="#d3d3d3"
@@ -21,8 +23,8 @@
         android:fontFamily="@font/poppins_regular"
         android:textSize="14sp"
         android:textColor="#8a8a8a"
-        app:layout_constraintStart_toEndOf="@id/iv_notifikasi"
-        app:layout_constraintTop_toTopOf="@id/iv_notifikasi"
+        app:layout_constraintStart_toEndOf="@id/iv_barang"
+        app:layout_constraintTop_toTopOf="@id/iv_barang"
         android:layout_marginStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
