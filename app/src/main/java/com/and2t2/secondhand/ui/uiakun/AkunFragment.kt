@@ -30,12 +30,17 @@ class AkunFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         button()
+        logoutButtonOnPressed()
     }
 
     private fun button(){
         binding.tvUbahAkun.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_akun_to_profile)
         }
+    }
+
+    private fun logoutButtonOnPressed() {
+//        binding.
     }
 
 }
