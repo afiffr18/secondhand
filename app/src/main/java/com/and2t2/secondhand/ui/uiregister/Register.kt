@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
@@ -124,7 +125,7 @@ class Register : Fragment() {
 
     private fun moveToLoginViaBackPress() {
         binding.backBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_register_to_login)
+            it.findNavController().popBackStack()
         }
     }
 

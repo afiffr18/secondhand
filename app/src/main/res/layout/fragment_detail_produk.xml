@@ -8,7 +8,7 @@
     tools:context=".ui.uiseller.DetailProdukFragment">
 
     <ImageView
-        android:id="@+id/back_btn_masuk"
+        android:id="@+id/back_btn"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:background="?android:selectableItemBackgroundBorderless"
@@ -21,11 +21,11 @@
         android:layout_width="342dp"
         android:layout_height="21dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="Lengkapi Info Akun"
+        android:text="Lengkapi Detail Produk"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/back_btn_masuk"
+        app:layout_constraintStart_toEndOf="@+id/back_btn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -199,16 +199,12 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_label_textfield" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
             app:iconGravity="textTop"
-            app:backgroundTint="@android:color/transparent"
-            app:icon="@drawable/ic_baseline_add_24"
-            app:iconTint="@color/black"
-            app:strokeColor="@color/darkblue04"
-            style="@style/Widget.MaterialComponents.Button.Icon"/>
+            android:background="@drawable/add_product"/>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton

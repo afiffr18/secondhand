@@ -16,6 +16,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.remote.ApiClient
@@ -73,6 +75,13 @@ class Profile : Fragment() {
         initAdapterCity()
         observeDataFromNetwork()
         doUpdate()
+        backButtonOnPressed()
+    }
+
+    private fun backButtonOnPressed() {
+        binding.backBtn.setOnClickListener {
+            it.findNavController().popBackStack()
+        }
     }
 
     private fun pickImageFromStorage() {
