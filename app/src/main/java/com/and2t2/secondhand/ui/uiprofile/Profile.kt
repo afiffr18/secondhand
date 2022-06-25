@@ -2,7 +2,6 @@ package com.and2t2.secondhand.ui.uiprofile
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -35,7 +34,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 
@@ -186,25 +184,11 @@ class Profile : Fragment() {
                     setImageBitmap(bitmap)
                 }
                 // Mendapatkan path
-                val imgPath = bitmap.let { bitmap1 -> getImageUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
+                val imgPath = bitmap.let { bitmap1 -> bitmapToUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
                 // Simpan ke variable global
                 uri = Uri.parse(imgPath)
             }
         }
-
-    // Convert Bitmap to Uri
-    fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(
-            inContext.contentResolver,
-            inImage,
-            "intuenty",
-            null
-        )
-        Log.d("image uri", path)
-        return Uri.parse(path)
-    }
 
     private fun initAdapterCity() {
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, cityIndonesia())
