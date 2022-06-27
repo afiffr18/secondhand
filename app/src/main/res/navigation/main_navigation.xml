@@ -25,10 +25,25 @@
         <action
             android:id="@+id/action_navigation_akun_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_navigation_akun_to_login2"
+            app:destination="@id/login2" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_jual"
+        android:name="com.and2t2.secondhand.ui.uiseller.DetailProdukFragment"
+        android:label="Jual"
+        tools:layout="@layout/fragment_detail_produk" />
+
     <fragment
         android:id="@+id/profile"
         android:name="com.and2t2.secondhand.ui.uiprofile.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/login2"
+        android:name="com.and2t2.secondhand.ui.uilogin.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

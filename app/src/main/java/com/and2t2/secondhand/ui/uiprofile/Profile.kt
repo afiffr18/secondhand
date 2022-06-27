@@ -18,6 +18,9 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -72,6 +75,13 @@ class Profile : Fragment() {
         initAdapterCity()
         doUpdate()
         observeDataFromNetwork()
+        backButtonOnPressed()
+    }
+
+    private fun backButtonOnPressed() {
+        binding.backBtn.setOnClickListener {
+            it.findNavController().popBackStack()
+        }
     }
 
     private fun pickImgAndRequestPermission() {

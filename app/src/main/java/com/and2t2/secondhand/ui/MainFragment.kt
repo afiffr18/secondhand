@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.databinding.FragmentMainBinding
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 
 class MainFragment : Fragment() {
@@ -42,7 +43,16 @@ class MainFragment : Fragment() {
             childFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            navView.isVisible = destination.id != R.id.profile
+            if(destination.id == R.id.profile||
+                destination.id == R.id.navigation_jual){
+                navView.visibility = View.GONE
+            } else {
+                navView.visibility = View.VISIBLE
+            }
+
+            if (destination.id == R.id.login2){
+                findNavController().popBackStack()
+            }
         }
         navView.setupWithNavController(navController)
     }
