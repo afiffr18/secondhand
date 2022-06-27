@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 
 class NotifikasiViewModel(private val notifikasiRepo: NotifikasiRepo) : ViewModel() {
 
-    val notifikasi = notifikasiRepo
-        .getNotif("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzkxMzd9.NEn3MajCccdWpLkHiAFAhez3DaFEPIdor7-MDxG9HoE")
+    fun  getNotifikasi(access_token: String) = notifikasiRepo
+        .getNotif(access_token)
         .asLiveData()
 
     fun updateNotifikasiRead(access_token : String,id : Int) {

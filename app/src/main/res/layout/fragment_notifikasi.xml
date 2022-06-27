@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/notifikasi_card"/>
+        tools:listitem="@layout/notifikasi_card"
+        />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/pb_loading"

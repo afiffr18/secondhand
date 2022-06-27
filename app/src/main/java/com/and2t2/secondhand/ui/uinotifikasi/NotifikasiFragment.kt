@@ -3,23 +3,21 @@ package com.and2t2.secondhand.ui.uinotifikasi
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
-//import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentNotifikasiBinding
 import com.and2t2.secondhand.domain.model.NotifikasiMapper
+import com.and2t2.secondhand.domain.repository.DatastoreManager
+import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
-
-//import com.and2t2.secondhand.domain.repository.NotifikasiRepo
-//import id.afif.binarchallenge7.Model.Status
 
 
 class NotifikasiFragment : Fragment() {
@@ -30,6 +28,8 @@ class NotifikasiFragment : Fragment() {
         NotifikasiMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val viewModel : NotifikasiViewModel by lazy { NotifikasiViewModel(notifikasiRepo) }
 
+    private val pref : DatastoreManager by lazy { DatastoreManager(requireContext()) }
+    private val dataStore : DatastoreViewModel by lazy { DatastoreViewModel(pref) }
     private var _binding : FragmentNotifikasiBinding? = null
     private val binding get() = _binding!!
 
@@ -49,7 +49,7 @@ class NotifikasiFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = "Notifikasi"
+//        (activity as AppCompatActivity).supportActionBar?.title = "Notifikasi"
         initRecycler()
         getDataNotifikasi()
         onSwipeRefreshLayout()
@@ -64,15 +64,32 @@ class NotifikasiFragment : Fragment() {
     }
 
     private fun initRecycler(){
-        notifAdapter = NotifikasiAdapter{ id: Int ->  
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
+
+        notifAdapter = NotifikasiAdapter{ id: Int ->
             viewModel.updateNotifikasiRead("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZAbWFpbC5jb20iLCJpYXQiOjE2NTU0NzkxMzd9.NEn3MajCccdWpLkHiAFAhez3DaFEPIdor7-MDxG9HoE",id)
         }
-        binding.rvNotifikasi.adapter = notifAdapter
-        binding.rvNotifikasi.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.rvNotifikasi.apply {
+            adapter = notifAdapter
+            layoutManager = linearLayoutManager
+        }
+
+
     }
 
+
     private fun getDataNotifikasi(){
-        viewModel.notifikasi.observe(viewLifecycleOwner){
+        dataStore.getAccessToken().observe(viewLifecycleOwner){
+            getData(it)
+            Log.e("Error",it)
+        }
+    }
+
+    private fun getData(access_token : String){
+        viewModel.getNotifikasi(access_token).observe(viewLifecycleOwner){
             it.data?.let{ dataNotif ->
                 notifAdapter.updateDataNotif(dataNotif)
             }

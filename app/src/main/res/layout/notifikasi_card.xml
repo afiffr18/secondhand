@@ -15,7 +15,8 @@
         android:src="@drawable/ic_baseline_image_24"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:contentDescription="TODO" />
+        android:contentDescription="TODO"
+        app:tint="@color/neutral03" />
     
     <TextView
         android:id="@+id/tv_title"
