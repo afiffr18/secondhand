@@ -2,6 +2,7 @@ package com.and2t2.secondhand.ui.uiprofile
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.and2t2.secondhand.common.Resource
 import com.and2t2.secondhand.domain.repository.AuthRepo
@@ -10,16 +11,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class ProfileViewModel(private val authRepo: AuthRepo): ViewModel() {
-    fun getUser(access_token: String) = liveData(Dispatchers.IO) {
-        emit(Resource.loading(null))
-        try {
-            emit(Resource.success(authRepo.getUser(access_token)))
-            Log.d("GET USER RESPONSE", "GET USER SUKSES")
-        } catch (e: Exception) {
-            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
-            Log.d("GET USER RESPONSE", e.message.toString())
-        }
-    }
+    fun getUser(access_token: String) = authRepo.getUser(access_token).asLiveData()
 
     fun doUpdateUser(access_token: String,
                      fullName: RequestBody,
