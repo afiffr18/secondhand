@@ -20,4 +20,9 @@
         <item name="cornerSize">12dp</item>
     </style>
 
+    <style name="CustomTextAppearanceTabStyle">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
 </resources>

@@ -46,4 +46,10 @@
         android:name="com.and2t2.secondhand.ui.uilogin.Login"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/navigation_daftarjual"
+        android:name="com.and2t2.secondhand.ui.uiseller.uidaftarjual.DaftarJualFragment"
+        android:label="Daftar Jual"
+        tools:layout="@layout/fragment_daftar_jual" />
 </navigation>
