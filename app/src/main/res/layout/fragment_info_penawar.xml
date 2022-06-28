@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".ui.uiseller.InfoPenawarFragment">
+
+
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"/>
+
+    <TextView
+        android:id="@+id/info_penawar"
+        android:layout_width="248dp"
+        android:layout_height="24dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Info Penawar"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/back_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_profile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_top_textfield"
+        android:layout_marginTop="@dimen/margin_top_textfield"
+        android:layout_marginEnd="@dimen/margin_top_textfield"
+        app:cardCornerRadius="@dimen/corner_radius_textfield"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_penawar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_top_textfield">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/iv_profile"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/darkblue02"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="?selectableItemBackgroundBorderless"
+                app:cardCornerRadius="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="0dp"
+                    android:padding="@dimen/padding_img_profile"
+                    android:scaleType="centerCrop" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_top_textfield"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Nama Pembeli"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/neutral05"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_city"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_city"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_top_textfield"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Kota"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/neutral03"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/section_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Daftar Produkmu Yang Ditawar"
+        android:textColor="@color/neutral05"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/cv_profile"
+        app:layout_constraintStart_toStartOf="@+id/cv_profile"
+        app:layout_constraintTop_toBottomOf="@+id/cv_profile" />
+
+    <include
+        android:id="@+id/content_product"
+        layout="@layout/item_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/section_title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/belum_diterima"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/content_product"
+        tools:layout_editor_absoluteX="24dp"
+        android:visibility="visible">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_tolak"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_top_textfield"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="@dimen/margin_top_textfield"
+            android:padding="8dp"
+            android:text="Tolak"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/neutral05"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:cornerRadius="@dimen/corner_radius_textfield"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_terima"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/darkblue04" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_terima"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/margin_top_textfield"
+            android:backgroundTint="@color/darkblue04"
+            android:text="Terima"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:cornerRadius="@dimen/corner_radius_textfield"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_tolak"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_tolak"
+            app:layout_constraintTop_toTopOf="@+id/btn_tolak" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sudah_diterima"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/content_product"
+        tools:layout_editor_absoluteX="24dp"
+        android:visibility="invisible">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_status"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_top_textfield"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="@dimen/margin_top_textfield"
+            android:text="Status"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:cornerRadius="@dimen/corner_radius_textfield"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_hubungi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/neutral05"
+            app:strokeColor="@color/darkblue04" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_hubungi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/margin_top_textfield"
+            android:backgroundTint="@color/darkblue04"
+            android:text="Hubungi"
+            android:paddingStart="24dp"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium"
+            app:icon="@drawable/ic_fi_whatsapp"
+            app:iconGravity="textEnd"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:cornerRadius="@dimen/corner_radius_textfield"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_status"
+            app:layout_constraintTop_toTopOf="@+id/btn_status" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
