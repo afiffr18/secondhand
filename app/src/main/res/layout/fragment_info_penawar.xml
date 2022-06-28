@@ -128,7 +128,7 @@
 
     <include
         android:id="@+id/content_product"
-        layout="@layout/item_list"
+        layout="@layout/item_product"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
