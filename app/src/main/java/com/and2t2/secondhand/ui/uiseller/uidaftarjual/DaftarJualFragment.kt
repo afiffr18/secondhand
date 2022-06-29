@@ -11,10 +11,26 @@ import com.and2t2.secondhand.ui.uiseller.uidaftarjual.diminati.Diminati
 import com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk.Produk
 import com.and2t2.secondhand.ui.uiseller.uidaftarjual.terjual.Terjual
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.data.local.DatabaseSecondHand
+import com.and2t2.secondhand.data.remote.ApiClient
+import com.and2t2.secondhand.domain.model.AuthUserMapper
+import com.and2t2.secondhand.domain.repository.AuthRepo
+import com.and2t2.secondhand.domain.repository.DatastoreManager
+import com.and2t2.secondhand.domain.repository.DatastoreViewModel
+import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
+import com.bumptech.glide.Glide
 
 class DaftarJualFragment : Fragment() {
+    private var accessToken : String? = null
+
     private var _binding: FragmentDaftarJualBinding? = null
     private val binding get() = _binding!!
+
+    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
+    private val profileViewModel: ProfileViewModel by lazy { ProfileViewModel(authRepo) }
+
+    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
+    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +49,7 @@ class DaftarJualFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTabAndViewPager()
+        observeData()
     }
 
     private fun setTabAndViewPager() {
@@ -64,5 +81,26 @@ class DaftarJualFragment : Fragment() {
                 }
             }
         }.attach()
+    }
+
+    private fun observeData() {
+        datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
+            accessToken = token
+            profileViewModel.getUser(accessToken!!).observe(viewLifecycleOwner) {
+                it.data?.let { data ->
+                    binding.apply {
+                        if (data.imageUrl != null) {
+                            ivProfileSeller.setPadding(0,0,0,0)
+                            Glide.with(requireContext())
+                                .load(data.imageUrl)
+                                .into(ivProfileSeller)
+                        }
+
+                        tvNamaPenjual.text = data.fullName
+                        tvCity.text = data.city
+                    }
+                }
+            }
+        }
     }
 }
