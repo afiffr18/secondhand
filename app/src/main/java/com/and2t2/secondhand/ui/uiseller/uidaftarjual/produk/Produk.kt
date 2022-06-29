@@ -5,17 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.viewModelsFactory
+import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
-import com.and2t2.secondhand.data.remote.SellerService
 import com.and2t2.secondhand.databinding.FragmentProdukBinding
+import com.and2t2.secondhand.domain.model.SellerProductMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.SellerRepo
+import com.and2t2.secondhand.ui.uiseller.SellerProductViewModel
 
 class Produk : Fragment() {
     private var _binding: FragmentProdukBinding? = null
@@ -23,9 +21,8 @@ class Produk : Fragment() {
 
     private lateinit var produkAdapter: ProdukAdapter
 
-    private val sellerService: SellerService by lazy { ApiClient.instanceSeller }
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(sellerService) }
-    private val produkViewModel: ProdukViewModel by lazy { ProdukViewModel(sellerRepo) }
+    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
+    private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
     private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
@@ -60,15 +57,9 @@ class Produk : Fragment() {
 
     private fun observeFromNetwork() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-            produkViewModel.getAllProduct(token).observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Status.LOADING -> {}
-                    Status.SUCCESS -> {
-                        produkAdapter.updateDataRecycler(it.data)
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), "Error Guys", Toast.LENGTH_SHORT).show()
-                    }
+            sellerProductViewModel.getAllProduct(token).observe(viewLifecycleOwner) {
+                it.data?.let { data ->
+                    produkAdapter.updateDataRecycler(data)
                 }
             }
         }
