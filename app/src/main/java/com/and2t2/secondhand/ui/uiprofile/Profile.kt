@@ -42,6 +42,7 @@ import java.io.File
 class Profile : Fragment() {
     private val fileUtil = FileUtil()
     private var uri : Uri? = null
+    private var accessToken : String? = null
 
     companion object { const val REQUEST_CODE_PERMISSION = 100 }
 
@@ -225,22 +226,20 @@ class Profile : Fragment() {
         val address = etAlamat.toRequestBody("address".toMediaTypeOrNull())
         val city = etKota.toRequestBody("city".toMediaTypeOrNull())
 
-        datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-            profileViewModel.doUpdateUser(token, fullName, phoneNumber, address, city, image).observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        hideLoading()
-                        showSnackbar(requireContext(), requireView(), "Berhasil Perbarui Akun", R.color.success)
-                        observeDataFromNetwork()
-                    }
-                    Status.ERROR -> {
-                        hideLoading()
-                        showSnackbar(requireContext(), requireView(), "Gagal Perbarui Akun", R.color.danger)
-                    }
-                    Status.LOADING -> {
-                        // Munculkan LoadingDialog
-                        showLoading(requireActivity())
-                    }
+        profileViewModel.doUpdateUser(accessToken!!, fullName, phoneNumber, address, city, image).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    hideLoading()
+                    showSnackbar(requireContext(), requireView(), "Berhasil Perbarui Akun", R.color.success)
+                    observeDataFromNetwork()
+                }
+                Status.ERROR -> {
+                    hideLoading()
+                    showSnackbar(requireContext(), requireView(), "Gagal Perbarui Akun", R.color.danger)
+                }
+                Status.LOADING -> {
+                    // Munculkan LoadingDialog
+                    showLoading(requireActivity())
                 }
             }
         }
@@ -258,7 +257,8 @@ class Profile : Fragment() {
 
     private fun observeDataFromNetwork() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-            profileViewModel.getUser(token).observe(viewLifecycleOwner) {
+            accessToken = token
+            profileViewModel.getUser(accessToken!!).observe(viewLifecycleOwner) {
                 it.data?.let { data ->
                     binding.apply {
                         if (data.imageUrl != null) {
