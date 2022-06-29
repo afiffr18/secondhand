@@ -23,7 +23,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="24dp"
-        app:cardElevation="3dp"
+        app:cardElevation="2dp"
         app:cardCornerRadius="16dp"
         app:layout_constraintTop_toBottomOf="@id/title_daftarjual">
 
@@ -56,29 +56,35 @@
 
             <TextView
                 android:id="@+id/tv_nama_penjual"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:text="Nama Penjual"
+                android:layout_marginHorizontal="18dp"
+                android:text="@tools:sample/lorem/random"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="14sp"
                 android:textColor="@color/neutral05"
+                android:ellipsize="end"
+                android:maxLines="1"
                 app:layout_constraintStart_toEndOf="@id/card_img_profile"
                 app:layout_constraintTop_toTopOf="@id/card_img_profile"
-                app:layout_constraintBottom_toTopOf="@id/tv_city"/>
+                app:layout_constraintBottom_toTopOf="@id/tv_city"
+                app:layout_constraintEnd_toStartOf="@id/btn_editprofile"/>
 
             <TextView
                 android:id="@+id/tv_city"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
-                android:text="Kota"
+                android:text="@tools:sample/lorem"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="10sp"
                 android:textColor="@color/neutral03"
+                android:maxLines="1"
+                android:ellipsize="end"
                 app:layout_constraintStart_toEndOf="@id/card_img_profile"
                 app:layout_constraintBottom_toBottomOf="@id/card_img_profile"
                 app:layout_constraintTop_toBottomOf="@id/tv_nama_penjual"
+                app:layout_constraintEnd_toStartOf="@id/btn_editprofile"
                 tools:ignore="SmallSp" />
 
             <com.google.android.material.button.MaterialButton
@@ -130,6 +136,7 @@
         android:id="@+id/viewPager2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tl_daftarjual" />
 

@@ -62,7 +62,7 @@ interface SellerService {
     /** Seller Product **/
 
     @GET("seller/product")
-    fun getSellerProduct(
+    suspend fun getSellerProduct(
         @Header("access_token") token :String
     ) : SellerProductDto
 
