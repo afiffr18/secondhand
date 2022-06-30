@@ -44,18 +44,26 @@ class Produk : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        observeFromNetwork()
+        observeData()
     }
 
     private fun initRecyclerView() {
-        produkAdapter = ProdukAdapter()
+        produkAdapter = ProdukAdapter { id ->
+            if (id == 0) {
+                // Action Button Add
+            } else {
+                val bundle = Bundle()
+                bundle.putInt("productId", id)
+                // Move to Detail Product
+            }
+        }
         binding.apply {
             rvData.adapter = produkAdapter
             rvData.layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
 
-    private fun observeFromNetwork() {
+    private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllProduct(token).observe(viewLifecycleOwner) {
                 it.data?.let { data ->
