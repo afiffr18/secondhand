@@ -37,8 +37,6 @@ class BuyerRepo(
         }
     )
 
-//    suspend fun setBuyerOrder(access_token : String,postBuyerOrderBody: PostBuyerOrderBody) = apiService.setBuyerOrder(access_token,postBuyerOrderBody)
-
     suspend fun setBuyerOrder(postBuyerOrderBody: PostBuyerOrderBody) : Response<PostBuyerOrderDto> {
        return apiService.postBuyerOrder(postBuyerOrderBody,"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZmdWppYXJhaG1hbjIwMDBAZ21haWwuY29tIiwiaWF0IjoxNjU1OTk3MzY5fQ.BW4cO5Q5A9TFSf8k6viT8wFCYcueQVm7x45W6FnoSbw")
     }

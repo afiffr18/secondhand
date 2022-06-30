@@ -135,6 +135,7 @@ class BuyerFragment : Fragment() {
                             showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
                             Log.e("Testing","Error")
                             dialog.dismiss()
+
                         }
                     }
                 }

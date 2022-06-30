@@ -16,4 +16,6 @@ interface BuyerService {
     suspend fun postBuyerOrder(
         @Body postBuyerOrderBody: PostBuyerOrderBody,
         @Header("access_token") token : String) : Response<PostBuyerOrderDto>
+
+
 }
