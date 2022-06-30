@@ -1,10 +1,8 @@
 package com.and2t2.secondhand.data.remote
 
-import com.and2t2.secondhand.data.remote.dto.buyer.BuyerOrderDto
-import com.and2t2.secondhand.data.remote.dto.buyer.BuyerProductDtoItem
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
+import com.and2t2.secondhand.data.remote.dto.buyer.*
+import retrofit2.Response
+import retrofit2.http.*
 
 interface BuyerService {
 
@@ -13,4 +11,9 @@ interface BuyerService {
 
     @GET("buyer/product/{id}")
     suspend fun getBuyerProductById(@Path("id") id : Int) : BuyerProductDtoItem
+
+    @POST("buyer/order")
+    suspend fun postBuyerOrder(
+        @Body postBuyerOrderBody: PostBuyerOrderBody,
+        @Header("access_token") token : String) : Response<PostBuyerOrderDto>
 }

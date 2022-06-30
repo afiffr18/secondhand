@@ -16,6 +16,7 @@ import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.domain.model.Notifikasi
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.imageview.ShapeableImageView
 
 class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<NotifikasiAdapter.NotifikasiViewHolder>() {
 
@@ -51,7 +52,7 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
         private val tvUpdateDate = itemView.findViewById<TextView>(R.id.tv_tanggal)
         private val tvNotif = itemView.findViewById<TextView>(R.id.tv_notifikasi)
         private val tvProductName = itemView.findViewById<TextView>(R.id.tv_nama_barang)
-        private val ivImage = itemView.findViewById<ImageView>(R.id.iv_barang)
+        private val ivImage = itemView.findViewById<ShapeableImageView>(R.id.iv_barang)
         private val ivRead = itemView.findViewById<ImageView>(R.id.iv_cirlce)
         private val cardClick = itemView.findViewById<ConstraintLayout>(R.id.constraint)
 
@@ -69,7 +70,7 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
             }
             tvProductName.text = notifikasi.productId.toString()
             tvUpdateDate.text = notifikasi.updatedAt
-            Glide.with(itemView.context).load(notifikasi.imageUrl).apply(bgOptions).into(ivImage)
+            Glide.with(ivImage).load(notifikasi.imageUrl).apply(bgOptions).into(ivImage)
             cardClick.setOnClickListener {
                 listener.invoke(notifikasi.id)
                 ivRead.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral03), android.graphics.PorterDuff.Mode.SRC_IN)

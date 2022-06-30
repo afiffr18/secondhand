@@ -1,4 +1,4 @@
-package com.and2t2.secondhand.data.remote.dto
+package com.and2t2.secondhand.data.remote
 
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginDtoItem

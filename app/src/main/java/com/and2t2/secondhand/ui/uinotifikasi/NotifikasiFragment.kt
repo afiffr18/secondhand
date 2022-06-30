@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.viewModelsFactory
@@ -54,9 +55,9 @@ class NotifikasiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        (activity as AppCompatActivity).supportActionBar?.title = "Notifikasi"
-        getAccesstoken()
+
         initRecycler()
-        getDataNotifikasi()
+        getData()
         onSwipeRefreshLayout()
     }
 
@@ -91,8 +92,14 @@ class NotifikasiFragment : Fragment() {
 
     }
 
+    fun getData(){
+        dataStore.getAccessToken().observe(viewLifecycleOwner){
+            getDataNotifikasi(it)
+            access_token = it
+        }
+    }
 
-    private fun getDataNotifikasi(){
+    private fun getDataNotifikasi(access_token : String){
         viewModel.getNotifikasi(access_token).observe(viewLifecycleOwner){
             it.data?.let{ dataNotif ->
                 notifAdapter.updateDataNotif(dataNotif)

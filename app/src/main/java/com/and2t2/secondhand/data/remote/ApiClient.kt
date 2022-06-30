@@ -53,4 +53,14 @@ object ApiClient {
 
         retrofit.create(BuyerService::class.java)
     }
+
+    // create instance ApiService
+    val INSTANCE_AUTH : AuthService by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        retrofit.create(AuthService::class.java)
+    }
 }

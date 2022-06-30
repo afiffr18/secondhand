@@ -1,29 +1,47 @@
 package com.and2t2.secondhand.ui.uibuyer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.Status
+import com.and2t2.secondhand.common.showSnackbar
 import com.and2t2.secondhand.common.toRp
+import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
+import com.and2t2.secondhand.data.remote.dto.buyer.PostBuyerOrderBody
 import com.and2t2.secondhand.databinding.FragmentBuyerBinding
 import com.and2t2.secondhand.domain.model.BuyerProductMapper
 import com.and2t2.secondhand.domain.repository.BuyerRepo
+import com.and2t2.secondhand.domain.repository.DatastoreManager
+import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.textfield.TextInputLayout
 
 
 class BuyerFragment : Fragment() {
+
+    private lateinit var dataHarga : PostBuyerOrderBody
 
     private val buyerRepo : BuyerRepo by lazy { BuyerRepo(ApiClient.instanceBuyer,
         BuyerProductMapper(), DatabaseSecondHand.getInstance(requireContext())!!
     ) }
     private val viewModel : BuyerViewModel by lazy { BuyerViewModel(buyerRepo) }
+
+    private val pref : DatastoreManager by lazy { DatastoreManager(requireContext()) }
+    private val dataStore : DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
 
     private var _binding : FragmentBuyerBinding? = null
     private val binding get() = _binding!!
@@ -44,11 +62,18 @@ class BuyerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
-        setData(108)
+//        getAccesstoken()
+        getData(281)
         onNegoButtonClicked()
     }
 
-    private fun  setData(id : Int){
+//    private fun getAccesstoken(){
+//        dataStore.getAccessToken().observe(viewLifecycleOwner){
+//            access_token = it
+//        }
+//    }
+
+    private fun  getData(id : Int){
         viewModel.getProductDetail(id).observe(viewLifecycleOwner){
             it.data.let { data ->
                 Glide.with(requireContext()).load(data?.imageUrl).into(binding.ivProduk)
@@ -65,14 +90,56 @@ class BuyerFragment : Fragment() {
 
     private fun onNegoButtonClicked(){
         binding.btnNego.setOnClickListener {
-            // on below line we are creating a new bottom sheet dialog.
-            val dialog = BottomSheetDialog(requireContext())
 
-            // on below line we are inflating a layout file which we have created.
+            //menampilkan dialog
+            val dialog = BottomSheetDialog(requireContext())
             val view = layoutInflater.inflate(R.layout.buyer_10, null)
 
             dialog.setContentView(view)
             dialog.show()
+
+
+            //logic dialog
+
+            val ivBarang = view.findViewById<ShapeableImageView>(R.id.iv_tawar_barang)
+            val namaBarang = view.findViewById<TextView>(R.id.tv_nama_barang)
+            val hargaBarang = view.findViewById<TextView>(R.id.tv_harga_barang)
+            val btnKirim = view.findViewById<MaterialButton>(R.id.btn_kirim)
+            val etHarga = view.findViewById<TextInputLayout>(R.id.et_harga)
+
+            viewModel.getProductDetail(259).observe(viewLifecycleOwner){
+                it.data?.let { data ->
+                    Glide.with(ivBarang).load("https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/products%2FPR-1655719625930-kusuka.png?alt=media")
+                        .into(ivBarang)
+                    namaBarang.text = data.namaBarang
+                    hargaBarang.text = data.hargaBarang.toRp()
+                }
+            }
+
+            btnKirim.setOnClickListener {
+                val harga = etHarga.editText?.text.toString().toInt()
+                dataHarga = PostBuyerOrderBody(harga,259)
+                dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
+                }
+                viewModel.setBuyerOrder(dataHarga).observe(viewLifecycleOwner){
+                    when(it.status){
+                        Status.LOADING -> {
+                            Log.e("Testing","Loading")
+                        }
+                        Status.SUCCESS ->{
+                            showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
+                            Log.e("Testing","Success")
+                            dialog.dismiss()
+                        }
+                        Status.ERROR -> {
+                            showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
+                            Log.e("Testing","Error")
+                            dialog.dismiss()
+                        }
+                    }
+                }
+            }
+
         }
     }
 

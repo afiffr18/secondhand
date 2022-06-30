@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.uibuyer.BuyerFragment">
 
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/pb_loading"
         app:layout_constraintTop_toTopOf="parent"
@@ -118,6 +119,7 @@
                 android:layout_margin="16dp"
                 android:background="#d3d3d3"
                 android:src="@drawable/ic_baseline_person_24"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize12"
                 android:elevation="0dp"
                 android:scaleType="centerCrop" />
 
@@ -212,7 +214,12 @@
 
 
 
-
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
 
