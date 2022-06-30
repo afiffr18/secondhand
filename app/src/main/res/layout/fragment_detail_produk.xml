@@ -123,7 +123,7 @@
             android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etl_kota"
+            android:id="@+id/etl_kategori"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Kategori"
