@@ -75,7 +75,7 @@ class Login : Fragment() {
                         }
                         Status.ERROR -> {
                             hideLoading()
-                            showSnackbar(requireContext(), requireView(), "Email atau Password salah!", R.color.danger)
+                            showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
                         }
                         Status.LOADING -> {
                             // Munculkan LoadingDialog

@@ -5,13 +5,14 @@ import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginDtoItem
 import com.and2t2.secondhand.data.remote.dto.auth.AuthUserDtoItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.*
 
 interface AuthService {
     @POST("auth/login")
     suspend fun postLogin(
         @Body authLoginBody: AuthLoginBody
-    ): AuthLoginDtoItem
+    ): Response<AuthLoginDtoItem>
 
     @Multipart
     @POST("auth/register")
