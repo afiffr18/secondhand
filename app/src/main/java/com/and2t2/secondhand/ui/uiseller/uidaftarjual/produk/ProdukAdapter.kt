@@ -13,7 +13,7 @@ import com.and2t2.secondhand.domain.model.SellerProduct
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class ProdukAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProdukAdapter(private val onClick: (id: Int) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val diffCallback = object : DiffUtil.ItemCallback<SellerProduct>() {
         override fun areItemsTheSame(oldItem: SellerProduct, newItem: SellerProduct): Boolean {
@@ -62,7 +62,6 @@ class ProdukAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class ProdukViewHolder(private val binding: ItemDaftarjualProdukBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SellerProduct) {
             binding.apply {
-                ivProductImage.setPadding(0,0,0,0)
                 Glide.with(itemView.context)
                     .load(item.imageUrl)
                     .apply(RequestOptions().placeholder(R.drawable.placeholder_image))
@@ -71,13 +70,21 @@ class ProdukAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 tvNamaProduk.text = item.productName
                 tvKategori.text = item.categories
                 tvHarga.text = item.basePrice?.toRp()
+
+                itemDaftarjualProduk.setOnClickListener {
+                    onClick.invoke(item.id)
+                }
             }
         }
     }
 
     inner class ProdukAddViewHolder(private val binding: ItemDaftarjualProdukAddBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            binding.apply {}
+            binding.apply {
+                btnAddProduct.setOnClickListener {
+                    onClick.invoke(0)
+                }
+            }
         }
     }
 }
