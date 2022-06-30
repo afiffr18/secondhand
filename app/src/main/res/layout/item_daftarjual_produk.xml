@@ -26,7 +26,6 @@
                 android:id="@+id/iv_product_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="50dp"
                 android:scaleType="centerCrop"/>
 
         </com.google.android.material.card.MaterialCardView>
@@ -37,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="@tools:sample/lorem/random"
             android:ellipsize="end"
             android:maxLines="2"
             android:textSize="14sp"
@@ -48,7 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="@tools:sample/lorem"
             android:maxLines="2"
             android:textSize="10sp"
             android:textColor="@color/neutral03"
@@ -60,7 +57,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="@tools:sample/lorem"
             android:textSize="14sp"
             android:textColor="@color/neutral05"/>
 
