@@ -45,12 +45,12 @@ class ProdukAdapter(private val onClick: (id: Int) -> Unit): RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            R.layout.item_daftarjual_produk -> (holder as ProdukViewHolder).bind(differ.currentList[position])
+            R.layout.item_daftarjual_produk -> (holder as ProdukViewHolder).bind(differ.currentList[position - 1])
             R.layout.item_daftarjual_produk_add -> (holder as ProdukAddViewHolder).bind()
         }
     }
 
-    override fun getItemCount(): Int = differ.currentList.size
+    override fun getItemCount(): Int = differ.currentList.size + 1
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
