@@ -1,10 +1,12 @@
 package com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.and2t2.secondhand.R
@@ -53,10 +55,14 @@ class Produk : Fragment() {
         produkAdapter = ProdukAdapter { id ->
             if (id == 0) {
                 // Action Button Add
+                Toast.makeText(requireContext(), "INi Button Add ID $id", Toast.LENGTH_SHORT).show()
+                Log.d("TEST", id.toString())
             } else {
                 val bundle = Bundle()
                 bundle.putInt("sellerProductId", id)
                 // Move to Detail Product
+                Toast.makeText(requireContext(), "INi item ID $id", Toast.LENGTH_SHORT).show()
+                Log.d("TEST", id.toString())
             }
         }
         binding.apply {
@@ -68,7 +74,7 @@ class Produk : Fragment() {
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllProduct(token).observe(viewLifecycleOwner) {
-                val btn = view?.findViewById<View>(R.id.btn_add_product)
+                val btn = view?.findViewById<View>(R.id.parent_btn_add_product)
                 it.data?.let { data ->
                     if (!data.isNullOrEmpty()) {
                         btn?.layoutParams?.width = ViewGroup.LayoutParams.MATCH_PARENT
