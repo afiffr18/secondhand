@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
+import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.databinding.FragmentDaftarJualBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import com.and2t2.secondhand.ui.uiseller.uidaftarjual.diminati.Diminati
@@ -51,6 +52,7 @@ class DaftarJualFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setTabAndViewPager()
         observeData()
+        moveToEditProfile()
     }
 
     private fun setTabAndViewPager() {
@@ -107,6 +109,12 @@ class DaftarJualFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun moveToEditProfile() {
+        binding.btnEditprofile.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_daftarjual_to_profile)
         }
     }
 }

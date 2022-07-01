@@ -51,5 +51,9 @@
         android:id="@+id/navigation_daftarjual"
         android:name="com.and2t2.secondhand.ui.uiseller.uidaftarjual.DaftarJualFragment"
         android:label="Daftar Jual"
-        tools:layout="@layout/fragment_daftar_jual" />
+        tools:layout="@layout/fragment_daftar_jual" >
+        <action
+            android:id="@+id/action_navigation_daftarjual_to_profile"
+            app:destination="@id/profile" />
+    </fragment>
 </navigation>
