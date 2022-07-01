@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentProdukBinding
@@ -66,7 +67,12 @@ class Produk : Fragment() {
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllProduct(token).observe(viewLifecycleOwner) {
+                val btn = view?.findViewById<View>(R.id.btn_add_product)
                 it.data?.let { data ->
+                    if (!data.isNullOrEmpty()) {
+                        btn?.layoutParams?.width = ViewGroup.LayoutParams.MATCH_PARENT
+                        btn?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                    }
                     produkAdapter.updateDataRecycler(data)
                 }
             }
