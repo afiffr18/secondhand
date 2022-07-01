@@ -30,9 +30,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_product_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,19 +42,20 @@
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/neutral03"
                 android:hint="Cari di Second Chance"
-                android:paddingLeft="24dp"
+                android:paddingStart="24dp"
                 android:background="@color/neutral01"
-                android:textSize="14dp"
+                android:textSize="14sp"
                 />
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_product_search"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/ic_fi_search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
                 />
 
 
@@ -74,8 +75,8 @@
         android:text="Bulan Ramadhan Banyak Diskon!"
         android:fontFamily="@font/poppins_bold"
         android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginLeft="16dp"
+        android:textSize="20sp"
+        android:layout_marginStart="16dp"
         android:ellipsize="end"
         android:textColor="@color/neutral05"
         />
@@ -89,8 +90,8 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_regular"
         android:text="Diskon Hingga"
-        android:textSize="10dp"
-        android:layout_marginLeft="16dp"
+        android:textSize="11sp"
+        android:layout_marginStart="16dp"
         android:ellipsize="end"
         android:textColor="@color/neutral05"
         />
@@ -103,8 +104,8 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/poppins_medium"
         android:text="60%"
-        android:textSize="18dp"
-        android:layout_marginLeft="16dp"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
         android:textStyle="bold"
         android:ellipsize="end"
         android:textColor="@color/danger"
@@ -130,8 +131,8 @@
         android:layout_marginTop="300dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Telusuri Kategori"
-        android:textSize="14dp"
-        android:layout_marginLeft="16dp"
+        android:textSize="14sp"
+        android:layout_marginStart="16dp"
         android:ellipsize="end"
         android:textColor="@color/neutral05"
         />

@@ -1,7 +1,6 @@
 package com.and2t2.secondhand.ui.uibuyer
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.data.remote.dto.buyer.PostBuyerOrderBody
 import com.and2t2.secondhand.databinding.FragmentBuyerBinding
-import com.and2t2.secondhand.domain.model.BuyerProductMapper
+import com.and2t2.secondhand.domain.model.BuyerProductDetailMapper
 import com.and2t2.secondhand.domain.repository.BuyerRepo
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
@@ -31,7 +30,7 @@ class BuyerFragment : Fragment() {
     private lateinit var dataHarga : PostBuyerOrderBody
 
     private val buyerRepo : BuyerRepo by lazy { BuyerRepo(ApiClient.instanceBuyer,
-        BuyerProductMapper(), DatabaseSecondHand.getInstance(requireContext())!!
+        BuyerProductDetailMapper(), DatabaseSecondHand.getInstance(requireContext())!!
     ) }
     private val viewModel : BuyerViewModel by lazy { BuyerViewModel(buyerRepo) }
 

@@ -1,6 +1,7 @@
 package com.and2t2.secondhand.ui.uihome
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.and2t2.secondhand.common.Resource
 import com.and2t2.secondhand.domain.repository.HomeRepo
@@ -19,6 +20,8 @@ class HomeViewModel(private val homeRepo: HomeRepo) : ViewModel() {
         }catch (ex : IOException){
             emit(Resource.error(null,ex.message.toString()))
         }
-
     }
+
+    fun getBuyerProduct(status : String?,categoryId : Int?,search : String?)
+    = homeRepo.getBuyerProduct(status, categoryId, search).asLiveData()
 }

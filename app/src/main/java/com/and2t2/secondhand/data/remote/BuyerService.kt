@@ -9,13 +9,21 @@ interface BuyerService {
     @GET("buyer/order")
     fun getBuyerOrder(@Header("access_token") token : String) : BuyerOrderDto
 
-    @GET("buyer/product/{id}")
-    suspend fun getBuyerProductById(@Path("id") id : Int) : BuyerProductDtoItem
-
     @POST("buyer/order")
     suspend fun postBuyerOrder(
         @Body postBuyerOrderBody: PostBuyerOrderBody,
         @Header("access_token") token : String) : Response<PostBuyerOrderDto>
+
+
+    @GET("buyer/product/{id}")
+    suspend fun getBuyerProductById(@Path("id") id : Int) : BuyerProductDtoItem
+
+    @GET("buyer/product")
+    suspend fun getBuyerProduct(
+        @Query("status") status : String?,
+        @Query("category_id") categoryId : Int?,
+        @Query("search") search : String?
+    ) : BuyerProductDto
 
 
 }
