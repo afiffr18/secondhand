@@ -1,6 +1,9 @@
 package com.and2t2.secondhand.ui.uiregister
 
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +19,17 @@ import com.and2t2.secondhand.databinding.FragmentRegisterBinding
 import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.repository.AuthRepo
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 
 
 class Register : Fragment() {
+    private val fileUtil = FileUtil()
+    private var uri : Uri? = null
+
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
@@ -45,10 +55,35 @@ class Register : Fragment() {
         doRegister()
         moveToLoginViaBackPress()
         moveToLoginViaClickableText()
+        getImgFromAssets()
+    }
+
+    private fun getImgFromAssets() {
+        // Get Img dari Assets
+        val assets = requireContext().assets.open("default_img_user.jpg")
+        // Convert ke Bitmap
+        val bitmap = BitmapFactory.decodeStream(assets)
+        // Mendapatkan path
+        val imgPath = bitmap.let { bitmap1 -> bitmapToUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
+        // Simpan ke variable global
+        uri = Uri.parse(imgPath)
+    }
+
+    private fun prepareFilePart(fileUri: Uri): MultipartBody.Part {
+        val file = File(fileUri.path)
+        Log.i("PATH IMAGE", file.absolutePath)
+        // Create RequestBody instance from file
+        val requestFile: RequestBody = file.asRequestBody("image".toMediaTypeOrNull())
+
+        // MultipartBody.Part is used to send also the actual file name
+        return MultipartBody.Part.createFormData("image", file.name, requestFile)
     }
 
     private fun doRegister() {
         binding.btnDaftar.setOnClickListener {
+            // Get Image from MultipartBody.Part
+            val image = uri?.let { prepareFilePart(it) }
+
             // Get value dari TextInputLayout
             val etNamaLengkap = binding.editNamaLengkap.editText?.text.toString()
             val etEmail = binding.editEmail.editText?.text.toString()
@@ -65,7 +100,7 @@ class Register : Fragment() {
                 val address = myAddress.toRequestBody("address".toMediaTypeOrNull())
                 val city = myCity.toRequestBody("city".toMediaTypeOrNull())
 
-                registerViewModel.doRegister(fullName,email,password,phoneNumber,address,city).observe(viewLifecycleOwner) {
+                registerViewModel.doRegister(fullName,email,password,phoneNumber,address,city,image).observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.SUCCESS -> {
                             hideLoading()

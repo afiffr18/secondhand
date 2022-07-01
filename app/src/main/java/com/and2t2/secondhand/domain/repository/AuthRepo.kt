@@ -26,8 +26,9 @@ class AuthRepo(
                              password: RequestBody,
                              phoneNumber: RequestBody,
                              address: RequestBody,
-                             city: RequestBody
-    ) = authService.postRegister(fullName, email, password, phoneNumber, address, city, null)
+                             city: RequestBody,
+                             image: MultipartBody.Part?
+    ) = authService.postRegister(fullName, email, password, phoneNumber, address, city, image)
 
     suspend fun getUserByToken(access_token: String) : AuthUser {
         val result = authService.getUser(access_token)
