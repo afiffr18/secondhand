@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -54,7 +55,7 @@ class Produk : Fragment() {
                 // Action Button Add
             } else {
                 val bundle = Bundle()
-                bundle.putInt("productId", id)
+                bundle.putInt("sellerProductId", id)
                 // Move to Detail Product
             }
         }

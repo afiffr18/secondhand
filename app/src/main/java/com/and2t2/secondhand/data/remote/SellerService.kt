@@ -67,10 +67,10 @@ interface SellerService {
     ) : SellerProductDto
 
     @GET("seller/product/{id}")
-    fun getSellerProductById(
+    suspend fun getSellerProductById(
         @Header("access_token") token : String,
         @Path("id") id : Int
-    ) : SellerCategoryDtoItem
+    ) : SellerProductDtoItem
 
     @Multipart
     @POST("seller/product")

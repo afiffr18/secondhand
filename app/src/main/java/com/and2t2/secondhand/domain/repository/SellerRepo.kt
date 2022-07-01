@@ -29,4 +29,6 @@ class SellerRepo(
             }
         }
     )
+
+    suspend fun getSellerProductById(accessToken: String, productId: Int) = sellerService.getSellerProductById(accessToken, productId)
 }
