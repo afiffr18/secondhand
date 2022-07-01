@@ -5,16 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.and2t2.secondhand.R
-import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.showSnackbar
-import com.and2t2.secondhand.common.toRp
-import com.and2t2.secondhand.common.viewModelsFactory
+import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.data.remote.dto.buyer.PostBuyerOrderBody
@@ -24,7 +20,6 @@ import com.and2t2.secondhand.domain.repository.BuyerRepo
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
@@ -63,7 +58,7 @@ class BuyerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
 //        getAccesstoken()
-        getData(281)
+        getData(545)
         onNegoButtonClicked()
     }
 
@@ -107,7 +102,7 @@ class BuyerFragment : Fragment() {
             val btnKirim = view.findViewById<MaterialButton>(R.id.btn_kirim)
             val etHarga = view.findViewById<TextInputLayout>(R.id.et_harga)
 
-            viewModel.getProductDetail(259).observe(viewLifecycleOwner){
+            viewModel.getProductDetail(545).observe(viewLifecycleOwner){
                 it.data?.let { data ->
                     Glide.with(ivBarang).load("https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/products%2FPR-1655719625930-kusuka.png?alt=media")
                         .into(ivBarang)
@@ -118,24 +113,23 @@ class BuyerFragment : Fragment() {
 
             btnKirim.setOnClickListener {
                 val harga = etHarga.editText?.text.toString().toInt()
-                dataHarga = PostBuyerOrderBody(harga,259)
+                dataHarga = PostBuyerOrderBody(harga,545)
                 dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
                 }
                 viewModel.setBuyerOrder(dataHarga).observe(viewLifecycleOwner){
                     when(it.status){
                         Status.LOADING -> {
-                            Log.e("Testing","Loading")
+                            showLoading(requireActivity())
                         }
                         Status.SUCCESS ->{
                             showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
-                            Log.e("Testing","Success")
+                            hideLoading()
                             dialog.dismiss()
                         }
                         Status.ERROR -> {
                             showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
-                            Log.e("Testing","Error")
+                            hideLoading()
                             dialog.dismiss()
-
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,7 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
 
     inner class NotifikasiViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         private val tvPenawaran = itemView.findViewById<TextView>(R.id.tv_penawaran)
+        private val tvHargaBarang = itemView.findViewById<TextView>(R.id.tv_harga)
         private val tvUpdateDate = itemView.findViewById<TextView>(R.id.tv_tanggal)
         private val tvNotif = itemView.findViewById<TextView>(R.id.tv_notifikasi)
         private val tvProductName = itemView.findViewById<TextView>(R.id.tv_nama_barang)
@@ -59,16 +61,18 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
         private val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_image_24)
         fun bind(notifikasi : Notifikasi){
             if(notifikasi.status == "success"){
-//                tvHarga.paintFlags = tvHarga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                tvHargaBarang.paintFlags = tvHargaBarang.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                tvHargaBarang.text = notifikasi.basePrice?.toRp()
                 tvNotif.visibility = View.VISIBLE
                 tvPenawaran.text = "Berhasil ditawar " + notifikasi.bidPrice?.toRp()
             }else{
+                tvHargaBarang.text = notifikasi.basePrice?.toRp()
                 tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp()}"
             }
             if(notifikasi.read == true){
                 ivRead.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral03), android.graphics.PorterDuff.Mode.SRC_IN)
             }
-            tvProductName.text = notifikasi.productId.toString()
+            tvProductName.text = notifikasi.namaBarang
             tvUpdateDate.text = notifikasi.updatedAt
             Glide.with(ivImage).load(notifikasi.imageUrl).apply(bgOptions).into(ivImage)
             cardClick.setOnClickListener {

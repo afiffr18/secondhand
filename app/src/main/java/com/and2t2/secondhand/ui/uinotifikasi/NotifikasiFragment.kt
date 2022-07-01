@@ -3,14 +3,11 @@ package com.and2t2.secondhand.ui.uinotifikasi
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.viewModelsFactory
@@ -21,7 +18,6 @@ import com.and2t2.secondhand.domain.model.NotifikasiMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
-import java.io.IOException
 
 
 class NotifikasiFragment : Fragment() {
@@ -58,16 +54,16 @@ class NotifikasiFragment : Fragment() {
 
         initRecycler()
         getData()
-        onSwipeRefreshLayout()
+//        onSwipeRefreshLayout()
     }
 
-    private fun onSwipeRefreshLayout(){
-        binding.swipe.setOnRefreshListener {
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.swipe.isRefreshing = false
-            },2000)
-        }
-    }
+//    private fun onSwipeRefreshLayout(){
+//        binding.swipe.setOnRefreshListener {
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                binding.swipe.isRefreshing = false
+//            },2000)
+//        }
+//    }
 
     private fun getAccesstoken(){
         dataStore.getAccessToken().observe(viewLifecycleOwner){
