@@ -55,7 +55,7 @@ class Home : Fragment() {
 
 
     private fun initKategoriRecycler(){
-        kategoriAdapter = KategoriAdapter{ id ->
+        kategoriAdapter = KategoriAdapter(){ id ->
             getDataByKategori(id)
         }
         binding.rvListCategoryHomeProduct.apply {
@@ -112,7 +112,7 @@ class Home : Fragment() {
 
     private fun onTopofListClicked(){
         binding.fabToTopList.setOnClickListener {
-            binding.rvListProductHomeProduct.scrollToPosition(0)
+            binding.rvListProductHomeProduct.smoothScrollToPosition(0)
         }
     }
 
