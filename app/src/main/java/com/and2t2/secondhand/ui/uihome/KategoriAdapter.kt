@@ -1,6 +1,5 @@
 package com.and2t2.secondhand.ui.uihome
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,27 +9,26 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.and2t2.secondhand.R
-import com.and2t2.secondhand.data.remote.dto.seller.SellerCategoryDtoItem
-import com.google.android.material.card.MaterialCardView
+import com.and2t2.secondhand.domain.model.SellerCategory
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 
 
 class KategoriAdapter(val onclick : (id: Int) -> Unit) : RecyclerView.Adapter<KategoriAdapter.KategoriViewHolder>() {
 
-    private val difCallback = object : DiffUtil.ItemCallback<SellerCategoryDtoItem>() {
-        override fun areItemsTheSame(oldItem: SellerCategoryDtoItem, newItem: SellerCategoryDtoItem): Boolean {
+    private val difCallback = object : DiffUtil.ItemCallback<SellerCategory>() {
+        override fun areItemsTheSame(oldItem: SellerCategory, newItem: SellerCategory): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SellerCategoryDtoItem, newItem: SellerCategoryDtoItem): Boolean {
+        override fun areContentsTheSame(oldItem: SellerCategory, newItem: SellerCategory): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
     }
 
     private val differ = AsyncListDiffer(this, difCallback)
 
-    fun updateDataKategori(kategori: List<SellerCategoryDtoItem>) = differ.submitList(kategori)
+    fun updateDataKategori(kategori: List<SellerCategory>) = differ.submitList(kategori)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KategoriViewHolder {
@@ -45,10 +43,10 @@ class KategoriAdapter(val onclick : (id: Int) -> Unit) : RecyclerView.Adapter<Ka
     override fun getItemCount(): Int = differ.currentList.size
 
     inner class KategoriViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val tvNama = view.findViewById<MaterialTextView>(R.id.tv_categoryHomeProduct)
-        val cardClick = view.findViewById<ConstraintLayout>(R.id.constraintHomeProductCategory)
-        val cardIcon = view.findViewById<ShapeableImageView>(R.id.iv_itemSearchHomeProductCategory)
-        fun bind(data : SellerCategoryDtoItem,position: Int){
+        private val tvNama = view.findViewById<MaterialTextView>(R.id.tv_categoryHomeProduct)
+        private val cardClick = view.findViewById<ConstraintLayout>(R.id.constraintHomeProductCategory)
+        private val cardIcon = view.findViewById<ShapeableImageView>(R.id.iv_itemSearchHomeProductCategory)
+        fun bind(data : SellerCategory,position: Int){
             tvNama.text = data.name
             cardClick.setOnClickListener {
                 onclick.invoke(data.id)

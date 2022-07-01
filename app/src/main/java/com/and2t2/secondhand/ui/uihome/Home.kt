@@ -1,23 +1,19 @@
 package com.and2t2.secondhand.ui.uihome
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.and2t2.secondhand.R
-import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.hideKeyboard
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentHomeBinding
 import com.and2t2.secondhand.domain.model.BuyerProductMapper
+import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.repository.HomeRepo
 
 
@@ -30,7 +26,7 @@ class Home : Fragment() {
 
 
     private val homeRepo : HomeRepo by lazy { HomeRepo(ApiClient.instanceSeller,ApiClient.instanceBuyer,
-    BuyerProductMapper(), DatabaseSecondHand.getInstance(requireContext())!!
+    BuyerProductMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!
     ) }
     private val viewModel : HomeViewModel by viewModelsFactory { HomeViewModel(homeRepo) }
 
@@ -69,18 +65,8 @@ class Home : Fragment() {
     }
     private fun getKategori(){
         viewModel.getKategori().observe(viewLifecycleOwner){
-            when(it.status){
-                Status.LOADING ->{
-
-                }
-                Status.SUCCESS ->{
-                    it.data?.let {
-                            it1 -> kategoriAdapter.updateDataKategori(it1)
-                    }
-                }
-                Status.ERROR ->{
-                    Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
-                }
+            it.data?.let{ data->
+                kategoriAdapter.updateDataKategori(data)
             }
         }
     }

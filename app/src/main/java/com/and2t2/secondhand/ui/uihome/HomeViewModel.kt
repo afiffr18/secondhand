@@ -11,16 +11,18 @@ import java.lang.Exception
 
 class HomeViewModel(private val homeRepo: HomeRepo) : ViewModel() {
 
-    fun getKategori() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(null))
-        try {
-            emit(Resource.success(homeRepo.getKategori()))
-        }catch (ex : Exception){
-            emit(Resource.error(null,ex.message.toString()))
-        }catch (ex : IOException){
-            emit(Resource.error(null,ex.message.toString()))
-        }
-    }
+//    fun getKategori() = liveData(Dispatchers.IO) {
+//        emit(Resource.loading(null))
+//        try {
+//            emit(Resource.success(homeRepo.getKategori()))
+//        }catch (ex : Exception){
+//            emit(Resource.error(null,ex.message.toString()))
+//        }catch (ex : IOException){
+//            emit(Resource.error(null,ex.message.toString()))
+//        }
+//    }
+
+    fun getKategori() = homeRepo.getSellerKategori().asLiveData()
 
     fun getBuyerProduct(status : String?,categoryId : Int?,search : String?)
     = homeRepo.getBuyerProduct(status, categoryId, search).asLiveData()

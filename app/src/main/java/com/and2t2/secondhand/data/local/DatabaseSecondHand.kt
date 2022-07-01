@@ -7,11 +7,13 @@ import androidx.room.RoomDatabase
 import com.and2t2.secondhand.domain.model.BuyerProduct
 import com.and2t2.secondhand.domain.model.BuyerProductDetail
 import com.and2t2.secondhand.domain.model.Notifikasi
+import com.and2t2.secondhand.domain.model.SellerCategory
 
-@Database(entities = [Notifikasi::class,BuyerProductDetail::class,BuyerProduct::class], version = 6)
+@Database(entities = [Notifikasi::class,BuyerProductDetail::class,BuyerProduct::class,SellerCategory::class], version = 7)
 abstract class DatabaseSecondHand : RoomDatabase() {
     abstract fun notifikasiDao(): NotifikasiDao
     abstract fun buyerDao() : BuyerDao
+    abstract fun sellerDao() : SellerDao
     companion object {
         private var INSTANCE: DatabaseSecondHand? = null
 
