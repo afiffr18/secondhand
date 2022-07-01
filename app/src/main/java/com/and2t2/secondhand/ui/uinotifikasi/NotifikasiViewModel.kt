@@ -21,12 +21,4 @@ class NotifikasiViewModel(private val notifikasiRepo: NotifikasiRepo) : ViewMode
         }
     }
 
-    fun update(access_token : String,id : Int) = liveData {
-       emit(Resource.loading(null))
-       try {
-           emit(Resource.success(notifikasiRepo.updateNotifikasiRead(access_token, id)))
-       } catch (ex : Exception){
-           emit(Resource.error(null,ex.message.toString()))
-       }
-    }
 }
