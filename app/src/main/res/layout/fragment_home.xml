@@ -60,8 +60,10 @@
                             android:textColor="@color/neutral03"
                             android:hint="Cari di Second Chance"
                             android:paddingStart="24dp"
+                            android:maxLines="1"
                             android:background="@color/neutral01"
                             android:textSize="14sp"
+                            android:inputType="text"
                             />
 
                         <com.google.android.material.imageview.ShapeableImageView
@@ -190,5 +192,15 @@
             app:spanCount="2"
             android:layout_marginTop="80dp"
             />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_to_top_list"
+            android:layout_gravity="end|bottom"
+            app:borderWidth="0dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+            android:backgroundTint="@color/neutral02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

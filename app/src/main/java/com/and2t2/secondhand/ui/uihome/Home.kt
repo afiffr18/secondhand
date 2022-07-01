@@ -54,6 +54,7 @@ class Home : Fragment() {
         initProduct()
         getDataProduct()
         getDataBySearch()
+        onTopofListClicked()
     }
 
 
@@ -120,6 +121,12 @@ class Home : Fragment() {
             }
             binding.etProductSearch.editableText.clear()
             hideKeyboard()
+        }
+    }
+
+    private fun onTopofListClicked(){
+        binding.fabToTopList.setOnClickListener {
+            binding.rvListProductHomeProduct.scrollToPosition(0)
         }
     }
 
