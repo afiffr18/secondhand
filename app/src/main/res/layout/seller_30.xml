@@ -100,7 +100,7 @@
                 android:layout_marginStart="16dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Nama Penjual"
+                android:text="Nama Pembeli"
                 android:fontFamily="@font/poppins_medium"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
