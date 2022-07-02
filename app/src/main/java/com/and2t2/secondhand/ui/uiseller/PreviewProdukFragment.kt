@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
+import com.and2t2.secondhand.common.hideLoading
+import com.and2t2.secondhand.common.showLoading
 import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
@@ -53,6 +56,7 @@ class PreviewProdukFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeDataProduct()
+        backButtonOnPressed()
     }
 
     private fun getProductId(): Int? {
@@ -61,9 +65,10 @@ class PreviewProdukFragment : Fragment() {
 
     private fun observeDataProduct() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-            sellerProductViewModel.getProductById(token, 448).observe(viewLifecycleOwner) { resource ->
+            sellerProductViewModel.getProductById(token, getProductId()!!).observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
+                        hideLoading()
                         binding.apply {
                             Glide.with(requireContext())
                                 .load(resource.data?.imageUrl)
@@ -78,9 +83,12 @@ class PreviewProdukFragment : Fragment() {
                         }
                     }
                     Status.ERROR -> {
+                        hideLoading()
                         Toast.makeText(requireContext(), resource.message, Toast.LENGTH_SHORT).show()
                     }
-                    Status.LOADING -> {}
+                    Status.LOADING -> {
+                        showLoading(requireActivity())
+                    }
                 }
             }
         }
@@ -100,6 +108,12 @@ class PreviewProdukFragment : Fragment() {
                     tvLokasi.text = data.city
                 }
             }
+        }
+    }
+
+    private fun backButtonOnPressed() {
+        binding.ivBackButton.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 

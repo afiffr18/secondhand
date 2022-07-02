@@ -55,14 +55,12 @@ class Produk : Fragment() {
         produkAdapter = ProdukAdapter { id ->
             if (id == 0) {
                 // Action Button Add
-                Toast.makeText(requireContext(), "INi Button Add ID $id", Toast.LENGTH_SHORT).show()
-                Log.d("TEST", id.toString())
+                findNavController().navigate(R.id.action_navigation_daftarjual_to_navigation_jual)
             } else {
                 val bundle = Bundle()
                 bundle.putInt("sellerProductId", id)
-                // Move to Detail Product
-                Toast.makeText(requireContext(), "INi item ID $id", Toast.LENGTH_SHORT).show()
-                Log.d("TEST", id.toString())
+                // Move to Preview Product
+                findNavController().navigate(R.id.action_navigation_daftarjual_to_previewProdukFragment, bundle)
             }
         }
         binding.apply {

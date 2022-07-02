@@ -1,5 +1,6 @@
 package com.and2t2.secondhand.ui.uilogin
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.MainActivity
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
@@ -70,7 +72,8 @@ class Login : Fragment() {
                                 saveIdUser(it.data.id)
                             }
                             // Pindah ke Home (tambahkan findNavController dari Login ke Home dibawah ini)
-                            findNavController().navigate(R.id.action_login_to_mainFragment)
+                            startActivity(Intent(requireContext(), MainActivity::class.java))
+                            requireActivity().finish()
 
                         }
                         Status.ERROR -> {
