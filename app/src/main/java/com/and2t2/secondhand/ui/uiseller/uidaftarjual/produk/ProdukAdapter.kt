@@ -65,7 +65,7 @@ class ProdukAdapter(private val onClick: (id: Int) -> Unit): RecyclerView.Adapte
                 Glide.with(itemView.context)
                     .load(item.imageUrl)
                     .apply(RequestOptions().placeholder(R.drawable.placeholder_image))
-                    .into(binding.ivProductImage)
+                    .into(ivProductImage)
 
                 tvNamaProduk.text = item.productName
                 tvKategori.text = item.categories
