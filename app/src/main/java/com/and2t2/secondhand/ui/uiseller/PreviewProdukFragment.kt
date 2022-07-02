@@ -65,7 +65,7 @@ class PreviewProdukFragment : Fragment() {
     private fun observeDataProduct() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             accessToken = token
-            sellerProductViewModel.getProductById(accessToken!!, 2222).observe(viewLifecycleOwner) { resource ->
+            sellerProductViewModel.getProductById(accessToken!!, getProductId()!!).observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         hideLoading()
