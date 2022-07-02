@@ -1,17 +1,14 @@
 package com.and2t2.secondhand.ui.uiseller
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
-import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.hideLoading
-import com.and2t2.secondhand.common.showLoading
-import com.and2t2.secondhand.common.toRp
+import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentPreviewProdukBinding
@@ -26,6 +23,7 @@ import com.bumptech.glide.Glide
 
 
 class PreviewProdukFragment : Fragment() {
+    private var accessToken : String? = null
 
     private var _binding: FragmentPreviewProdukBinding? = null
     private val binding get() = _binding!!
@@ -57,6 +55,7 @@ class PreviewProdukFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeDataProduct()
         backButtonOnPressed()
+        deleteButtonOnPressed()
     }
 
     private fun getProductId(): Int? {
@@ -65,7 +64,8 @@ class PreviewProdukFragment : Fragment() {
 
     private fun observeDataProduct() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-            sellerProductViewModel.getProductById(token, getProductId()!!).observe(viewLifecycleOwner) { resource ->
+            accessToken = token
+            sellerProductViewModel.getProductById(accessToken!!, 2222).observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         hideLoading()
@@ -84,7 +84,7 @@ class PreviewProdukFragment : Fragment() {
                     }
                     Status.ERROR -> {
                         hideLoading()
-                        Toast.makeText(requireContext(), resource.message, Toast.LENGTH_SHORT).show()
+                        showSnackbar(requireContext(), requireView(), resource.message!!, R.color.danger)
                     }
                     Status.LOADING -> {
                         showLoading(requireActivity())
@@ -117,4 +117,39 @@ class PreviewProdukFragment : Fragment() {
         }
     }
 
+    private fun deleteButtonOnPressed() {
+        binding.btnDelete.setOnClickListener {
+            showDeleteDialog()
+        }
+    }
+
+    private fun showDeleteDialog() {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setTitle("Apakah anda yakin ingin menghapus Produk ini ?")
+        dialog.setCancelable(true)
+        dialog.setPositiveButton("Hapus") { dialogInterface, _ ->
+            sellerProductViewModel.deleteProductById(accessToken!!, getProductId()!!).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        datastoreViewModel.saveMsgSnackbar(it.data?.message!!)
+                        findNavController().navigate(R.id.action_previewProdukFragment_to_navigation_daftarjual)
+                    }
+                    Status.ERROR -> {
+                        hideLoading()
+                        showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
+                    }
+                    Status.LOADING -> {
+                        // Munculkan LoadingDialog
+                        dialogInterface.dismiss()
+                        showLoading(requireActivity())
+                    }
+                }
+            }
+        }
+        dialog.setNegativeButton("Batal") { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        }
+        dialog.show()
+    }
 }

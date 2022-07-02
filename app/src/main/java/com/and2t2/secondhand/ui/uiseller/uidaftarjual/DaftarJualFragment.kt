@@ -13,6 +13,7 @@ import com.and2t2.secondhand.ui.uiseller.uidaftarjual.diminati.Diminati
 import com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk.Produk
 import com.and2t2.secondhand.ui.uiseller.uidaftarjual.terjual.Terjual
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.showSnackbar
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.domain.model.AuthUserMapper
@@ -53,6 +54,7 @@ class DaftarJualFragment : Fragment() {
         setTabAndViewPager()
         observeData()
         moveToEditProfile()
+        getBundleSnackbar()
     }
 
     private fun setTabAndViewPager() {
@@ -116,5 +118,15 @@ class DaftarJualFragment : Fragment() {
         binding.btnEditprofile.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_daftarjual_to_profile)
         }
+    }
+
+    private fun getBundleSnackbar() {
+        datastoreViewModel.getMsgSnackbar().observe(viewLifecycleOwner) {
+            if (it != "default") {
+                showSnackbar(requireContext(), requireView(), it, R.color.success)
+            }
+        }
+        // kembalikan ke default
+        datastoreViewModel.saveMsgSnackbar("default")
     }
 }

@@ -15,6 +15,7 @@ class DatastoreManager(private val context: Context) {
         private const val DATA_STORE_NAME = "datastore_preference"
         private val LOGINSTATE_KEY = booleanPreferencesKey("loginstate_key")
         private val ACCESSTOKEN_KEY = stringPreferencesKey("accesstoken_key")
+        private val SNACKBAR_KEY = stringPreferencesKey("snackbar_key")
         private val IDUSER_KEY = intPreferencesKey("iduser_key")
         private val Context.dataStore by preferencesDataStore(name = DATA_STORE_NAME)
     }
@@ -52,6 +53,18 @@ class DatastoreManager(private val context: Context) {
     fun readIdUserFromDataStore(): Flow<Int> {
         return context.dataStore.data.map { pref ->
             pref[IDUSER_KEY] ?: 0
+        }
+    }
+
+    suspend fun saveMsgSnackbarToDataStore(value: String) {
+        context.dataStore.edit { pref ->
+            pref[SNACKBAR_KEY] = value
+        }
+    }
+
+    fun readMsgSnackbarFromDataStore(): Flow<String> {
+        return context.dataStore.data.map { pref ->
+            pref[SNACKBAR_KEY] ?: "default"
         }
     }
 

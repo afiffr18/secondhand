@@ -28,11 +28,11 @@ class LoginViewModel(private val authRepo: AuthRepo): ViewModel() {
                 Log.d("LOGIN RESPONSE", "LOGIN GAGAL")
             }
         } catch (e: HttpException) {
-            Resource.error(null, "Something went wrong")
+            emit(Resource.error(null, "Something went wrong"))
         } catch (e: IOException) {
-            Resource.error(null, "Please check your network connection")
+            emit(Resource.error(null, "Please check your network connection"))
         } catch (e: Exception) {
-            Resource.error(null, "Something went wrong")
+            emit(Resource.error(null, "Something went wrong"))
         }
     }
 }

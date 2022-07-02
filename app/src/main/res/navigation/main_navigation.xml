@@ -52,7 +52,11 @@
         android:id="@+id/previewProdukFragment"
         android:name="com.and2t2.secondhand.ui.uiseller.PreviewProdukFragment"
         android:label="fragment_preview_produk"
-        tools:layout="@layout/fragment_preview_produk" />
+        tools:layout="@layout/fragment_preview_produk" >
+        <action
+            android:id="@+id/action_previewProdukFragment_to_navigation_daftarjual"
+            app:destination="@id/navigation_daftarjual" />
+    </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="com.and2t2.secondhand.ui.uiprofile.Profile"

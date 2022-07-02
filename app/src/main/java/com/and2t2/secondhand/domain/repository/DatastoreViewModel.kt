@@ -35,6 +35,16 @@ class DatastoreViewModel(private val pref: DatastoreManager): ViewModel() {
         return pref.readIdUserFromDataStore().asLiveData()
     }
 
+    fun saveMsgSnackbar(value: String) {
+        viewModelScope.launch {
+            pref.saveMsgSnackbarToDataStore(value)
+        }
+    }
+
+    fun getMsgSnackbar() : LiveData<String> {
+        return pref.readMsgSnackbarFromDataStore().asLiveData()
+    }
+
     fun deleteAllData() {
         viewModelScope.launch {
             pref.removeFromDataStore()

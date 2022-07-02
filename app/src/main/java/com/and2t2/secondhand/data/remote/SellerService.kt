@@ -3,6 +3,7 @@ package com.and2t2.secondhand.data.remote
 import com.and2t2.secondhand.data.remote.dto.seller.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -70,7 +71,7 @@ interface SellerService {
     suspend fun getSellerProductById(
         @Header("access_token") token : String,
         @Path("id") id : Int
-    ) : SellerProductDtoItem
+    ) : Response<SellerProductDtoItem>
 
     @Multipart
     @POST("seller/product")
@@ -99,10 +100,10 @@ interface SellerService {
     ) : SellerProductDtoPutPost
 
     @DELETE("seller/product/{id}")
-    fun deleteSellerProduct(
+    suspend fun deleteSellerProduct(
         @Header("access_token") token : String,
         @Path("id") id : Int
-    ) : SellerProductDtoDelete
+    ) : Response<SellerProductDtoDelete>
 
     /** Seller Order **//** Status : Delayed for @PATCH(seller/order/{id}) and @GET(seller/order/product/{product_id})**/
 
