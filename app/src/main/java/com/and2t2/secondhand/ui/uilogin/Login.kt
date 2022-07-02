@@ -49,7 +49,7 @@ class Login : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         doLogin()
         moveToRegisterViaClickableText()
-        getBundleSnackbar()
+        getMsgSnackbar()
     }
 
     private fun doLogin() {
@@ -122,10 +122,13 @@ class Login : Fragment() {
         }
     }
 
-    private fun getBundleSnackbar() {
-        val getValue = arguments?.getInt("idSnackbar")
-        if (getValue == 1) {
-            showSnackbar(requireContext(), requireView(), "Berhasil Daftar", R.color.success)
+    private fun getMsgSnackbar() {
+        datastoreViewModel.getMsgSnackbar().observe(viewLifecycleOwner) {
+            if (it != "default") {
+                showSnackbar(requireContext(), requireView(), it, R.color.success)
+            }
         }
+        // kembalikan ke default
+        datastoreViewModel.saveMsgSnackbar("default")
     }
 }

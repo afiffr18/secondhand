@@ -54,7 +54,7 @@ class DaftarJualFragment : Fragment() {
         setTabAndViewPager()
         observeData()
         moveToEditProfile()
-        getBundleSnackbar()
+        getMsgSnackbar()
     }
 
     private fun setTabAndViewPager() {
@@ -120,7 +120,7 @@ class DaftarJualFragment : Fragment() {
         }
     }
 
-    private fun getBundleSnackbar() {
+    private fun getMsgSnackbar() {
         datastoreViewModel.getMsgSnackbar().observe(viewLifecycleOwner) {
             if (it != "default") {
                 showSnackbar(requireContext(), requireView(), it, R.color.success)

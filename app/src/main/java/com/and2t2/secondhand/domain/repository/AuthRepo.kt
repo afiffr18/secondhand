@@ -6,6 +6,7 @@ import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.AuthService
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginDtoItem
+import com.and2t2.secondhand.data.remote.dto.auth.AuthUserDtoItem
 import com.and2t2.secondhand.domain.model.AuthUser
 import com.and2t2.secondhand.domain.model.AuthUserMapper
 import okhttp3.MultipartBody
@@ -28,7 +29,9 @@ class AuthRepo(
                              address: RequestBody,
                              city: RequestBody,
                              image: MultipartBody.Part?
-    ) = authService.postRegister(fullName, email, password, phoneNumber, address, city, image)
+    ) : Response<AuthUserDtoItem> {
+        return authService.postRegister(fullName, email, password, phoneNumber, address, city, image)
+    }
 
     suspend fun getUserByToken(access_token: String) : AuthUser {
         val result = authService.getUser(access_token)

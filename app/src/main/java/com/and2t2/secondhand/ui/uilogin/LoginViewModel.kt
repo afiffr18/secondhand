@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.and2t2.secondhand.common.Resource
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
-import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginError
+import com.and2t2.secondhand.data.remote.dto.auth.AuthUserError
 import com.and2t2.secondhand.domain.repository.AuthRepo
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +22,7 @@ class LoginViewModel(private val authRepo: AuthRepo): ViewModel() {
             } else {
                 val gson = Gson()
                 val errorMessage = response.errorBody()?.string()
-                val data = gson.fromJson(errorMessage, AuthLoginError::class.java)
+                val data = gson.fromJson(errorMessage, AuthUserError::class.java)
                 response.errorBody()?.close()
                 emit(Resource.error(null, data.message))
                 Log.d("LOGIN RESPONSE", "LOGIN GAGAL")
