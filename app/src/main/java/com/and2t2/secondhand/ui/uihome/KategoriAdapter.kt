@@ -1,7 +1,5 @@
 package com.and2t2.secondhand.ui.uihome
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,9 +66,9 @@ class KategoriAdapter(val onclick: (id: Int) -> Unit) : RecyclerView.Adapter<Kat
     override fun getItemCount(): Int = differ.currentList.size
 
     inner class KategoriViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val tvNama = view.findViewById<MaterialTextView>(R.id.tv_categoryHomeProduct)
-        val cardClick = view.findViewById<ConstraintLayout>(R.id.constraintHomeProductCategory)
-        val cardIcon = view.findViewById<ShapeableImageView>(R.id.iv_itemSearchHomeProductCategory)
+        private val tvNama = view.findViewById<MaterialTextView>(R.id.tv_categoryHomeProduct)
+        private val cardClick = view.findViewById<ConstraintLayout>(R.id.constraintHomeProductCategory)
+        private val cardIcon = view.findViewById<ShapeableImageView>(R.id.iv_itemSearchHomeProductCategory)
         fun bind(data : SellerCategory,position: Int){
             tvNama.text = data.name
             if(selectedPosition == position){
