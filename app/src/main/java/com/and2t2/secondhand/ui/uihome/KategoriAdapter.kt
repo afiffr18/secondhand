@@ -20,7 +20,7 @@ class KategoriAdapter(val onclick: (id: Int) -> Unit) : RecyclerView.Adapter<Kat
 
 
     var selectedPosition : Int = -1
-    var selectedPositionBefore = -1
+
     private val difCallback = object : DiffUtil.ItemCallback<SellerCategory>() {
         override fun areItemsTheSame(oldItem: SellerCategory, newItem: SellerCategory): Boolean {
             return oldItem.id == newItem.id
@@ -45,21 +45,24 @@ class KategoriAdapter(val onclick: (id: Int) -> Unit) : RecyclerView.Adapter<Kat
         holder.bind(differ.currentList[position],position)
 //        val items = differ.currentList[position]
 //        holder.tvNama.text = items.name
+//        if(selectedPosition == position){
+//            holder.cardIcon.setColorFilter(ContextCompat.getColor(holder.cardIcon.context,R.color.neutral01), android.graphics.PorterDuff.Mode.SRC_IN)
+//            holder.cardClick.setBackgroundColor(ContextCompat.getColor(holder.cardClick.context,R.color.darkblue04))
+//            holder.tvNama.setTextColor(ContextCompat.getColor(holder.tvNama.context,R.color.neutral01))
+//        }else{
+//            holder.cardIcon.setColorFilter(ContextCompat.getColor(holder.cardIcon.context,R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
+//            holder.cardClick.setBackgroundColor(ContextCompat.getColor(holder.cardClick.context,R.color.darkblue01))
+//            holder.tvNama.setTextColor(ContextCompat.getColor(holder.tvNama.context,R.color.black))
+//        }
 //        holder.itemView.setOnClickListener {
 //            onclick.invoke(items.id)
-//            selectedPosition = position
-//        }
-//        if(selectedPosition == position){
-//            holder.cardIcon.setColorFilter(ContextCompat.getColor(mcontext,R.color.neutral01), android.graphics.PorterDuff.Mode.SRC_IN)
-//            holder.cardClick.setBackgroundColor(ContextCompat.getColor(mcontext,R.color.white))
-//            holder.tvNama.setTextColor(ContextCompat.getColor(mcontext,R.color.neutral01))
-//        }else{
-//            if(position==0 && selectedPosition==-1){
-//                holder.cardIcon.setColorFilter(ContextCompat.getColor(mcontext,R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
-//                holder.cardClick.setBackgroundColor(ContextCompat.getColor(mcontext,R.color.darkblue01))
-//                holder.tvNama.setTextColor(ContextCompat.getColor(mcontext,R.color.black))
+//            if(selectedPosition >= 0){
+//                notifyItemChanged(selectedPosition)
 //            }
+//            selectedPosition = holder.adapterPosition
+//            notifyItemChanged(selectedPosition)
 //        }
+
     }
 
     override fun getItemCount(): Int = differ.currentList.size
@@ -70,48 +73,23 @@ class KategoriAdapter(val onclick: (id: Int) -> Unit) : RecyclerView.Adapter<Kat
         val cardIcon = view.findViewById<ShapeableImageView>(R.id.iv_itemSearchHomeProductCategory)
         fun bind(data : SellerCategory,position: Int){
             tvNama.text = data.name
+            if(selectedPosition == position){
+                cardIcon.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral01), android.graphics.PorterDuff.Mode.SRC_IN)
+                cardClick.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.darkblue04))
+                tvNama.setTextColor(ContextCompat.getColor(itemView.context,R.color.neutral01))
+            }else {
+                cardIcon.setColorFilter(ContextCompat.getColor(itemView.context, R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
+                cardClick.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.darkblue01))
+                tvNama.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+            }
             cardClick.setOnClickListener {
                 onclick.invoke(data.id)
+                notifyItemChanged(selectedPosition)
                 selectedPosition = position
-//                Log.e("Selected",selectedPosition.toString())
-//                Log.e("Position",position.toString())
-//                if(selectedPosition == position){
-//                    cardIcon.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral01), android.graphics.PorterDuff.Mode.SRC_IN)
-//                    cardClick.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.darkblue04))
-//                    tvNama.setTextColor(ContextCompat.getColor(itemView.context,R.color.neutral01))
-//                }else{
-//                    if(position==0 && selectedPosition==-1){
-//                    }else{
-//                        cardIcon.setColorFilter(ContextCompat.getColor(itemView.context,R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
-//                        cardClick.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.darkblue01))
-//                        tvNama.setTextColor(ContextCompat.getColor(itemView.context,R.color.black))
-//
-//                    }
+                notifyItemChanged(selectedPosition)
 
-                when(selectedPosition){
-                    position ->{
-                        cardIcon.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral01), android.graphics.PorterDuff.Mode.SRC_IN)
-                        cardClick.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.darkblue04))
-                        tvNama.setTextColor(ContextCompat.getColor(itemView.context,R.color.neutral01))
-                    }
-                    else ->{
-                        cardIcon.setColorFilter(ContextCompat.getColor(itemView.context,R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
-                        cardClick.setBackgroundColor(ContextCompat.getColor(itemView.context,R.color.darkblue01))
-                        tvNama.setTextColor(ContextCompat.getColor(itemView.context,R.color.black))
-                    }
-
-                }
-                }
-
-
-
-
-
-        }
-
-
-
-
+            }
+        }// bind
 
     }
 
