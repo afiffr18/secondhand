@@ -4,27 +4,22 @@ import android.content.Context
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputEditText
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun Int.toRp() : String{
-    val locale = Locale.getDefault()
-
+    val locale = Locale("in","ID")
     val numberFormat = NumberFormat.getCurrencyInstance(locale)
     numberFormat.maximumFractionDigits = 0
-    val convert = numberFormat.format(this)
+    return  numberFormat.format(this)
 
-    return convert
 }
 
 
@@ -58,7 +53,6 @@ fun EditText.onDone(callback: () -> Unit) {
     setOnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             callback.invoke()
-            true
         }
             false
 
