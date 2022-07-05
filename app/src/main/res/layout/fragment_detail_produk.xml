@@ -15,220 +15,261 @@
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageView
-        android:id="@+id/back_btn"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="?android:selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_back_button"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/lengkapi_info_akun"
-        android:layout_width="342dp"
-        android:layout_height="21dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Lengkapi Detail Produk"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/back_btn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/textfield_nama_produk"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_textfield"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/lengkapi_info_akun">
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_back_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nama Produk"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/text_size_label_textfield"
-            android:textColor="@color/black"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_nama_produk"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama Produk"
-            app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/darkblue04"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/textfield_harga"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_textfield"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/textfield_nama_produk">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Harga Produk"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/text_size_label_textfield"
-            android:textColor="@color/black"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_harga"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Rp 0,00"
-            app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/darkblue04"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"
-                android:inputType="number"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/textfield_kategori"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_textfield"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/textfield_harga">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kategori"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/text_size_label_textfield"
-            android:textColor="@color/black"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Pilih Kategori"
-            app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/darkblue01"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/etl_kategori"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:editable="false"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/textfield_deskripsi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_textfield"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/textfield_kategori">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Deskripsi"
-            android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/text_size_label_textfield"
-            android:textColor="@color/black"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_deskripsi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contoh : Jalan Ikan Hiu 33"
-            app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
-            app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
-            app:boxStrokeColor="@color/darkblue04"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:maxLines="3"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"
-                android:inputType="textLongMessage"/>
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/textfield_foto_produk"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textfield_deskripsi">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Foto Produk"
+            android:id="@+id/lengkapi_info_akun"
+            android:layout_width="342dp"
+            android:layout_height="21dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Lengkapi Detail Produk"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_label_textfield" />
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/back_btn"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_picture"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            app:iconGravity="textTop"
-            android:scaleType="centerCrop"
-            android:background="@drawable/add_product"/>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/actionbar"
+        app:layout_constraintBottom_toTopOf="@id/footer_btn">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/textfield_nama_produk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_textfield"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/lengkapi_info_akun">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Produk"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/text_size_label_textfield"
+                    android:textColor="@color/black"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_nama_produk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Produk"
+                    app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
+                    app:boxStrokeColor="@color/darkblue04"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/text_size_textfield"
+                        android:inputType="text"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/textfield_harga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_textfield"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/textfield_nama_produk">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Harga Produk"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/text_size_label_textfield"
+                    android:textColor="@color/black"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_harga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Rp 0,00"
+                    app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
+                    app:boxStrokeColor="@color/darkblue04"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/text_size_textfield"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/textfield_kategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_textfield"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/textfield_harga">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kategori"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/text_size_label_textfield"
+                    android:textColor="@color/black"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Pilih Kategori"
+                    app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
+                    app:boxStrokeColor="@color/darkblue04"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/etl_kategori"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:editable="false"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/text_size_textfield"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/textfield_deskripsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_textfield"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/textfield_kategori">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Deskripsi"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/text_size_label_textfield"
+                    android:textColor="@color/black"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_deskripsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contoh : Jalan Ikan Hiu 33"
+                    app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
+                    app:boxCornerRadiusTopStart="@dimen/corner_radius_textfield"
+                    app:boxStrokeColor="@color/darkblue04"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:minLines="2"
+                        android:maxLines="10"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/text_size_textfield"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/textfield_foto_produk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="42dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textfield_deskripsi">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Foto Produk"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_label_textfield" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_picture"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="8dp"
+                    app:iconGravity="textTop"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/add_product"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/footer_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:background="@color/neutral01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_preview"
-        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
@@ -238,11 +279,12 @@
         android:textAllCaps="false"
         android:textColor="@color/darkblue04"
         android:textSize="14sp"
-        app:backgroundTint="@android:color/transparent"
+        android:backgroundTint="@color/neutral01"
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="@color/darkblue04" />
+        app:strokeColor="@color/darkblue04"
+        app:strokeWidth="2dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_terbitkan"
@@ -260,5 +302,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package com.and2t2.secondhand.ui.uiseller
 
-import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -8,25 +7,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isGone
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentPreviewProdukBinding
-import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.model.PreviewSellerProduct
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.model.SellerProductMapper
-import com.and2t2.secondhand.domain.repository.AuthRepo
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.SellerRepo
-import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -37,6 +33,16 @@ import java.io.File
 
 
 class PreviewProdukFragment : Fragment() {
+    private var accessToken : String? = null
+    private var imgUri : Uri? = null
+    private var productName : String? = null
+    private var categoryId : ArrayList<Int>? = null
+    private var categoryName : ArrayList<String>? = null
+    private var basePrice : String? = null
+    private var description : String? = null
+    private var imgSellerUrl : String? = null
+    private var sellerName : String? = null
+    private var sellerLocation : String? = null
 
     private var _binding: FragmentPreviewProdukBinding? = null
     private val binding get() = _binding!!
@@ -52,16 +58,16 @@ class PreviewProdukFragment : Fragment() {
         setFragmentResultListener(requestKey = "previewrequestkey") { _, bundle ->
             val getData = bundle.getParcelable<PreviewSellerProduct>("previewkey") as PreviewSellerProduct
 
-            val accessToken = getData.token
-            val imgUri = getData.imageUri
-            val productName = getData.productName
-            val categoryId = getData.categoryId
-            val categoryName = getData.categoryName
-            val basePrice = getData.basePrice
-            val description = getData.productDescription
-            val imgSellerUrl = getData.sellerImgUrl
-            val sellerName = getData.sellerName
-            val sellerLocation = getData.sellerLocation
+            accessToken = getData.token
+            imgUri = getData.imageUri
+            productName = getData.productName
+            categoryId = getData.categoryId
+            categoryName = getData.categoryName
+            basePrice = getData.basePrice
+            description = getData.productDescription
+            imgSellerUrl = getData.sellerImgUrl
+            sellerName = getData.sellerName
+            sellerLocation = getData.sellerLocation
 
             binding.apply {
                 binding.ivProduk.setImageURI(imgUri)
@@ -80,6 +86,7 @@ class PreviewProdukFragment : Fragment() {
             publishProduct(accessToken, productName, description, basePrice, categoryId, imgUri, sellerLocation)
             backButtonOnPressed(accessToken, productName, description, basePrice, categoryId, categoryName, imgUri, sellerLocation, sellerName, imgSellerUrl)
         }
+        requireActivity().onBackPressedDispatcher.addCallback(this, backPressedCallback)
     }
 
     override fun onCreateView(
@@ -96,35 +103,19 @@ class PreviewProdukFragment : Fragment() {
         _binding = null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            setResult()
+            requireActivity().findNavController(R.id.main_nav_host_fragment).popBackStack()
+        }
     }
 
-//    private fun observeDataUser() {
-//        datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-//            accessToken = token
-//            profileViewModel.getUser(accessToken!!).observe(viewLifecycleOwner) {
-//                it.data?.let { data ->
-//                    binding.apply {
-//                        if (data.imageUrl != null) {
-//                            Glide.with(requireContext())
-//                                .load(data.imageUrl)
-//                                .into(ivPenjual)
-//                        }
-//
-//                        tvNamaPenjual.text = data.fullName
-//                        city = data.city
-//
-//                        if (data.city == "Ex. Jakarta") {
-//                            tvLokasi.isGone = true
-//                        } else {
-//                            tvLokasi.text = city
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+    private fun setResult() {
+        val previewSellerProduct = PreviewSellerProduct(accessToken, imgUri, productName, categoryId, categoryName, basePrice, description, imgSellerUrl, sellerName, sellerLocation)
+        val bundle = Bundle()
+        bundle.putParcelable("detailkey", previewSellerProduct)
+        setFragmentResult("detailrequestkey", bundle)
+    }
 
     private fun publishProduct(token: String?, productName: String?, description: String?, basePrice: String?, categoryId: ArrayList<Int>?, imgUri: Uri?, location: String?) {
         binding.btnTerbitkan.setOnClickListener {

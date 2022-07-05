@@ -27,10 +27,7 @@ import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentDetailProdukBinding
-import com.and2t2.secondhand.domain.model.AuthUserMapper
-import com.and2t2.secondhand.domain.model.PreviewSellerProduct
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.model.SellerProductMapper
+import com.and2t2.secondhand.domain.model.*
 import com.and2t2.secondhand.domain.repository.AuthRepo
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
@@ -47,8 +44,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class DetailProdukFragment : Fragment() {
-    private val arrayCategoryId: ArrayList<Int> = ArrayList()
-    private val arrayCategoryName: ArrayList<String> = ArrayList()
+    private val arrayCategoryId: ArrayList<Int>? = ArrayList()
+    private val arrayCategoryName: ArrayList<String>? = ArrayList()
     private val fileUtil = FileUtil()
     private var uri : Uri? = null
     private var accessToken : String? = null
@@ -74,6 +71,9 @@ class DetailProdukFragment : Fragment() {
         setFragmentResultListener(requestKey = "detailrequestkey") { _, bundle ->
             val getData = bundle.getParcelable<PreviewSellerProduct>("detailkey") as PreviewSellerProduct
 
+            val idCategory = getData.categoryId
+            val categoryName = getData.categoryName
+
             binding.apply {
                 ivPicture.setImageURI(getData.imageUri)
                 editNamaProduk.editText?.setText(getData.productName)
@@ -81,6 +81,14 @@ class DetailProdukFragment : Fragment() {
                 editDeskripsi.editText?.setText(getData.productDescription)
             }
 
+            if (idCategory?.size != null) {
+                for (i in 0 until idCategory.size) {
+                    val id = idCategory.elementAt(i)
+                    val nama = categoryName?.elementAt(i)
+                    createChips(id, nama!!)
+                    Log.d("CREATE CHIPS", "ID: $id, NAME: $nama")
+                }
+            }
         }
     }
 
@@ -119,14 +127,14 @@ class DetailProdukFragment : Fragment() {
                     val categoryName = list.map { it.name }[position]
 
                     // Masukkan ke ArrayList
-                    arrayCategoryId.add(idCategory)
-                    arrayCategoryName.add(categoryName!!)
+                    arrayCategoryId?.add(idCategory)
+                    arrayCategoryName?.add(categoryName!!)
 
                     // Setelah kategori dipilih langsung cleartext
                     binding.etlKategori.text.clear()
 
                     // Buat chips kategori yang dipilih
-                    createChips(idCategory, categoryName)
+                    createChips(idCategory, categoryName!!)
                 }
             }
         }
@@ -144,8 +152,8 @@ class DetailProdukFragment : Fragment() {
                 // Hapus view chips
                 binding.chipGroup.removeView(chip as View)
                 // Hapus element pada ArrayList
-                arrayCategoryId.remove(idCategory)
-                arrayCategoryName.remove(categoryName)
+                arrayCategoryId?.remove(idCategory)
+                arrayCategoryName?.remove(categoryName)
             }
         }
     }
@@ -285,16 +293,16 @@ class DetailProdukFragment : Fragment() {
             //Get value dari TextInputLayout
             val etNamaProduk = binding.editNamaProduk.editText?.text.toString()
             val etHargaProduk = binding.editHarga.editText?.text.toString()
-            val etKategori = arrayCategoryId.joinToString()
+            val etKategori = arrayCategoryId?.joinToString()
             val etDeskripsi = binding.editDeskripsi.editText?.text.toString()
 
             val name = etNamaProduk.toRequestBody("name".toMediaTypeOrNull())
             val basePrice = etHargaProduk.toRequestBody("basePrice".toMediaTypeOrNull())
-            val categoryIds = etKategori.toRequestBody("categoryIds".toMediaTypeOrNull())
+            val categoryIds = etKategori?.toRequestBody("categoryIds".toMediaTypeOrNull())
             val description = etDeskripsi.toRequestBody("description".toMediaTypeOrNull())
             val location = city!!.toRequestBody("location".toMediaTypeOrNull())
 
-            sellerProductViewModel.postProduct(accessToken!!, name, basePrice, categoryIds, description, location, image).observe(viewLifecycleOwner) {
+            sellerProductViewModel.postProduct(accessToken!!, name, basePrice, categoryIds!!, description, location, image).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.SUCCESS -> {
                         hideLoading()
@@ -321,8 +329,6 @@ class DetailProdukFragment : Fragment() {
             // Get value dari TextInputLayout
             val etNamaProduk = binding.editNamaProduk.editText?.text.toString()
             val etHargaProduk = binding.editHarga.editText?.text.toString()
-//            val etKategoriId = arrayCategoryId.joinToString()
-//            val etKategoriName = arrayCategoryName.joinToString()
             val etDeskripsi = binding.editDeskripsi.editText?.text.toString()
 
             val previewSellerProduct = PreviewSellerProduct(accessToken, imgUri, etNamaProduk, arrayCategoryId, arrayCategoryName, etHargaProduk, etDeskripsi, imgSellerUrl, sellerName, city)
