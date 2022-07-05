@@ -64,6 +64,7 @@
                             android:background="@color/neutral01"
                             android:textSize="14sp"
                             android:inputType="text"
+                            android:imeOptions="actionSearch"
                             />
 
                         <com.google.android.material.imageview.ShapeableImageView

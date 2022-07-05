@@ -1,7 +1,9 @@
 package com.and2t2.secondhand.common
 
 import android.content.Context
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -13,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputEditText
 
 fun Int.toRp() : String{
     val locale = Locale.getDefault()
@@ -48,6 +51,19 @@ fun Fragment.hideKeyboard() {
 //    val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //    imm.hideSoftInputFromWindow(this.window.attributes.token, 0)
 //}
+
+
+//search on keyboard done
+fun EditText.onDone(callback: () -> Unit) {
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            callback.invoke()
+            true
+        }
+            false
+
+    }
+}
 
 inline fun <reified T : ViewModel> ComponentActivity.viewModelsFactory(crossinline viewModelInitialization: () -> T): Lazy<T> {
     return viewModels {

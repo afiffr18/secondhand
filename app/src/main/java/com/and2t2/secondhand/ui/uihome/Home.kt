@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.common.hideKeyboard
+import com.and2t2.secondhand.common.onDone
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
@@ -106,7 +107,9 @@ class Home : Fragment() {
         }
     }
 
+
     private fun getDataBySearch(){
+        //from icon search klik
         binding.ivProductSearch.setOnClickListener {
             val search = binding.etProductSearch.editableText.toString()
             viewModel.getBuyerProduct(null,null,search).observe(viewLifecycleOwner){
@@ -116,6 +119,16 @@ class Home : Fragment() {
             }
             binding.etProductSearch.editableText.clear()
             hideKeyboard()
+        }
+
+        binding.etProductSearch.onDone {
+            val search = binding.etProductSearch.editableText.toString()
+            viewModel.getBuyerProduct(null,null,search).observe(viewLifecycleOwner){
+                it.data?.let { BuyerProduct ->
+                    productAdapter.updateDataProduct(BuyerProduct)
+                }
+            }
+            binding.etProductSearch.editableText.clear()
         }
     }
 
