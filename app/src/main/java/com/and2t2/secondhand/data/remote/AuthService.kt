@@ -40,5 +40,5 @@ interface AuthService {
         @Part("address") address: RequestBody,
         @Part("city") city: RequestBody,
         @Part image: MultipartBody.Part?
-    ): AuthUserDtoItem
+    ): Response<AuthUserDtoItem>
 }

@@ -41,7 +41,7 @@ interface SellerService {
     /** seller category **/
 
     @GET("seller/category")
-    fun getSellerCategory() : SellerCategoryDto
+    suspend fun getSellerCategory() : SellerCategoryDto
 
     @GET("seller/category/{id}")
     fun getSellerCategoryId(
@@ -65,7 +65,7 @@ interface SellerService {
     @GET("seller/product")
     suspend fun getSellerProduct(
         @Header("access_token") token :String
-    ) : SellerProductDto
+    ) : Response<SellerProductDto>
 
     @GET("seller/product/{id}")
     suspend fun getSellerProductById(
@@ -75,7 +75,7 @@ interface SellerService {
 
     @Multipart
     @POST("seller/product")
-    fun setSellerProduct(
+    suspend fun setSellerProduct(
         @Header("access_token") token : String,
         @Part("name") name: RequestBody,
         @Part("description") description : RequestBody,
@@ -83,8 +83,7 @@ interface SellerService {
         @Part("category_ids") categoryId : RequestBody,
         @Part("location") location : RequestBody,
         @Part image : MultipartBody.Part?
-
-    ) : SellerProductDtoPutPost
+    ) : Response<SellerProductDtoPutPost>
 
     @Multipart
     @PUT("seller/product/{id}")

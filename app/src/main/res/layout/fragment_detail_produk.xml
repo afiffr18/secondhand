@@ -7,6 +7,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.uiseller.DetailProdukFragment">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="30dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <ImageView
         android:id="@+id/back_btn"
         android:layout_width="20dp"
@@ -123,10 +131,9 @@
             android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etl_kategori"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Kategori"
+            android:hint="Pilih Kategori"
             app:boxCornerRadiusBottomStart="@dimen/corner_radius_textfield"
             app:boxCornerRadiusBottomEnd="@dimen/corner_radius_textfield"
             app:boxCornerRadiusTopEnd="@dimen/corner_radius_textfield"
@@ -134,13 +141,23 @@
             app:boxStrokeColor="@color/darkblue01"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/etl_kategori"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:editable="false"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/text_size_textfield"
-                android:inputType="none"/>
+                android:textSize="@dimen/text_size_textfield"/>
+
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -200,10 +217,12 @@
             android:textSize="@dimen/text_size_label_textfield" />
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_picture"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
             app:iconGravity="textTop"
+            android:scaleType="centerCrop"
             android:background="@drawable/add_product"/>
     </com.google.android.material.card.MaterialCardView>
 

@@ -59,5 +59,7 @@ class AuthRepo(
                            address: RequestBody,
                            city: RequestBody,
                            image: MultipartBody.Part?
-    ) = authService.updateUser(access_token, fullName, phoneNumber, address, city, image)
+    ) : Response<AuthUserDtoItem> {
+        return authService.updateUser(access_token, fullName, phoneNumber, address, city, image)
+    }
 }

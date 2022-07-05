@@ -1,8 +1,11 @@
 package com.and2t2.secondhand.domain.model
 
+import android.net.Uri
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity
 data class SellerProduct(
@@ -16,3 +19,17 @@ data class SellerProduct(
     @ColumnInfo(name = "status") val status: String? = null,
     @ColumnInfo(name = "categories") val categories: String? = null
 )
+
+@Parcelize
+data class PreviewSellerProduct(
+    val token: String? = null,
+    val imageUri: Uri? = null,
+    val productName: String? = null,
+    val categoryId: ArrayList<Int>?,
+    val categoryName: ArrayList<String>?,
+    val basePrice: String? = null,
+    val productDescription: String? = null,
+    val sellerImgUrl: String? = null,
+    val sellerName: String? = null,
+    val sellerLocation: String? = null
+): Parcelable

@@ -235,7 +235,7 @@ class Profile : Fragment() {
                 }
                 Status.ERROR -> {
                     hideLoading()
-                    showSnackbar(requireContext(), requireView(), "Gagal Perbarui Akun", R.color.danger)
+                    showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
                 }
                 Status.LOADING -> {
                     // Munculkan LoadingDialog
@@ -249,7 +249,7 @@ class Profile : Fragment() {
         val file = File(fileUri.path)
         Log.i("PATH IMAGE", file.absolutePath)
         // Create RequestBody instance from file
-        val requestFile: RequestBody = file.asRequestBody("image".toMediaTypeOrNull())
+        val requestFile: RequestBody = file.asRequestBody("image/jpg".toMediaTypeOrNull())
 
         // MultipartBody.Part is used to send also the actual file name
         return MultipartBody.Part.createFormData("image", file.name, requestFile)

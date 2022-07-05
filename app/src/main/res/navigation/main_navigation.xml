@@ -31,7 +31,14 @@
         android:id="@+id/navigation_jual"
         android:name="com.and2t2.secondhand.ui.uiseller.DetailProdukFragment"
         android:label="Jual"
-        tools:layout="@layout/fragment_detail_produk" />
+        tools:layout="@layout/fragment_detail_produk" >
+        <action
+            android:id="@+id/action_navigation_jual_to_previewProdukFragment"
+            app:destination="@id/previewProdukFragment" />
+        <action
+            android:id="@+id/action_navigation_jual_to_navigation_daftarjual"
+            app:destination="@id/navigation_daftarjual" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_daftarjual"
@@ -42,11 +49,11 @@
             android:id="@+id/action_navigation_daftarjual_to_navigation_jual"
             app:destination="@id/navigation_jual" />
         <action
-            android:id="@+id/action_navigation_daftarjual_to_previewProdukFragment"
-            app:destination="@id/previewProdukFragment" />
-        <action
             android:id="@+id/action_navigation_daftarjual_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_navigation_daftarjual_to_detail"
+            app:destination="@id/detail" />
     </fragment>
     <fragment
         android:id="@+id/previewProdukFragment"
@@ -62,4 +69,13 @@
         android:name="com.and2t2.secondhand.ui.uiprofile.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk.Detail"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detail_to_navigation_daftarjual"
+            app:destination="@id/navigation_daftarjual" />
+    </fragment>
 </navigation>
