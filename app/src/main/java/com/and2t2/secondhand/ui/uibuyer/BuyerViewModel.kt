@@ -18,10 +18,10 @@ class BuyerViewModel(private val buyerRepo: BuyerRepo) : ViewModel() {
 
     fun getProductDetail(id: Int) = buyerRepo.getProductDetail(id).asLiveData()
 
-    fun setBuyerOrder(postBuyerOrderBody: PostBuyerOrderBody) = liveData(Dispatchers.IO){
+    fun setBuyerOrder(postBuyerOrderBody: PostBuyerOrderBody,accessToken : String) = liveData(Dispatchers.IO){
         emit(Resource.loading(null))
         try {
-            val response = buyerRepo.setBuyerOrder(postBuyerOrderBody)
+            val response = buyerRepo.setBuyerOrder(postBuyerOrderBody,accessToken)
             if(response.isSuccessful){
                 emit(Resource.success(response.body()))
             }else{

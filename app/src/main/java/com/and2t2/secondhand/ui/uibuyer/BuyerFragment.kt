@@ -61,11 +61,6 @@ class BuyerFragment : Fragment() {
         onNegoButtonClicked()
     }
 
-//    private fun getAccesstoken(){
-//        dataStore.getAccessToken().observe(viewLifecycleOwner){
-//            access_token = it
-//        }
-//    }
 
     private fun  getData(id : Int){
         viewModel.getProductDetail(id).observe(viewLifecycleOwner){
@@ -114,21 +109,21 @@ class BuyerFragment : Fragment() {
                 val harga = etHarga.editText?.text.toString().toInt()
                 dataHarga = PostBuyerOrderBody(harga,545)
                 dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
-                }
-                viewModel.setBuyerOrder(dataHarga).observe(viewLifecycleOwner){
-                    when(it.status){
-                        Status.LOADING -> {
-                            showLoading(requireActivity())
-                        }
-                        Status.SUCCESS ->{
-                            showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
-                            hideLoading()
-                            dialog.dismiss()
-                        }
-                        Status.ERROR -> {
-                            showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
-                            hideLoading()
-                            dialog.dismiss()
+                    viewModel.setBuyerOrder(dataHarga,access_token).observe(viewLifecycleOwner){
+                        when(it.status){
+                            Status.LOADING -> {
+                                showLoading(requireActivity())
+                            }
+                            Status.SUCCESS ->{
+                                showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
+                                hideLoading()
+                                dialog.dismiss()
+                            }
+                            Status.ERROR -> {
+                                showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
+                                hideLoading()
+                                dialog.dismiss()
+                            }
                         }
                     }
                 }

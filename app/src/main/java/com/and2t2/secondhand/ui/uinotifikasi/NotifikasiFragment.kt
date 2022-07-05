@@ -1,8 +1,6 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +20,7 @@ import com.and2t2.secondhand.domain.repository.NotifikasiRepo
 
 class NotifikasiFragment : Fragment() {
 
-    private  var access_token : String = ""
+    private  var accessToken : String = ""
 
     private lateinit var notifAdapter: NotifikasiAdapter
     private val notifikasiRepo : NotifikasiRepo by lazy { NotifikasiRepo(ApiClient.instanceNotifikasi,
@@ -63,11 +61,6 @@ class NotifikasiFragment : Fragment() {
 //        }
 //    }
 
-    private fun getAccesstoken(){
-        dataStore.getAccessToken().observe(viewLifecycleOwner){
-            access_token = it
-        }
-    }
 
     private fun initRecycler(){
         val linearLayoutManager = LinearLayoutManager(requireContext())
@@ -75,7 +68,7 @@ class NotifikasiFragment : Fragment() {
         linearLayoutManager.stackFromEnd = true
 
         notifAdapter = NotifikasiAdapter{ id: Int ->
-            viewModel.updateNotifikasiRead(access_token,id)
+            viewModel.updateNotifikasiRead(accessToken,id)
         }
 
         binding.rvNotifikasi.apply {
@@ -89,7 +82,7 @@ class NotifikasiFragment : Fragment() {
     fun getData(){
         dataStore.getAccessToken().observe(viewLifecycleOwner){
             getDataNotifikasi(it)
-            access_token = it
+            accessToken = it
         }
     }
 
