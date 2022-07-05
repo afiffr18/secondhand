@@ -55,13 +55,21 @@ class Home : Fragment() {
 
 
     private fun initKategoriRecycler(){
+        val linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+
         kategoriAdapter = KategoriAdapter(){ id ->
-            getDataByKategori(id)
+            if (id == 0){
+                getDataProduct()
+
+            }else{
+                getDataByKategori(id)
+            }
         }
         binding.rvListCategoryHomeProduct.apply {
             adapter = kategoriAdapter
-            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+            layoutManager = linearLayoutManager
         }
+
     }
     private fun getKategori(){
         viewModel.getKategori().observe(viewLifecycleOwner){
@@ -85,6 +93,7 @@ class Home : Fragment() {
         viewModel.getBuyerProduct(null,null,null).observe(viewLifecycleOwner){
             it.data?.let { BuyerProduct ->
                 productAdapter.updateDataProduct(BuyerProduct)
+                binding.rvListProductHomeProduct.scrollToPosition(0)
             }
         }
     }

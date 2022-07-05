@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class SellerCategory(
-    @PrimaryKey(autoGenerate = true)val id : Int,
+    @PrimaryKey val id : Int,
     @ColumnInfo(name = "name")val name : String
 )

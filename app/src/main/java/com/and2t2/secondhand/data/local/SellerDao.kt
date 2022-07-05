@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SellerDao {
-    @Query("SELECT * FROM SellerCategory")
+    @Query("SELECT * FROM SellerCategory ORDER by id ASC")
     fun getSellerCategory() : Flow<List<SellerCategory>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

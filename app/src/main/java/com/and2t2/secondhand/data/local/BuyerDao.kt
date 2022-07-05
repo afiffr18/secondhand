@@ -19,7 +19,7 @@ interface BuyerDao {
     @Query("DELETE FROM BuyerProductDetail")
     fun deleteProductDetail()
 
-    @Query("SELECT * FROM BuyerProduct")
+    @Query("SELECT * FROM BuyerProduct ORDER by id ASC")
     fun getProduct() : Flow<List<BuyerProduct>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
