@@ -77,5 +77,8 @@
         <action
             android:id="@+id/action_detail_to_navigation_daftarjual"
             app:destination="@id/navigation_daftarjual" />
+        <action
+            android:id="@+id/action_detail_to_navigation_jual"
+            app:destination="@id/navigation_jual" />
     </fragment>
 </navigation>

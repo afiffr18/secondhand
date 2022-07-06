@@ -53,6 +53,19 @@ class SellerRepo(
         return sellerService.deleteSellerProduct(accessToken, productId)
     }
 
+    suspend fun updateSellerProductById(
+        access_token: String,
+        productId: Int,
+        name: RequestBody,
+        description: RequestBody,
+        basePrice: RequestBody,
+        categoryIds: RequestBody,
+        location: RequestBody,
+        image: MultipartBody.Part?
+    ) : Response<SellerProductDtoPutPost> {
+        return sellerService.updateSellerProduct(access_token, productId, name, description, basePrice, categoryIds, location, image)
+    }
+
     suspend fun getCategory(): List<SellerCategory> {
         val result = sellerService.getSellerCategory()
         return mapperCategory.toDomainList(result)

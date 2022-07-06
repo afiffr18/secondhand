@@ -17,6 +17,7 @@ class DatastoreManager(private val context: Context) {
         private val ACCESSTOKEN_KEY = stringPreferencesKey("accesstoken_key")
         private val SNACKBAR_KEY = stringPreferencesKey("snackbar_key")
         private val IDUSER_KEY = intPreferencesKey("iduser_key")
+        private val TRIGGERUPDATEPRODUCT_KEY = booleanPreferencesKey("triggerupdateproduct_key")
         private val Context.dataStore by preferencesDataStore(name = DATA_STORE_NAME)
     }
 
@@ -65,6 +66,18 @@ class DatastoreManager(private val context: Context) {
     fun readMsgSnackbarFromDataStore(): Flow<String> {
         return context.dataStore.data.map { pref ->
             pref[SNACKBAR_KEY] ?: "default"
+        }
+    }
+
+    suspend fun saveTriggerUpdateProductToDataStore(value: Boolean) {
+        context.dataStore.edit { pref ->
+            pref[TRIGGERUPDATEPRODUCT_KEY] = value
+        }
+    }
+
+    fun readTriggerUpdateProducteFromDataStore(): Flow<Boolean> {
+        return context.dataStore.data.map { pref ->
+            pref[TRIGGERUPDATEPRODUCT_KEY] ?: false
         }
     }
 

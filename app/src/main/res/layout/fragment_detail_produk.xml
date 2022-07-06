@@ -77,7 +77,6 @@
                     android:textColor="@color/black"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edit_nama_produk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nama Produk"
@@ -89,6 +88,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_nama_produk"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -116,7 +116,6 @@
                     android:textColor="@color/black"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edit_harga"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Rp 0,00"
@@ -128,6 +127,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_harga"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -201,7 +201,6 @@
                     android:textColor="@color/black"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edit_deskripsi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Contoh : Jalan Ikan Hiu 33"
@@ -213,6 +212,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_deskripsi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
@@ -268,39 +268,71 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_preview"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="16dp"
-        android:text="Preview"
-        android:textAllCaps="false"
-        android:textColor="@color/darkblue04"
-        android:textSize="14sp"
-        android:backgroundTint="@color/neutral01"
-        app:cornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="@color/darkblue04"
-        app:strokeWidth="2dp"/>
+        <com.google.android.material.button.MaterialButton
+            style="@style/MyButtonThemeOutlined"
+            android:id="@+id/btn_preview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
+            android:text="Preview"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:enabled="false"
+            app:cornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_terbitkan"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_terbitkan"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/darkblue04"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="16dp"
-        android:text="Terbitkan"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:cornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/MyButtonThemeContained"
+            android:id="@+id/btn_terbitkan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
+            android:text="Terbitkan"
+            android:textAllCaps="false"
+            android:textColor="@color/neutral01"
+            android:textSize="14sp"
+            android:enabled="false"
+            app:cornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_preview"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/darkblue04"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
+            android:text="Simpan"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:cornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_kategori"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/edit_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -25,4 +25,24 @@
         <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/poppins_regular</item>
     </style>
+
+    <style name="MyButtonThemeContained" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ButtonStyleTextColorContained</item>
+    </style>
+
+    <style name="ButtonStyleTextColorContained">
+        <item name="colorPrimary">@color/darkblue04</item>
+    </style>
+
+    <style name="MyButtonThemeOutlined" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ButtonStyleTextColorOutlined</item>
+        <item name="android:textColor">@color/darkblue04</item>
+        <item name="strokeColor">@color/darkblue04</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <style name="ButtonStyleTextColorOutlined">
+        <item name="colorPrimary">@color/neutral01</item>
+    </style>
+
 </resources>

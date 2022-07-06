@@ -5,10 +5,13 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,7 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -34,6 +38,9 @@ import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.and2t2.secondhand.ui.uiprofile.Profile
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.chip.Chip
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -76,9 +83,10 @@ class DetailProdukFragment : Fragment() {
 
             binding.apply {
                 ivPicture.setImageURI(getData.imageUri)
-                editNamaProduk.editText?.setText(getData.productName)
-                editHarga.editText?.setText(getData.basePrice)
-                editDeskripsi.editText?.setText(getData.productDescription)
+                editNamaProduk.setText(getData.productName)
+                editHarga.setText(getData.basePrice)
+                editDeskripsi.setText(getData.productDescription)
+                editImage.setText(R.string.app_name)
             }
 
             if (idCategory?.size != null) {
@@ -113,6 +121,7 @@ class DetailProdukFragment : Fragment() {
         getUserData()
         addProduct()
         previewProduct()
+        isButtonUpdateClicked()
     }
 
     private fun observeCategory() {
@@ -154,8 +163,10 @@ class DetailProdukFragment : Fragment() {
                 // Hapus element pada ArrayList
                 arrayCategoryId?.remove(idCategory)
                 arrayCategoryName?.remove(categoryName)
+                binding.editKategori.text.clear()
             }
         }
+        binding.editKategori.setText(R.string.app_name)
     }
 
     private fun pickImgAndRequestPermission() {
@@ -240,8 +251,9 @@ class DetailProdukFragment : Fragment() {
     private val galleryResult =
         registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
             // Menampilkan image dari gallery ke ImageView
-            binding.ivPicture.apply {
-                setImageURI(result)
+            binding.apply {
+                ivPicture.setImageURI(result)
+                editImage.setText(R.string.app_name)
             }
             // Mendapatkan path
             val imgPath = result.let { fileUtil.getPath(requireContext(), it) }
@@ -262,8 +274,9 @@ class DetailProdukFragment : Fragment() {
                 // dapetin data bitmap dari intent
                 val bitmap = result.data!!.extras?.get("data") as Bitmap
                 // Menampilkan image dari capture camera ke ImageView
-                binding.ivPicture.apply {
-                    setImageBitmap(bitmap)
+                binding.apply {
+                    ivPicture.setImageBitmap(bitmap)
+                    editImage.setText(R.string.app_name)
                 }
                 // Mendapatkan path
                 val imgPath = bitmap.let { bitmap1 -> bitmapToUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
@@ -286,15 +299,22 @@ class DetailProdukFragment : Fragment() {
     }
 
     private fun addProduct() {
+        // Text Watcher
+        binding.editNamaProduk.addTextChangedListener(textWatcher)
+        binding.editHarga.addTextChangedListener(textWatcher)
+        binding.editDeskripsi.addTextChangedListener(textWatcher)
+        binding.editKategori.addTextChangedListener(textWatcher)
+        binding.editImage.addTextChangedListener(textWatcher)
+
         binding.btnTerbitkan.setOnClickListener {
             // Get Image from MultipartBody.Part
             val image = uri?.let { prepareFilePart(it) }
 
             //Get value dari TextInputLayout
-            val etNamaProduk = binding.editNamaProduk.editText?.text.toString()
-            val etHargaProduk = binding.editHarga.editText?.text.toString()
+            val etNamaProduk = binding.editNamaProduk.text.toString()
+            val etHargaProduk = binding.editHarga.text.toString()
             val etKategori = arrayCategoryId?.joinToString()
-            val etDeskripsi = binding.editDeskripsi.editText?.text.toString()
+            val etDeskripsi = binding.editDeskripsi.text.toString()
 
             val name = etNamaProduk.toRequestBody("name".toMediaTypeOrNull())
             val basePrice = etHargaProduk.toRequestBody("basePrice".toMediaTypeOrNull())
@@ -327,9 +347,9 @@ class DetailProdukFragment : Fragment() {
             val imgUri = uri!!
 
             // Get value dari TextInputLayout
-            val etNamaProduk = binding.editNamaProduk.editText?.text.toString()
-            val etHargaProduk = binding.editHarga.editText?.text.toString()
-            val etDeskripsi = binding.editDeskripsi.editText?.text.toString()
+            val etNamaProduk = binding.editNamaProduk.text.toString()
+            val etHargaProduk = binding.editHarga.text.toString()
+            val etDeskripsi = binding.editDeskripsi.text.toString()
 
             val previewSellerProduct = PreviewSellerProduct(accessToken, imgUri, etNamaProduk, arrayCategoryId, arrayCategoryName, etHargaProduk, etDeskripsi, imgSellerUrl, sellerName, city)
 
@@ -339,6 +359,131 @@ class DetailProdukFragment : Fragment() {
 
             findNavController().navigate(R.id.action_navigation_jual_to_previewProdukFragment)
         }
+    }
+
+    private fun isButtonUpdateClicked() {
+        datastoreViewModel.getTriggerUpdateProduct().observe(viewLifecycleOwner) {
+            if (it) {
+                binding.apply {
+                    btnPreview.isGone = true
+                    btnTerbitkan.isGone = true
+                    btnUpdate.isGone = false
+                }
+                observeDataForUpdate()
+            }
+        }
+        datastoreViewModel.saveTriggerUpdateProduct(false)
+    }
+
+    private fun observeDataForUpdate() {
+        val productId = arguments?.getInt("updateProductId")
+        if (productId != null) {
+            sellerProductViewModel.getProductById(accessToken!!, productId).observe(viewLifecycleOwner) { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        binding.apply {
+                            editNamaProduk.setText(resource.data?.name)
+                            editHarga.setText(resource.data?.basePrice.toString())
+
+                            val idCategory = resource.data?.categories?.map { it.id }
+                            val categoryName = resource.data?.categories?.map { it.name }
+                            val kategori = resource.data?.categories
+                            if (kategori != null) {
+                                for (i in kategori.indices) {
+                                    // Get element dari index ke
+                                    val id = idCategory?.elementAt(i)
+                                    val name = categoryName?.elementAt(i)
+                                    // Masukkan ke ArrayList
+                                    arrayCategoryId?.add(id!!)
+                                    arrayCategoryName?.add(name!!)
+                                    // Buat chips
+                                    createChips(id!!, name!!)
+                                }
+                            }
+
+                            editDeskripsi.setText(resource.data?.description)
+
+                            if (resource.data?.imageUrl != null) {
+                                Glide.with(requireContext())
+                                    .asBitmap()
+                                    .load(resource.data.imageUrl)
+                                    .into(object : CustomTarget<Bitmap>() {
+                                        override fun onResourceReady(
+                                            resource: Bitmap,
+                                            transition: Transition<in Bitmap>?
+                                        ) {
+                                            ivPicture.setImageBitmap(resource)
+                                            val imgPath = resource.let { bitmap1 -> bitmapToUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
+                                            uri = Uri.parse(imgPath)
+                                        }
+                                        override fun onLoadCleared(placeholder: Drawable?) {}
+                                    })
+                                binding.editImage.setText(R.string.app_name)
+                            }
+                        }
+
+                        updateProduct(productId)
+                    }
+                    Status.ERROR -> {
+                        showSnackbar(requireContext(), requireView(), resource.message!!, R.color.danger)
+                    }
+                    Status.LOADING -> {}
+                }
+            }
+        }
+    }
+
+    private fun updateProduct(id: Int?) {
+        binding.btnUpdate.setOnClickListener {
+            // Get Image from MultipartBody.Part
+            val image = uri?.let { prepareFilePart(it) }
+
+            //Get value dari TextInputLayout
+            val etNamaProduk = binding.editNamaProduk.text.toString()
+            val etHargaProduk = binding.editHarga.text.toString()
+            val etKategori = arrayCategoryId?.joinToString()
+            val etDeskripsi = binding.editDeskripsi.text.toString()
+
+            val name = etNamaProduk.toRequestBody("name".toMediaTypeOrNull())
+            val basePrice = etHargaProduk.toRequestBody("basePrice".toMediaTypeOrNull())
+            val categoryIds = etKategori?.toRequestBody("categoryIds".toMediaTypeOrNull())
+            val description = etDeskripsi.toRequestBody("description".toMediaTypeOrNull())
+            val location = city!!.toRequestBody("location".toMediaTypeOrNull())
+
+            sellerProductViewModel.updateProductById(accessToken!!, id!!, name, description, basePrice, categoryIds!!, location, image).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        datastoreViewModel.saveMsgSnackbar("Produk berhasil diterbitkan")
+                        findNavController().navigate(R.id.action_navigation_jual_to_navigation_daftarjual)
+                    }
+                    Status.ERROR -> {
+                        hideLoading()
+                        showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
+                    }
+                    Status.LOADING -> {
+                        showLoading(requireActivity())
+                    }
+                }
+            }
+        }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            val etNamaProduk = binding.editNamaProduk.text.toString()
+            val etHargaProduk = binding.editHarga.text.toString()
+            val etDeskripsi = binding.editDeskripsi.text.toString()
+            val etKategori = binding.editKategori.text.toString()
+            val etImage = binding.editImage.text.toString()
+
+            binding.btnTerbitkan.isEnabled = etNamaProduk.isNotEmpty() && etHargaProduk.isNotEmpty() && etKategori.isNotEmpty() && etDeskripsi.isNotEmpty() && etImage.isNotEmpty()
+            binding.btnPreview.isEnabled = etNamaProduk.isNotEmpty() && etHargaProduk.isNotEmpty() && etKategori.isNotEmpty() && etDeskripsi.isNotEmpty() && etImage.isNotEmpty()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {}
     }
 
     private fun prepareFilePart(fileUri: Uri): MultipartBody.Part {

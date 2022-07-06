@@ -87,7 +87,7 @@ interface SellerService {
 
     @Multipart
     @PUT("seller/product/{id}")
-    fun updateSellerProduct(
+    suspend fun updateSellerProduct(
         @Header("access_token") token : String,
         @Path("id") id : Int,
         @Part("name") name: RequestBody?,
@@ -96,7 +96,7 @@ interface SellerService {
         @Part("category_ids") categoryId : RequestBody?,
         @Part("location") location : RequestBody?,
         @Part image : MultipartBody.Part?
-    ) : SellerProductDtoPutPost
+    ) : Response<SellerProductDtoPutPost>
 
     @DELETE("seller/product/{id}")
     suspend fun deleteSellerProduct(

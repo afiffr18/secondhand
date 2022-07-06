@@ -58,6 +58,7 @@ class Detail : Fragment() {
         observeDataProduct()
         backButtonOnPressed()
         deleteButtonOnPressed()
+        updateButtonOnPressed()
     }
 
     private fun getProductId(): Int? {
@@ -158,5 +159,14 @@ class Detail : Fragment() {
             dialogInterface.dismiss()
         }
         dialog.show()
+    }
+
+    private fun updateButtonOnPressed() {
+        binding.btnUpdate.setOnClickListener {
+            datastoreViewModel.saveTriggerUpdateProduct(true)
+            val bundle = Bundle()
+            bundle.putInt("updateProductId", getProductId()!!)
+            findNavController().navigate(R.id.action_detail_to_navigation_jual, bundle)
+        }
     }
 }

@@ -1,20 +1,14 @@
 package com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.hideLoading
-import com.and2t2.secondhand.common.showLoading
-import com.and2t2.secondhand.common.showSnackbar
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentProdukBinding
@@ -65,7 +59,7 @@ class Produk : Fragment() {
             } else {
                 val bundle = Bundle()
                 bundle.putInt("sellerProductId", id)
-                // Move to Preview Product
+                // Move to Detail
                 findNavController().navigate(R.id.action_navigation_daftarjual_to_detail, bundle)
             }
         }
@@ -87,9 +81,7 @@ class Produk : Fragment() {
                         }
                         produkAdapter.updateDataRecycler(it.data!!)
                     }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    }
+                    Status.ERROR -> {}
                     Status.LOADING -> {}
                 }
 //                val btn = view?.findViewById<View>(R.id.parent_btn_add_product)

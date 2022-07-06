@@ -45,6 +45,16 @@ class DatastoreViewModel(private val pref: DatastoreManager): ViewModel() {
         return pref.readMsgSnackbarFromDataStore().asLiveData()
     }
 
+    fun saveTriggerUpdateProduct(value: Boolean) {
+        viewModelScope.launch {
+            pref.saveTriggerUpdateProductToDataStore(value)
+        }
+    }
+
+    fun getTriggerUpdateProduct() : LiveData<Boolean> {
+        return pref.readTriggerUpdateProducteFromDataStore().asLiveData()
+    }
+
     fun deleteAllData() {
         viewModelScope.launch {
             pref.removeFromDataStore()

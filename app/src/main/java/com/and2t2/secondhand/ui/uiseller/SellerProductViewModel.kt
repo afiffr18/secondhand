@@ -2,10 +2,8 @@ package com.and2t2.secondhand.ui.uiseller
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.and2t2.secondhand.common.Resource
-import com.and2t2.secondhand.data.remote.dto.seller.SellerProductDtoDeleteError
 import com.and2t2.secondhand.data.remote.dto.seller.SellerProductError
 import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.google.gson.Gson
@@ -77,7 +75,7 @@ class SellerProductViewModel(private val sellerRepo: SellerRepo): ViewModel() {
             } else {
                 val gson = Gson()
                 val errorMessage = response.errorBody()?.string()
-                val data = gson.fromJson(errorMessage, SellerProductDtoDeleteError::class.java)
+                val data = gson.fromJson(errorMessage, SellerProductError::class.java)
                 response.errorBody()?.close()
                 emit(Resource.error(null, data.message))
                 Log.d("DELETE PRODUCT RESPONSE", "DELETE PRODUCT GAGAL")
@@ -112,6 +110,39 @@ class SellerProductViewModel(private val sellerRepo: SellerRepo): ViewModel() {
                 response.errorBody()?.close()
                 emit(Resource.error(null, data.message))
                 Log.d("POST PRODUCT RESPONSE", "PRODUCT GAGAL DITAMBAHKAN")
+            }
+        } catch (e: HttpException) {
+            emit(Resource.error(null, "Something went wrong"))
+        } catch (e: IOException) {
+            emit(Resource.error(null, "Please check your network connection"))
+        } catch (e: Exception) {
+            emit(Resource.error(null, "Something went wrong"))
+        }
+    }
+
+    fun updateProductById(
+        access_token: String,
+        productId: Int,
+        name: RequestBody,
+        description: RequestBody,
+        basePrice: RequestBody,
+        categoryIds: RequestBody,
+        location: RequestBody,
+        image: MultipartBody.Part?
+    ) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = sellerRepo.updateSellerProductById(access_token, productId, name, description, basePrice, categoryIds, location, image)
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+                Log.d("UPDATE PRODUCT RESPONSE", "UPDATE PRODUCT SUKSES")
+            } else {
+                val gson = Gson()
+                val errorMessage = response.errorBody()?.string()
+                val data = gson.fromJson(errorMessage, SellerProductError::class.java)
+                response.errorBody()?.close()
+                emit(Resource.error(null, data.message))
+                Log.d("UPDATE PRODUCT RESPONSE", "UPDATE PRODUCT GAGAL")
             }
         } catch (e: HttpException) {
             emit(Resource.error(null, "Something went wrong"))
