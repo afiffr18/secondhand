@@ -25,6 +25,7 @@ class SplashActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         handler = Handler(Looper.getMainLooper())
+
         handler.postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
