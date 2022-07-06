@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.AuthActivity
 import com.and2t2.secondhand.R
@@ -37,8 +38,15 @@ class AkunFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        buttonEditOnPressed()
-        logoutButtonOnPressed()
+        datastoreViewModel.getLoginState().observe(viewLifecycleOwner) {
+            if (!it) {
+                Toast.makeText(requireContext(), "Anda belum masuk", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(requireContext(), AuthActivity::class.java))
+            } else {
+            buttonEditOnPressed()
+            logoutButtonOnPressed()
+            }
+        }
     }
 
     private fun buttonEditOnPressed() {

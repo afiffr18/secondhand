@@ -24,25 +24,29 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        checkLoginState()
+        handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }, 2000)
+//        checkLoginState()
     }
 
-    private fun checkLoginState() {
-        datastoreViewModel.getLoginState().observe(this) {
-            if (it == true) {
-                handler = Handler(Looper.getMainLooper())
-                handler.postDelayed({
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                }, 2000)
-            } else {
-                handler = Handler(Looper.getMainLooper())
-                handler.postDelayed({
-                    startActivity(Intent(this, AuthActivity::class.java))
-                    finish()
-                }, 2000) // 2 detik
-            }
-        }
-    }
+//    private fun checkLoginState() {
+//        datastoreViewModel.getLoginState().observe(this) {
+//            if (it == true) {
+//                handler = Handler(Looper.getMainLooper())
+//                handler.postDelayed({
+//                    startActivity(Intent(this, MainActivity::class.java))
+//                    finish()
+//                }, 2000)
+//            } else {
+//                handler = Handler(Looper.getMainLooper())
+//                handler.postDelayed({
+//                    startActivity(Intent(this, AuthActivity::class.java))
+//                    finish()
+//                }, 2000) // 2 detik
+//            }
+//        }
+//    }
 }
