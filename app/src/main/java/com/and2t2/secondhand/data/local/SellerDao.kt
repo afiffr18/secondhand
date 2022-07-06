@@ -21,14 +21,6 @@ interface SellerDao {
     fun deleteProductDetail()
 
     /** Seller Category */
-    @Query("SELECT * FROM SellerCategory")
-    fun getCategory() : Flow<List<SellerCategory>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCategory(sellerCategory: List<SellerCategory>)
-
-    @Query("DELETE FROM SellerCategory")
-    fun deleteCategory()
     @Query("SELECT * FROM SellerCategory ORDER by id ASC")
     fun getSellerCategory() : Flow<List<SellerCategory>>
 

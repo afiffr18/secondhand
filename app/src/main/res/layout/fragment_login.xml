@@ -13,7 +13,6 @@
         android:layout_height="20dp"
         android:background="?android:selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back_button"
-        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

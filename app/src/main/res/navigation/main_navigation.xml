@@ -82,8 +82,12 @@
         android:id="@+id/buyerFragment"
         android:name="com.and2t2.secondhand.ui.uibuyer.BuyerFragment"
         android:label="fragment_buyer"
-        tools:layout="@layout/fragment_buyer" >
-
+        tools:layout="@layout/fragment_buyer" />
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk.Detail"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_detail_to_navigation_daftarjual"
             app:destination="@id/navigation_daftarjual" />
@@ -91,9 +95,4 @@
             android:id="@+id/action_detail_to_navigation_jual"
             app:destination="@id/navigation_jual" />
     </fragment>
-    <fragment
-        android:id="@+id/detail"
-        android:name="com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk.Detail"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
 </navigation>

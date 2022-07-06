@@ -72,12 +72,12 @@ class SellerRepo(
     }
 
     fun getAllCategory() = networkBoundResource(
-        query = { sellerDao.getCategory() },
+        query = { sellerDao.getSellerCategory() },
         fetch = { getCategory() },
         saveFetchResult = { category ->
             mDb.withTransaction {
-                sellerDao.deleteCategory()
-                sellerDao.insertCategory(category)
+                sellerDao.deleteSellerCategory()
+                sellerDao.insertSellerCategory(category)
             }
         }
     )
