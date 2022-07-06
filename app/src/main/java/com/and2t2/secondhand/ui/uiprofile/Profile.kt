@@ -226,22 +226,67 @@ class Profile : Fragment() {
         val address = etAlamat.toRequestBody("address".toMediaTypeOrNull())
         val city = etKota.toRequestBody("city".toMediaTypeOrNull())
 
-        profileViewModel.doUpdateUser(accessToken!!, fullName, phoneNumber, address, city, image).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    hideLoading()
-                    showSnackbar(requireContext(), requireView(), "Berhasil Perbarui Akun", R.color.success)
-                    observeDataFromNetwork()
-                }
-                Status.ERROR -> {
-                    hideLoading()
-                    showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
-                }
-                Status.LOADING -> {
-                    // Munculkan LoadingDialog
-                    showLoading(requireActivity())
+        if (validateData(etNamaLengkap, etKota, etAlamat, etNoHP)) {
+            profileViewModel.doUpdateUser(
+                accessToken!!,
+                fullName,
+                phoneNumber,
+                address,
+                city,
+                image
+            ).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        showSnackbar(
+                            requireContext(),
+                            requireView(),
+                            "Berhasil Perbarui Akun",
+                            R.color.success
+                        )
+                        observeDataFromNetwork()
+                    }
+                    Status.ERROR -> {
+                        hideLoading()
+                        showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
+                    }
+                    Status.LOADING -> {
+                        // Munculkan LoadingDialog
+                        showLoading(requireActivity())
+                    }
                 }
             }
+        }
+    }
+
+    private fun validateData(
+        nama: String,
+        kota: String,
+        alamat: String,
+        noHp: String
+    ): Boolean {
+        return when {
+            nama.isEmpty() -> {
+                binding.etNama.error = "Nama tidak boleh kosong"
+                binding.etNama.requestFocus()
+                false
+            }
+            kota.isEmpty() -> {
+                binding.etlKota.error = "Kota tidak boleh kosong"
+                binding.etlKota.requestFocus()
+                false
+            }
+            alamat.isEmpty() -> {
+                binding.etAlamat.error = "Alamat tidak boleh kosong"
+                binding.etAlamat.requestFocus()
+                false
+            }
+            noHp.isEmpty() -> {
+                binding.etNohp.error = "Nomor Hp tidak boleh kosong"
+                binding.etNohp.requestFocus()
+                false
+            }
+            else -> true
         }
     }
 
