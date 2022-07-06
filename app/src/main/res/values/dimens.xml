@@ -4,4 +4,5 @@
     <dimen name="margin_top_textfield">16dp</dimen>
     <dimen name="text_size_label_textfield">12sp</dimen>
     <dimen name="text_size_textfield">14sp</dimen>
+    <dimen name="padding_img_profile">20dp</dimen>
 </resources>

@@ -24,4 +24,20 @@ interface AuthService {
         @Part("city") city: RequestBody,
         @Part image: MultipartBody.Part?
     ): AuthUserDtoItem
+
+    @GET("auth/user")
+    suspend fun getUser(
+        @Header("access_token") accessToken: String
+    ): AuthUserDtoItem
+
+    @Multipart
+    @PUT("auth/user")
+    suspend fun updateUser(
+        @Header("access_token") accessToken: String,
+        @Part("full_name") fullName: RequestBody,
+        @Part("phone_number") phoneNumber: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): AuthUserDtoItem
 }
