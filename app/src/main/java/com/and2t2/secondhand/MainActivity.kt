@@ -1,14 +1,24 @@
 package com.and2t2.secondhand
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.databinding.ActivityMainBinding
+import com.and2t2.secondhand.domain.repository.DatastoreManager
+import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private val pref: DatastoreManager by lazy { DatastoreManager(this) }
+    private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,17 +35,30 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.profile ||
-                destination.id == R.id.navigation_jual ||
-                destination.id == R.id.previewProdukFragment ||
-                destination.id == R.id.detail
-            ) {
-                binding.bottomNavigationView.visibility = View.GONE
-            } else {
-                binding.bottomNavigationView.visibility = View.VISIBLE
-            }
+                if (destination.id == R.id.navigation_notifikasi ||
+                    destination.id == R.id.navigation_jual ||
+                    destination.id == R.id.navigation_daftarjual ||
+                    destination.id == R.id.navigation_akun ||
+                    destination.id == R.id.buyerFragment
+                ) {
+                    datastoreViewModel.getLoginState().observe(this) {
+                        if (!it) {
+//                            Toast.makeText(this, "Anda belum masuk", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, AuthActivity::class.java))
+                        }
+                    }
+                }
+                if (destination.id == R.id.profile ||
+                    destination.id == R.id.navigation_jual ||
+                    destination.id == R.id.previewProdukFragment ||
+                    destination.id == R.id.detail ||
+                    destination.id == R.id.buyerFragment
+                ) {
+                    binding.bottomNavigationView.visibility = View.GONE
+                } else {
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+                }
         }
-
         binding.bottomNavigationView.setupWithNavController(navController)
     }
 }
