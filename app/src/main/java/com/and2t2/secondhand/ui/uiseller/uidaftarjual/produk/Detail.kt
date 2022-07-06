@@ -108,12 +108,7 @@ class Detail : Fragment() {
                     }
 
                     tvNamaPenjual.text = data.fullName
-
-                    if (data.city == "Ex. Jakarta") {
-                        tvLokasi.isGone = true
-                    } else {
-                        tvLokasi.text = data.city
-                    }
+                    tvLokasi.text = data.city
                 }
             }
         }

@@ -17,9 +17,9 @@ class RegisterViewModel(private val authRepo: AuthRepo): ViewModel() {
     fun doRegister(fullName: RequestBody,
                    email: RequestBody,
                    password: RequestBody,
-                   phoneNumber: RequestBody,
-                   address: RequestBody,
-                   city: RequestBody,
+                   phoneNumber: RequestBody?,
+                   address: RequestBody?,
+                   city: RequestBody?,
                    image: MultipartBody.Part?
     ) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))

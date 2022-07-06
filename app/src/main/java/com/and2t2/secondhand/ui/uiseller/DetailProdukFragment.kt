@@ -454,7 +454,7 @@ class DetailProdukFragment : Fragment() {
                 when (it.status) {
                     Status.SUCCESS -> {
                         hideLoading()
-                        datastoreViewModel.saveMsgSnackbar("Produk berhasil diterbitkan")
+                        datastoreViewModel.saveMsgSnackbar("Produk berhasil diperbarui")
                         findNavController().navigate(R.id.action_navigation_jual_to_navigation_daftarjual)
                     }
                     Status.ERROR -> {

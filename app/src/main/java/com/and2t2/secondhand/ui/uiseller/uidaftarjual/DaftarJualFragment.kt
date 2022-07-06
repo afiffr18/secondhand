@@ -102,12 +102,7 @@ class DaftarJualFragment : Fragment() {
                         }
 
                         tvNamaPenjual.text = data.fullName
-
-                        if (data.city == "Ex. Jakarta") {
-                            tvCity.isGone = true
-                        } else {
-                            tvCity.text = data.city
-                        }
+                        tvCity.text = data.city
                     }
                 }
             }

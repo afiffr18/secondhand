@@ -1,6 +1,5 @@
 package com.and2t2.secondhand.ui.uiregister
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -22,9 +21,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class Register : Fragment() {
-    private val fileUtil = FileUtil()
-    private var uri : Uri? = null
-
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
@@ -61,19 +57,13 @@ class Register : Fragment() {
             val etNamaLengkap = binding.editNamaLengkap.editText?.text.toString()
             val etEmail = binding.editEmail.editText?.text.toString()
             val etPassword = binding.editBuatpassword.editText?.text.toString()
-            val myPhone = "Ex. 082132xxx"
-            val myAddress = "Ex. Jl. Raya Kebayoran Lama No. 39"
-            val myCity = "Ex. Jakarta"
 
             if (registerValidation(etNamaLengkap, etEmail, etPassword)) {
                 val fullName = etNamaLengkap.toRequestBody("full_name".toMediaTypeOrNull())
                 val email = etEmail.toRequestBody("email".toMediaTypeOrNull())
                 val password = etPassword.toRequestBody("password".toMediaTypeOrNull())
-                val phoneNumber = myPhone.toRequestBody("phone_humber".toMediaTypeOrNull())
-                val address = myAddress.toRequestBody("address".toMediaTypeOrNull())
-                val city = myCity.toRequestBody("city".toMediaTypeOrNull())
 
-                registerViewModel.doRegister(fullName,email,password,phoneNumber,address,city,null).observe(viewLifecycleOwner) {
+                registerViewModel.doRegister(fullName, email, password, null,null,null,null).observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.SUCCESS -> {
                             hideLoading()

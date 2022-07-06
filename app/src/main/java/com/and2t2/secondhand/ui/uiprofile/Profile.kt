@@ -269,24 +269,9 @@ class Profile : Fragment() {
                         }
 
                         etNama.setText(data.fullName)
-
-                        if (data.city == "Ex. Jakarta") {
-                            etlKota.editText?.text?.clear()
-                        } else {
-                            etlKota.editText?.setText(data.city)
-                        }
-
-                        if (data.address == "Ex. Jl. Raya Kebayoran Lama No. 39") {
-                            etAlamat.text?.clear()
-                        } else {
-                            etAlamat.setText(data.address)
-                        }
-
-                        if (data.phoneNumber == "Ex. 082132xxx") {
-                            etNohp.text?.clear()
-                        } else {
-                            etNohp.setText(data.phoneNumber)
-                        }
+                        etlKota.editText?.setText(data.city)
+                        etAlamat.setText(data.address)
+                        etNohp.setText(data.phoneNumber)
                     }
                 }
             }

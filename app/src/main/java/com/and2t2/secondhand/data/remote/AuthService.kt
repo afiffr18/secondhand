@@ -20,9 +20,9 @@ interface AuthService {
         @Part("full_name") fullName: RequestBody,
         @Part("email") email: RequestBody,
         @Part("password") password: RequestBody,
-        @Part("phone_number") phoneNumber: RequestBody,
-        @Part("address") address: RequestBody,
-        @Part("city") city: RequestBody,
+        @Part("phone_number") phoneNumber: RequestBody?,
+        @Part("address") address: RequestBody?,
+        @Part("city") city: RequestBody?,
         @Part image: MultipartBody.Part?
     ): Response<AuthUserDtoItem>
 
@@ -35,10 +35,10 @@ interface AuthService {
     @PUT("auth/user")
     suspend fun updateUser(
         @Header("access_token") accessToken: String,
-        @Part("full_name") fullName: RequestBody,
-        @Part("phone_number") phoneNumber: RequestBody,
-        @Part("address") address: RequestBody,
-        @Part("city") city: RequestBody,
+        @Part("full_name") fullName: RequestBody?,
+        @Part("phone_number") phoneNumber: RequestBody?,
+        @Part("address") address: RequestBody?,
+        @Part("city") city: RequestBody?,
         @Part image: MultipartBody.Part?
     ): Response<AuthUserDtoItem>
 }

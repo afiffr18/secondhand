@@ -18,10 +18,10 @@ class ProfileViewModel(private val authRepo: AuthRepo): ViewModel() {
     fun getUser(access_token: String) = authRepo.getUser(access_token).asLiveData()
 
     fun doUpdateUser(access_token: String,
-                     fullName: RequestBody,
-                     phoneNumber: RequestBody,
-                     address: RequestBody,
-                     city: RequestBody,
+                     fullName: RequestBody?,
+                     phoneNumber: RequestBody?,
+                     address: RequestBody?,
+                     city: RequestBody?,
                      image: MultipartBody.Part?
     ) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))

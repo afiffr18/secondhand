@@ -25,9 +25,9 @@ class AuthRepo(
     suspend fun postRegister(fullName: RequestBody,
                              email: RequestBody,
                              password: RequestBody,
-                             phoneNumber: RequestBody,
-                             address: RequestBody,
-                             city: RequestBody,
+                             phoneNumber: RequestBody?,
+                             address: RequestBody?,
+                             city: RequestBody?,
                              image: MultipartBody.Part?
     ) : Response<AuthUserDtoItem> {
         return authService.postRegister(fullName, email, password, phoneNumber, address, city, image)
@@ -54,10 +54,10 @@ class AuthRepo(
     )
 
     suspend fun updateUser(access_token: String,
-                           fullName: RequestBody,
-                           phoneNumber: RequestBody,
-                           address: RequestBody,
-                           city: RequestBody,
+                           fullName: RequestBody?,
+                           phoneNumber: RequestBody?,
+                           address: RequestBody?,
+                           city: RequestBody?,
                            image: MultipartBody.Part?
     ) : Response<AuthUserDtoItem> {
         return authService.updateUser(access_token, fullName, phoneNumber, address, city, image)
