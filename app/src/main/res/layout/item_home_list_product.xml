@@ -10,9 +10,12 @@
     app:cardCornerRadius="12dp"
     app:cardElevation="0dp"
     app:strokeColor="@android:color/darker_gray"
-    app:strokeWidth="0.1dp">
+    app:strokeWidth="0.1dp"
+    android:id="@+id/card_item_home_list_product"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">

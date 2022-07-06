@@ -14,8 +14,12 @@ data class NotificationDtoItem(
     val id: Int,
     @SerializedName("image_url")
     val imageUrl: String,
+    @SerializedName("Product")
+    val product: Product,
     @SerializedName("product_id")
     val productId: Int,
+    @SerializedName("product_name")
+    val productName: Any,
     @SerializedName("read")
     val read: Boolean,
     @SerializedName("receiver_id")

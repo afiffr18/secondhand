@@ -40,7 +40,7 @@ interface SellerService {
     /** seller category **/
 
     @GET("seller/category")
-    fun getSellerCategory() : SellerCategoryDto
+    suspend fun getSellerCategory() : SellerCategoryDto
 
     @GET("seller/category/{id}")
     fun getSellerCategoryId(

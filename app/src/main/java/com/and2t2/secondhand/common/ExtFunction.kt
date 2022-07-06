@@ -7,9 +7,10 @@ import android.provider.MediaStore
 import android.util.Log
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -18,15 +19,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import java.io.ByteArrayOutputStream
 
-fun Int.toRp() : String{
-    val locale = Locale.getDefault()
 
+fun Int.toRp() : String{
+    val locale = Locale("in","ID")
     val numberFormat = NumberFormat.getCurrencyInstance(locale)
     numberFormat.maximumFractionDigits = 0
-    val convert = numberFormat.format(this)
+    return  numberFormat.format(this)
 
-    return convert
 }
+
 
 fun String.toFormatDate() : String {
 
@@ -40,6 +41,28 @@ fun String.toFormatDate() : String {
     }
 }
 
+//For fragment
+fun Fragment.hideKeyboard() {
+    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+}
+
+////For Activity
+//fun AppCompatActivity.hideKeyboard() {
+//    val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//    imm.hideSoftInputFromWindow(this.window.attributes.token, 0)
+//}
+
+//search on keyboard done
+fun EditText.onDone(callback: () -> Unit) {
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            callback.invoke()
+        }
+            false
+
+    }
+}
 
 inline fun <reified T : ViewModel> ComponentActivity.viewModelsFactory(crossinline viewModelInitialization: () -> T): Lazy<T> {
     return viewModels {

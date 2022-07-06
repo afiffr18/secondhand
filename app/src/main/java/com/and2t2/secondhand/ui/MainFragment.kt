@@ -53,6 +53,7 @@ class MainFragment : Fragment() {
             if (destination.id == R.id.login2){
                 findNavController().popBackStack()
             }
+            navView.isVisible = destination.id != R.id.buyerFragment2
         }
         navView.setupWithNavController(navController)
     }
