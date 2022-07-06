@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreen">
+    app:startDestination="@id/infoPenawarFragment">
 
     <fragment
         android:id="@+id/login"
@@ -47,4 +47,9 @@
         android:name="com.and2t2.secondhand.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/infoPenawarFragment"
+        android:name="com.and2t2.secondhand.ui.uiseller.InfoPenawarFragment"
+        android:label="fragment_info_penawar"
+        tools:layout="@layout/fragment_info_penawar" />
 </navigation>
