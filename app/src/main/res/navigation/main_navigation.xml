@@ -29,17 +29,45 @@
         <action
             android:id="@+id/action_navigation_akun_to_profile"
             app:destination="@id/profile" />
-        <action
-            android:id="@+id/action_navigation_akun_to_login2"
-            app:destination="@id/login2" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_jual"
         android:name="com.and2t2.secondhand.ui.uiseller.DetailProdukFragment"
         android:label="Jual"
-        tools:layout="@layout/fragment_detail_produk" />
+        tools:layout="@layout/fragment_detail_produk" >
+        <action
+            android:id="@+id/action_navigation_jual_to_previewProdukFragment"
+            app:destination="@id/previewProdukFragment" />
+        <action
+            android:id="@+id/action_navigation_jual_to_navigation_daftarjual"
+            app:destination="@id/navigation_daftarjual" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/navigation_daftarjual"
+        android:name="com.and2t2.secondhand.ui.uiseller.uidaftarjual.DaftarJualFragment"
+        android:label="Daftar Jual"
+        tools:layout="@layout/fragment_daftar_jual" >
+        <action
+            android:id="@+id/action_navigation_daftarjual_to_navigation_jual"
+            app:destination="@id/navigation_jual" />
+        <action
+            android:id="@+id/action_navigation_daftarjual_to_profile"
+            app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_navigation_daftarjual_to_detail"
+            app:destination="@id/detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/previewProdukFragment"
+        android:name="com.and2t2.secondhand.ui.uiseller.PreviewProdukFragment"
+        android:label="fragment_preview_produk"
+        tools:layout="@layout/fragment_preview_produk" >
+        <action
+            android:id="@+id/action_previewProdukFragment_to_navigation_daftarjual"
+            app:destination="@id/navigation_daftarjual" />
+    </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="com.and2t2.secondhand.ui.uiprofile.Profile"
@@ -55,4 +83,15 @@
         android:name="com.and2t2.secondhand.ui.uibuyer.BuyerFragment"
         android:label="fragment_buyer"
         tools:layout="@layout/fragment_buyer" />
+        android:id="@+id/detail"
+        android:name="com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk.Detail"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detail_to_navigation_daftarjual"
+            app:destination="@id/navigation_daftarjual" />
+        <action
+            android:id="@+id/action_detail_to_navigation_jual"
+            app:destination="@id/navigation_jual" />
+    </fragment>
 </navigation>

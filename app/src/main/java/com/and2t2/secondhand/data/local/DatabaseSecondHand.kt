@@ -9,6 +9,7 @@ import com.and2t2.secondhand.domain.model.BuyerProduct
 import com.and2t2.secondhand.domain.model.BuyerProductDetail
 import com.and2t2.secondhand.domain.model.Notifikasi
 import com.and2t2.secondhand.domain.model.SellerCategory
+import com.and2t2.secondhand.domain.model.*
 
 @Database(entities = [Notifikasi::class,BuyerProductDetail::class,BuyerProduct::class,SellerCategory::class,AuthUser::class], version = 9)
 abstract class DatabaseSecondHand : RoomDatabase() {

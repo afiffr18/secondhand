@@ -21,6 +21,7 @@ fun Snackbar.addAction(@LayoutRes aLayoutId: Int, aListener: View.OnClickListene
         (it.parent as? ViewGroup)?.addView(button)
     }
     button.typeface
+    button.layoutParams.width = 120
     button.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.ic_close_button,0)
     button.setOnClickListener {
         this.dismiss()

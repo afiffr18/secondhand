@@ -15,9 +15,10 @@ import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentRegisterBinding
 import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.repository.AuthRepo
+import com.and2t2.secondhand.domain.repository.DatastoreManager
+import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
-
 
 class Register : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
@@ -25,6 +26,9 @@ class Register : Fragment() {
 
     private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val registerViewModel: RegisterViewModel by viewModelsFactory { RegisterViewModel(authRepo) }
+
+    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
+    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,29 +57,22 @@ class Register : Fragment() {
             val etNamaLengkap = binding.editNamaLengkap.editText?.text.toString()
             val etEmail = binding.editEmail.editText?.text.toString()
             val etPassword = binding.editBuatpassword.editText?.text.toString()
-            val myPhone = "Ex. 082132xxx"
-            val myAddress = "Ex. Jl. Raya Kebayoran Lama No. 39"
-            val myCity = "Ex. Jakarta"
 
             if (registerValidation(etNamaLengkap, etEmail, etPassword)) {
                 val fullName = etNamaLengkap.toRequestBody("full_name".toMediaTypeOrNull())
                 val email = etEmail.toRequestBody("email".toMediaTypeOrNull())
                 val password = etPassword.toRequestBody("password".toMediaTypeOrNull())
-                val phoneNumber = myPhone.toRequestBody("phone_humber".toMediaTypeOrNull())
-                val address = myAddress.toRequestBody("address".toMediaTypeOrNull())
-                val city = myCity.toRequestBody("city".toMediaTypeOrNull())
 
-                registerViewModel.doRegister(fullName,email,password,phoneNumber,address,city).observe(viewLifecycleOwner) {
+                registerViewModel.doRegister(fullName, email, password, null,null,null,null).observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.SUCCESS -> {
                             hideLoading()
-                            val bundle = Bundle()
-                            bundle.putInt("idSnackbar", 1)
-                            findNavController().navigate(R.id.action_register_to_login, bundle)
+                            datastoreViewModel.saveMsgSnackbar("Berhasil Daftar")
+                            findNavController().navigate(R.id.action_register_to_login)
                         }
                         Status.ERROR -> {
                             hideLoading()
-                            showSnackbar(requireContext(), requireView(), "Gagal, Email sudah terdaftar", R.color.danger)
+                            showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
                         }
                         Status.LOADING -> {
                             // Munculkan LoadingDialog

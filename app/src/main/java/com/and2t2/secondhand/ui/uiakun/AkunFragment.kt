@@ -1,11 +1,13 @@
 package com.and2t2.secondhand.ui.uiakun
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.and2t2.secondhand.AuthActivity
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.databinding.FragmentAkunBinding
@@ -39,7 +41,7 @@ class AkunFragment : Fragment() {
         logoutButtonOnPressed()
     }
 
-    private fun buttonEditOnPressed(){
+    private fun buttonEditOnPressed() {
         binding.tvUbahAkun.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_akun_to_profile)
         }
@@ -54,7 +56,8 @@ class AkunFragment : Fragment() {
                 saveLoginState(false)
                 deleteAllData()
             }
-            findNavController().navigate(R.id.action_navigation_akun_to_login2)
+            startActivity(Intent(requireContext(), AuthActivity::class.java))
+            requireActivity().finish()
         }
     }
 
