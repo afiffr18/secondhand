@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
+import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
-import com.and2t2.secondhand.data.remote.AuthService
 import com.and2t2.secondhand.databinding.FragmentRegisterBinding
+import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.repository.AuthRepo
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -21,8 +23,7 @@ class Register : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val authService: AuthService by lazy { ApiClient.INSTANCE_AUTH }
-    private val authRepo: AuthRepo by lazy { AuthRepo(authService) }
+    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val registerViewModel: RegisterViewModel by viewModelsFactory { RegisterViewModel(authRepo) }
 
     override fun onCreateView(
@@ -124,7 +125,7 @@ class Register : Fragment() {
 
     private fun moveToLoginViaBackPress() {
         binding.backBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_register_to_login)
+            it.findNavController().popBackStack()
         }
     }
 
