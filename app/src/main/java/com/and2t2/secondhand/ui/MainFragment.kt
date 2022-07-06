@@ -43,6 +43,7 @@ class MainFragment : Fragment() {
         val navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, destination, _ ->
             navView.isVisible = destination.id != R.id.profile
+            navView.isVisible = destination.id != R.id.buyerFragment2
         }
         navView.setupWithNavController(navController)
     }

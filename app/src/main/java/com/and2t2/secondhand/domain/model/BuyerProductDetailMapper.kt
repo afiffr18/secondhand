@@ -16,7 +16,9 @@ class BuyerProductDetailMapper : DomainMapper<BuyerProductDtoItem,BuyerProductDe
                 "Kategori"
             }else{
                 modelDto.categories[0].name
-            }
+            },
+            imageUser = modelDto.user.imageUrl,
+            username = modelDto.user.fullName
         )
     }
 

@@ -35,6 +35,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:background="@drawable/circle_shape"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_margin="16dp"
         app:tint="@color/black" />
 
@@ -199,7 +200,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="16dp"
         android:paddingHorizontal="24dp"
-        android:backgroundTint="#7126B5"
+        android:backgroundTint="@color/darkblue04"
         android:text="Saya Tertarik dan Ingin Nego"
         android:fontFamily="@font/poppins_medium"
         android:textSize="14sp"
@@ -210,6 +211,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="24dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_nego_success"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp"
+        android:backgroundTint="@color/neutral02"
+        android:text="Menunggu respon penjual"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone"
         />
 
 

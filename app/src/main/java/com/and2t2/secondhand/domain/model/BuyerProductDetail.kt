@@ -14,4 +14,6 @@ data class BuyerProductDetail(
     @ColumnInfo(name = "imageUrl")val imageUrl : String? =null,
     @ColumnInfo(name = "lokasi")val lokasi : String?=null,
     @ColumnInfo(name = "kategori")val kategori : String,
+    @ColumnInfo(name = "userImage")val imageUser : String?=null,
+    @ColumnInfo(name = "username")val username : String
 )

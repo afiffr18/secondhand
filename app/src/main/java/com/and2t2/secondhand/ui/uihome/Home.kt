@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.hideKeyboard
 import com.and2t2.secondhand.common.onDone
 import com.and2t2.secondhand.common.viewModelsFactory
@@ -83,7 +85,9 @@ class Home : Fragment() {
 
     private fun initProduct(){
         productAdapter = ProductAdapter {
-
+            val bundle = Bundle()
+            bundle.putInt("product_key",it)
+            findNavController().navigate(R.id.action_navigation_home_to_buyerFragment2,bundle)
         }
         binding.rvListProductHomeProduct.apply {
             adapter = productAdapter
@@ -137,6 +141,7 @@ class Home : Fragment() {
             binding.rvListProductHomeProduct.smoothScrollToPosition(0)
         }
     }
+
 
 
 }

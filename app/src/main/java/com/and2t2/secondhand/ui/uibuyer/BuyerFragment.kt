@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -23,11 +24,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.delay
 
 
 class BuyerFragment : Fragment() {
 
     private lateinit var dataHarga : PostBuyerOrderBody
+    private var productId : Int? = null
 
     private val buyerRepo : BuyerRepo by lazy { BuyerRepo(ApiClient.instanceBuyer,
         BuyerProductDetailMapper(), DatabaseSecondHand.getInstance(requireContext())!!
@@ -57,8 +60,10 @@ class BuyerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.hide()
 //        getAccesstoken()
-        getData(545)
+        productId = arguments?.getInt("product_key")!!
+        productId?.let { getData(it) }
         onNegoButtonClicked()
+        onBackPressed()
     }
 
 
@@ -66,16 +71,19 @@ class BuyerFragment : Fragment() {
         viewModel.getProductDetail(id).observe(viewLifecycleOwner){
             it.data.let { data ->
                 Glide.with(requireContext()).load(data?.imageUrl).into(binding.ivProduk)
+                Glide.with(requireContext()).load(data?.imageUser).into(binding.ivPenjual)
                 binding.tvLokasi.text = data?.lokasi
                 binding.tvNamaBarang.text = data?.namaBarang
                 binding.tvHargaBarang.text = data?.hargaBarang?.toRp()
                 binding.tvDeskripsi.text = data?.deskripsiBarang
                 binding.tvKategori.text = data?.kategori
+                binding.tvNamaPenjual.text = data?.username
             }
             val isTrue: Boolean = it.data?.id == null
             binding.pbLoading.isVisible =  isTrue
         }
     }
+
 
     private fun onNegoButtonClicked(){
         binding.btnNego.setOnClickListener {
@@ -96,9 +104,9 @@ class BuyerFragment : Fragment() {
             val btnKirim = view.findViewById<MaterialButton>(R.id.btn_kirim)
             val etHarga = view.findViewById<TextInputLayout>(R.id.et_harga)
 
-            viewModel.getProductDetail(545).observe(viewLifecycleOwner){
+            viewModel.getProductDetail(productId!!).observe(viewLifecycleOwner){
                 it.data?.let { data ->
-                    Glide.with(ivBarang).load("https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/products%2FPR-1655719625930-kusuka.png?alt=media")
+                    Glide.with(requireContext()).load(data.imageUrl)
                         .into(ivBarang)
                     namaBarang.text = data.namaBarang
                     hargaBarang.text = data.hargaBarang.toRp()
@@ -107,7 +115,7 @@ class BuyerFragment : Fragment() {
 
             btnKirim.setOnClickListener {
                 val harga = etHarga.editText?.text.toString().toInt()
-                dataHarga = PostBuyerOrderBody(harga,545)
+                dataHarga = PostBuyerOrderBody(harga,productId!!)
                 dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
                     viewModel.setBuyerOrder(dataHarga,access_token).observe(viewLifecycleOwner){
                         when(it.status){
@@ -116,6 +124,8 @@ class BuyerFragment : Fragment() {
                             }
                             Status.SUCCESS ->{
                                 showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
+                                binding.btnNego.isVisible = false
+                                binding.btnNegoSuccess.isVisible = true
                                 hideLoading()
                                 dialog.dismiss()
                             }
@@ -132,6 +142,12 @@ class BuyerFragment : Fragment() {
         }
     }
 
+
+    private fun onBackPressed(){
+        binding.ivBackButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
 
 
 }
