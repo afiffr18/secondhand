@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.and2t2.secondhand.ui.uihome.Home"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_buyerFragment"
+            app:destination="@id/buyerFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifikasi"
@@ -46,4 +50,9 @@
         android:name="com.and2t2.secondhand.ui.uilogin.Login"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/buyerFragment"
+        android:name="com.and2t2.secondhand.ui.uibuyer.BuyerFragment"
+        android:label="fragment_buyer"
+        tools:layout="@layout/fragment_buyer" />
 </navigation>

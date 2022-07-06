@@ -87,7 +87,7 @@ class Home : Fragment() {
         productAdapter = ProductAdapter {
             val bundle = Bundle()
             bundle.putInt("product_key",it)
-            findNavController().navigate(R.id.action_navigation_home_to_buyerFragment2,bundle)
+            findNavController().navigate(R.id.action_navigation_home_to_buyerFragment,bundle)
         }
         binding.rvListProductHomeProduct.apply {
             adapter = productAdapter

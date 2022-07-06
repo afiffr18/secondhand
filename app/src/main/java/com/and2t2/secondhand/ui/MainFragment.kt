@@ -44,7 +44,8 @@ class MainFragment : Fragment() {
         val navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.profile||
-                destination.id == R.id.navigation_jual){
+                destination.id == R.id.navigation_jual||
+                destination.id == R.id.buyerFragment){
                 navView.visibility = View.GONE
             } else {
                 navView.visibility = View.VISIBLE
@@ -53,7 +54,7 @@ class MainFragment : Fragment() {
             if (destination.id == R.id.login2){
                 findNavController().popBackStack()
             }
-            navView.isVisible = destination.id != R.id.buyerFragment2
+//            navView.isVisible = destination.id != R.id.buyerFragment2
         }
         navView.setupWithNavController(navController)
     }
