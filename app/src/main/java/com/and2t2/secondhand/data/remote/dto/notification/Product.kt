@@ -1,13 +1,11 @@
-package com.and2t2.secondhand.data.remote.dto.buyer
+package com.and2t2.secondhand.data.remote.dto.notification
 
 
 import com.google.gson.annotations.SerializedName
 
-data class BuyerProductDtoItem(
+data class Product(
     @SerializedName("base_price")
     val basePrice: Int,
-    @SerializedName("Categories")
-    val categories: List<Category>,
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("description")
@@ -26,8 +24,6 @@ data class BuyerProductDtoItem(
     val status: String,
     @SerializedName("updatedAt")
     val updatedAt: String,
-    @SerializedName("User")
-    val user: User,
     @SerializedName("user_id")
     val userId: Int
 )

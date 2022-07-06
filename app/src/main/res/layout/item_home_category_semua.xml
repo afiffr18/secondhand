@@ -6,6 +6,7 @@
     android:layout_margin="5dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintHomeProductCategory"
         android:layout_width="match_parent"
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Category"
+            android:text="Semua"
             android:textAlignment="center"
             android:textColor="@color/neutral04"
             android:textSize="14sp"

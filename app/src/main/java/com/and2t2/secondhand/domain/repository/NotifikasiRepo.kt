@@ -34,7 +34,6 @@ class NotifikasiRepo(
                     notifikasiDao.deleteNotifikasi()
                     notifikasiDao.insertNotifikasi(notif)
                 }
-
         }
       )
 

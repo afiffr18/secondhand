@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.uibuyer.BuyerFragment">
 
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/pb_loading"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,6 +35,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:background="@drawable/circle_shape"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_margin="16dp"
         app:tint="@color/black" />
 
@@ -118,6 +120,7 @@
                 android:layout_margin="16dp"
                 android:background="#d3d3d3"
                 android:src="@drawable/ic_baseline_person_24"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize12"
                 android:elevation="0dp"
                 android:scaleType="centerCrop" />
 
@@ -192,12 +195,12 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_masuk"
+        android:id="@+id/btn_nego"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:paddingVertical="16dp"
         android:paddingHorizontal="24dp"
-        android:backgroundTint="#7126B5"
+        android:backgroundTint="@color/darkblue04"
         android:text="Saya Tertarik dan Ingin Nego"
         android:fontFamily="@font/poppins_medium"
         android:textSize="14sp"
@@ -210,9 +213,34 @@
         android:layout_marginBottom="24dp"
         />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_nego_success"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp"
+        android:backgroundTint="@color/neutral02"
+        android:text="Menunggu respon penjual"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone"
+        />
 
 
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
 
