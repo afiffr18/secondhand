@@ -65,6 +65,10 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
                 tvHargaBarang.text = notifikasi.basePrice?.toRp()
                 tvNotif.visibility = View.VISIBLE
                 tvPenawaran.text = "Berhasil ditawar " + notifikasi.bidPrice?.toRp()
+            }else if(notifikasi.status == "declined"){
+                tvPenawaran.paintFlags = tvPenawaran.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                tvHargaBarang.text = notifikasi.basePrice?.toRp()
+                tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp()}"
             }else{
                 tvHargaBarang.text = notifikasi.basePrice?.toRp()
                 tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp()}"

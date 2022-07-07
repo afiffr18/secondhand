@@ -19,7 +19,11 @@
         android:id="@+id/navigation_notifikasi"
         android:name="com.and2t2.secondhand.ui.uinotifikasi.NotifikasiFragment"
         android:label="Notifikasi"
-        tools:layout="@layout/fragment_notifikasi" />
+        tools:layout="@layout/fragment_notifikasi" >
+        <action
+            android:id="@+id/action_navigation_notifikasi_to_infoPenawarFragment2"
+            app:destination="@id/infoPenawarFragment2" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_akun"
@@ -95,4 +99,9 @@
             android:id="@+id/action_detail_to_navigation_jual"
             app:destination="@id/navigation_jual" />
     </fragment>
+    <fragment
+        android:id="@+id/infoPenawarFragment2"
+        android:name="com.and2t2.secondhand.ui.uiseller.uiinfopenawar.InfoPenawarFragment"
+        android:label="fragment_info_penawar"
+        tools:layout="@layout/fragment_info_penawar" />
 </navigation>

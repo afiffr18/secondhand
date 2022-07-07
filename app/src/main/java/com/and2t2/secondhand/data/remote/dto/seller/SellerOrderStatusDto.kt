@@ -3,7 +3,7 @@ package com.and2t2.secondhand.data.remote.dto.seller
 
 import com.google.gson.annotations.SerializedName
 
-data class SellerOrderDtoItem(
+data class SellerOrderStatusDto(
     @SerializedName("base_price")
     val basePrice: String,
     @SerializedName("buyer_id")
@@ -16,8 +16,6 @@ data class SellerOrderDtoItem(
     val imageProduct: String,
     @SerializedName("price")
     val price: Int,
-    @SerializedName("Product")
-    val product: Product,
     @SerializedName("product_id")
     val productId: Int,
     @SerializedName("product_name")
@@ -25,9 +23,7 @@ data class SellerOrderDtoItem(
     @SerializedName("status")
     val status: String,
     @SerializedName("transaction_date")
-    val transactionDate: Any,
+    val transactionDate: String,
     @SerializedName("updatedAt")
-    val updatedAt: String,
-    @SerializedName("User")
-    val user: UserXX
+    val updatedAt: String
 )

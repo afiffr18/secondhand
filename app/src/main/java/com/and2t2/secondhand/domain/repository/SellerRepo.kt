@@ -4,14 +4,8 @@ import androidx.room.withTransaction
 import com.and2t2.secondhand.common.networkBoundResource
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.SellerService
-import com.and2t2.secondhand.data.remote.dto.seller.SellerProductDto
-import com.and2t2.secondhand.data.remote.dto.seller.SellerProductDtoDelete
-import com.and2t2.secondhand.data.remote.dto.seller.SellerProductDtoItem
-import com.and2t2.secondhand.data.remote.dto.seller.SellerProductDtoPutPost
-import com.and2t2.secondhand.domain.model.SellerCategory
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.model.SellerProduct
-import com.and2t2.secondhand.domain.model.SellerProductMapper
+import com.and2t2.secondhand.data.remote.dto.seller.*
+import com.and2t2.secondhand.domain.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -20,6 +14,7 @@ class SellerRepo(
     private val sellerService: SellerService,
     private val mapper: SellerProductMapper,
     private val mapperCategory: SellerCategoryMapper,
+    private val mapperOrder: SellerOrderMapper,
     private val mDb: DatabaseSecondHand
 ) {
     private val sellerDao = mDb.sellerDao()
@@ -92,4 +87,16 @@ class SellerRepo(
     ) : Response<SellerProductDtoPutPost> {
         return sellerService.setSellerProduct(access_token, name, description, basePrice, categoryIds, location, image)
     }
+
+    /*** Seller Order ***/
+    suspend fun getSellerOrder(accessToken: String,status : String?) : List<SellerOrder>{
+        val result = sellerService.getSellerOrder(accessToken,status)
+        return mapperOrder.toDomainList(result)
+    }
+
+    suspend fun updateSelerOrderStatus(accessToken: String,id : Int,status: String?) : SellerOrderStatusDto{
+        return sellerService.updateSellerOrderStatus(accessToken,id, status)
+    }
+
+
 }

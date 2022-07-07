@@ -19,6 +19,7 @@ import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentPreviewProdukBinding
 import com.and2t2.secondhand.domain.model.PreviewSellerProduct
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
+import com.and2t2.secondhand.domain.model.SellerOrderMapper
 import com.and2t2.secondhand.domain.model.SellerProductMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
@@ -47,7 +48,7 @@ class PreviewProdukFragment : Fragment() {
     private var _binding: FragmentPreviewProdukBinding? = null
     private val binding get() = _binding!!
 
-    private val sellerRepo: SellerRepo by lazy {SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!)}
+    private val sellerRepo: SellerRepo by lazy {SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerCategoryMapper(), SellerOrderMapper(),DatabaseSecondHand.getInstance(requireContext())!!)}
     private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }

@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -69,6 +72,7 @@ class NotifikasiFragment : Fragment() {
 
         notifAdapter = NotifikasiAdapter{ id: Int ->
             viewModel.updateNotifikasiRead(accessToken,id)
+            findNavController().navigate(R.id.action_navigation_notifikasi_to_infoPenawarFragment2)
         }
 
         binding.rvNotifikasi.apply {
@@ -94,11 +98,10 @@ class NotifikasiFragment : Fragment() {
             val isTrue : Boolean = it.data.isNullOrEmpty()
             binding.pbLoading.isVisible = isTrue
             binding.tvError.text = when(it.status){
-                Status.ERROR ->{
+                Status.ERROR -> ({
                     binding.pbLoading.isVisible = false
-                    binding.tvError.isVisible = true
-                    it.message
-                }
+                    Toast.makeText(requireContext(),it.message,Toast.LENGTH_LONG).show()
+                }).toString()
                 else -> {
                     "Error Occured"
                 }

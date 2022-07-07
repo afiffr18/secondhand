@@ -107,14 +107,22 @@ interface SellerService {
     /** Seller Order **//** Status : Delayed for @PATCH(seller/order/{id}) and @GET(seller/order/product/{product_id})**/
 
     @GET("seller/order")
-    fun getSellerOrder(
-        @Header("access_token") token : String
+    suspend fun getSellerOrder(
+        @Header("access_token") token : String,
+        @Query("status") status : String?
     ) : SellerOrderDto
 
-    // need review
+
     @GET("seller/order/{id}")
     fun getSellerOrderById(
         @Header("access_token") token : String,
         @Path("id") id : Int
     ) : SellerOrderDtoItem
+
+    @PATCH("seller/order/{id}")
+    suspend fun updateSellerOrderStatus(
+        @Header("access_token") access_token : String,
+        @Path("id") id : Int,
+        @Body status: String?
+    ) : SellerOrderStatusDto
 }
