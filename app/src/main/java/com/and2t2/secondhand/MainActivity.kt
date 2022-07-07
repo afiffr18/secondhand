@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.and2t2.secondhand.common.viewModelsFactory
@@ -44,7 +45,8 @@ class MainActivity : AppCompatActivity() {
                     datastoreViewModel.getLoginState().observe(this) {
                         if (!it) {
 //                            Toast.makeText(this, "Anda belum masuk", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this, AuthActivity::class.java))
+                            showAlertDialogWithAction()
+//                            startActivity(Intent(this, AuthActivity::class.java))
                         }
                     }
                 }
@@ -60,5 +62,21 @@ class MainActivity : AppCompatActivity() {
                 }
         }
         binding.bottomNavigationView.setupWithNavController(navController)
+    }
+
+    private fun showAlertDialogWithAction() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+            val dialog = AlertDialog.Builder(this)
+            dialog.setMessage("Anda harus login terlebih dahulu")
+            dialog.setPositiveButton("Login") { dialogInterface, angka ->
+                startActivity(Intent(this, AuthActivity::class.java))
+            }
+            dialog.setNegativeButton("Batal") { dialogInterface, _ ->
+                navController.navigate(R.id.navigation_home)
+            }
+            dialog.setCancelable(false)
+            dialog.show()
     }
 }
