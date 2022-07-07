@@ -83,24 +83,3 @@ inline fun <reified T : ViewModel> Fragment.viewModelsFactory(crossinline viewMo
         }
     }
 }
-
-// Random String Generator
-fun getRandomString() : String {
-    val charset = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-    return List(8) { charset.random() }
-        .joinToString("")
-}
-
-// Convert Bitmap to Uri
-fun bitmapToUri(inContext: Context, inImage: Bitmap): Uri {
-    val bytes = ByteArrayOutputStream()
-    inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-    val path = MediaStore.Images.Media.insertImage(
-        inContext.contentResolver,
-        inImage,
-        "secondhand_${getRandomString()}",
-        null
-    )
-    Log.d("image uri", path)
-    return Uri.parse(path)
-}
