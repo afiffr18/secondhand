@@ -128,7 +128,7 @@ class Detail : Fragment() {
 
     private fun showDeleteDialog() {
         val dialog = AlertDialog.Builder(requireContext())
-        dialog.setTitle("Apakah anda yakin ingin menghapus Produk ini ?")
+        dialog.setMessage("Hapus produk ini ?")
         dialog.setCancelable(true)
         dialog.setPositiveButton("Hapus") { dialogInterface, _ ->
             sellerProductViewModel.deleteProductById(accessToken!!, getProductId()!!).observe(viewLifecycleOwner) {

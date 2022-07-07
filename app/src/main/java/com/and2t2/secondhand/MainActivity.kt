@@ -37,7 +37,8 @@ class MainActivity : AppCompatActivity() {
                     destination.id == R.id.navigation_jual ||
                     destination.id == R.id.previewProdukFragment ||
                     destination.id == R.id.detail ||
-                    destination.id == R.id.buyerFragment
+                    destination.id == R.id.buyerFragment ||
+                    destination.id == R.id.pengaturanAkunFragment
                 ) {
                     binding.bottomNavigationView.visibility = View.GONE
                 } else {
