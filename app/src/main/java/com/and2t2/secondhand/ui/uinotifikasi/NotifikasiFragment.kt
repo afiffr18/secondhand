@@ -1,6 +1,8 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -106,6 +108,9 @@ class NotifikasiFragment : Fragment() {
                     "Error Occured"
                 }
             }
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.pbLoading.isVisible = false
+            },1000)
         }
     }
 
