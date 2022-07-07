@@ -120,7 +120,7 @@
                 android:layout_margin="16dp"
                 android:background="#d3d3d3"
                 android:src="@drawable/ic_baseline_person_24"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize12"
+                android:theme="@style/ShapeAppearanceOverlay.App.CornerSize12"
                 android:elevation="0dp"
                 android:scaleType="centerCrop" />
 
