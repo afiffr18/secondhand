@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.databinding.FragmentDaftarJualBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -61,7 +60,7 @@ class DaftarJualFragment : Fragment() {
         val tabLayout = binding.tlDaftarjual
         val viewPager2 = binding.viewPager2
 
-        val listFragment = mutableListOf<Fragment>(
+        val listFragment = mutableListOf(
             Produk(),
             Diminati(),
             Terjual()

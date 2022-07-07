@@ -1,5 +1,7 @@
 package com.and2t2.secondhand.domain.repository
 
+import android.os.Handler
+import android.os.Looper
 import androidx.room.withTransaction
 import com.and2t2.secondhand.common.networkBoundResource
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -24,26 +26,26 @@ class SellerRepo(
 ) {
     private val sellerDao = mDb.sellerDao()
 
-//    suspend fun getProduct(accessToken: String): List<SellerProduct> {
-//        val result = sellerService.getSellerProduct(accessToken)
-//        return mapper.toDomainList(result)
-//    }
-//
-//
-//    fun getAllProduct(accessToken: String) = networkBoundResource(
-//        query = { sellerDao.getProductDetail() },
-//        fetch = { getProduct(accessToken) },
-//        saveFetchResult = { sellerProduct ->
-//            mDb.withTransaction {
-//                sellerDao.deleteProductDetail()
-//                sellerDao.insertProductDetail(sellerProduct)
-//            }
-//        }
-//    )
-
-    suspend fun getSellerProduct(accessToken: String) : Response<SellerProductDto> {
-        return sellerService.getSellerProduct(accessToken)
+    suspend fun getProduct(accessToken: String): List<SellerProduct> {
+        val result = sellerService.getSellerProduct(accessToken)
+        return mapper.toDomainList(result)
     }
+
+
+    fun getAllProduct(accessToken: String) = networkBoundResource(
+        query = { sellerDao.getProductDetail() },
+        fetch = {
+            Handler(Looper.getMainLooper()).postDelayed({}, 2000)
+            getProduct(accessToken)
+
+                },
+        saveFetchResult = { sellerProduct ->
+            mDb.withTransaction {
+                sellerDao.deleteProductDetail()
+                sellerDao.insertProductDetail(sellerProduct)
+            }
+        }
+    )
 
     suspend fun getSellerProductById(accessToken: String, productId: Int) : Response<SellerProductDtoItem> {
         return sellerService.getSellerProductById(accessToken, productId)
