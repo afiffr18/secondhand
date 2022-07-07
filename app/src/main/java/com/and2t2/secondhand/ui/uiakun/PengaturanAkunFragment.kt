@@ -67,6 +67,16 @@ class PengaturanAkunFragment : Fragment() {
                         when (it.status) {
                             Status.SUCCESS -> {
                                 hideLoading()
+                                binding.apply {
+                                    // Clear Text
+                                    editPassword.editText?.text?.clear()
+                                    editPassBaru.editText?.text?.clear()
+                                    editPassBaruConfirm.editText?.text?.clear()
+                                    // Clear Focus
+                                    editPassword.editText?.clearFocus()
+                                    editPassBaru.editText?.clearFocus()
+                                    editPassBaruConfirm.editText?.clearFocus()
+                                }
                                 showSnackbar(requireContext(), requireView(), it.data?.message!!, R.color.success)
                             }
                             Status.ERROR -> {
