@@ -51,7 +51,7 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
 
 
     inner class InfoPenawarViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        private val gambar = view.findViewById<ImageView>(R.id.iv_picture)
+        private val gambar = view.findViewById<ShapeableImageView>(R.id.iv_picture)
         private val hargaBarang = view.findViewById<MaterialTextView>(R.id.tv_product_price)
         private val hargaTawar = view.findViewById<MaterialTextView>(R.id.tv_product_bid)
         private val namaBarang = view.findViewById<MaterialTextView>(R.id.tv_product_name)

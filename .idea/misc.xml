@@ -22,6 +22,7 @@
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_preview_produk.xml" value="0.16547066272688898" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_profile.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_register.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_daftarjual_produk.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_home_category.xml" value="0.5" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_home_category_semua.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_home_list_product.xml" value="0.1675929884566054" />
@@ -30,7 +31,7 @@
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/loading_dialog.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/notifikasi_card.xml" value="0.5" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/seller_28.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/seller_30.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/seller_30.xml" value="0.25" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1675929884566054" />
       </map>
     </option>

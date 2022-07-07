@@ -7,5 +7,8 @@ data class SellerOrder(
     val basePrice : String?=null,
     val imageProduct : String?=null,
     val status : String?=null,
-    val date : String?=null
+    val date : String?=null,
+    val phoneNumber : String?=null,
+    val buyerName : String?=null,
+    val buyerLocation : String?=null
 )

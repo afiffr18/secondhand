@@ -114,7 +114,7 @@ interface SellerService {
 
 
     @GET("seller/order/{id}")
-    fun getSellerOrderById(
+    suspend fun getSellerOrderById(
         @Header("access_token") token : String,
         @Path("id") id : Int
     ) : SellerOrderDtoItem

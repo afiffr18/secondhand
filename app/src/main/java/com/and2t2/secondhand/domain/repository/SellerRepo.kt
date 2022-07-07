@@ -94,6 +94,11 @@ class SellerRepo(
         return mapperOrder.toDomainList(result)
     }
 
+    suspend fun getSelletOrderById(accessToken: String,id: Int) : SellerOrder{
+        val result = sellerService.getSellerOrderById(accessToken,id)
+        return mapperOrder.mapToDomainModel(result)
+    }
+
     suspend fun updateSelerOrderStatus(accessToken: String,id : Int,status: String?) : SellerOrderStatusDto{
         return sellerService.updateSellerOrderStatus(accessToken,id, status)
     }

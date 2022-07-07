@@ -1,32 +1,32 @@
 package com.and2t2.secondhand.ui.uiseller.uiinfopenawar
 
-import android.graphics.Paint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioButton
 import android.widget.Toast
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.showSnackbar
+import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentInfoPenawarBinding
+import com.and2t2.secondhand.databinding.Seller30Binding
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.model.SellerOrderMapper
 import com.and2t2.secondhand.domain.model.SellerProductMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.SellerRepo
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
+
 
 class InfoPenawarFragment : Fragment() {
     private var _binding : FragmentInfoPenawarBinding? = null
@@ -78,7 +78,7 @@ class InfoPenawarFragment : Fragment() {
         if(status == "terima"){
             Toast.makeText(requireContext(),status,Toast.LENGTH_SHORT).show()
 //            infoPenawarViewModel.updateSellerOrderStatus(access_token,id,"accepted")
-            openStatusBottomDialog()
+            openStatusBottomDialog(access_token, id)
         }else if(status=="tolak"){
             Toast.makeText(requireContext(),status,Toast.LENGTH_SHORT).show()
             infoPenawarViewModel.updateSellerOrderStatus(access_token,id,"declined")
@@ -86,13 +86,39 @@ class InfoPenawarFragment : Fragment() {
 
     }
 
-    private fun openStatusBottomDialog(){
+    private fun openStatusBottomDialog(access_token: String,id : Int){
         //menampilkan dialog
         val dialog = BottomSheetDialog(requireContext())
-        val view = layoutInflater.inflate(R.layout.seller_30, null)
+        val binding = Seller30Binding.inflate(LayoutInflater.from(requireContext()))
 
-        dialog.setContentView(view)
+        dialog.setContentView(binding.root)
         dialog.show()
+
+        infoPenawarViewModel.getSellerOrderById(access_token,id).observe(viewLifecycleOwner){
+           when(it.status){
+               Status.LOADING ->{
+
+               }
+               Status.SUCCESS ->{
+                   it.data?.let{ data ->
+                       Glide.with(requireContext()).load(data.imageProduct).into(binding.ivProductImage)
+                       binding.tvProductName.text = data.namaBarang
+                       binding.tvProductPrice.text = data.basePrice?.toInt()?.toRp()
+                       binding.tvProductBid.text = data.price?.toRp()
+                       binding.tvName.text = data.buyerName
+                       binding.tvCity.text = data.buyerLocation
+                       binding.btnContact.setOnClickListener {
+                           data.phoneNumber?.let { it1 -> openWhatsapp(it1) }
+                       }
+                   }
+               }
+               Status.ERROR -> {
+
+               }
+           }
+        }
+
+
     }
 
     private fun getAccessToken(){
@@ -115,6 +141,20 @@ class InfoPenawarFragment : Fragment() {
                     Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun openWhatsapp(smsNumber : String){
+        try {
+            val sendIntent = Intent("android.intent.action.MAIN")
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.type = "text/plain"
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hello,thanks for ordering my product")
+            sendIntent.putExtra("", "$smsNumber@s.whatsapp.net")
+            sendIntent.setPackage("com.whatsapp")
+            startActivity(sendIntent)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error\n$e", Toast.LENGTH_SHORT).show()
         }
     }
 

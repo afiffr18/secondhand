@@ -12,7 +12,11 @@ class SellerOrderMapper : DomainMapper<SellerOrderDtoItem,SellerOrder> {
             basePrice = modelDto.basePrice,
             imageProduct = modelDto.product.imageUrl,
             status = modelDto.status,
-            date = modelDto.createdAt
+            date = modelDto.createdAt,
+            phoneNumber = modelDto.user.phoneNumber,
+            buyerName = modelDto.user.fullName,
+            buyerLocation = modelDto.user.city
+
         )
     }
 
