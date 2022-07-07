@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_navigation_akun_to_profile"
             app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_navigation_akun_to_pengaturanAkunFragment"
+            app:destination="@id/pengaturanAkunFragment" />
     </fragment>
 
     <fragment
@@ -94,5 +97,14 @@
         <action
             android:id="@+id/action_detail_to_navigation_jual"
             app:destination="@id/navigation_jual" />
+    </fragment>
+    <fragment
+        android:id="@+id/pengaturanAkunFragment"
+        android:name="com.and2t2.secondhand.ui.uiakun.PengaturanAkunFragment"
+        android:label="fragment_pengaturan_akun"
+        tools:layout="@layout/fragment_pengaturan_akun" >
+        <action
+            android:id="@+id/action_pengaturanAkunFragment_to_navigation_akun"
+            app:destination="@id/navigation_akun" />
     </fragment>
 </navigation>

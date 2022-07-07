@@ -18,6 +18,7 @@ class DatastoreManager(private val context: Context) {
         private val SNACKBAR_KEY = stringPreferencesKey("snackbar_key")
         private val IDUSER_KEY = intPreferencesKey("iduser_key")
         private val TRIGGERUPDATEPRODUCT_KEY = booleanPreferencesKey("triggerupdateproduct_key")
+        private val PROFILECOMPLETE = booleanPreferencesKey("triggerupdateproduct_key")
         private val Context.dataStore by preferencesDataStore(name = DATA_STORE_NAME)
     }
 
@@ -80,6 +81,19 @@ class DatastoreManager(private val context: Context) {
             pref[TRIGGERUPDATEPRODUCT_KEY] ?: false
         }
     }
+
+    suspend fun saveProfileComplete(value: Boolean) {
+        context.dataStore.edit { pref ->
+            pref[PROFILECOMPLETE] = value
+        }
+    }
+
+    fun getProfileComplete(): Flow<Boolean> {
+        return context.dataStore.data.map { pref ->
+            pref[PROFILECOMPLETE] ?: false
+        }
+    }
+
 
     suspend fun removeFromDataStore() {
         context.dataStore.edit { pref ->

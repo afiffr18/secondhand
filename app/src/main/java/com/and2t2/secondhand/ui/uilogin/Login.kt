@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.MainActivity
@@ -50,6 +51,14 @@ class Login : Fragment() {
         doLogin()
         moveToRegisterViaClickableText()
         getMsgSnackbar()
+        backButtonOnPressed()
+    }
+
+    private fun backButtonOnPressed() {
+        binding.backBtnMasuk.setOnClickListener {
+            startActivity(Intent(requireContext(), MainActivity::class.java))
+            requireActivity().finish()
+        }
     }
 
     private fun doLogin() {

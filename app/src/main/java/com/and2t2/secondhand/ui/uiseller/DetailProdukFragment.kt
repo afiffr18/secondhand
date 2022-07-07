@@ -278,7 +278,7 @@ class DetailProdukFragment : Fragment() {
                     editImage.setText(R.string.app_name)
                 }
                 // Mendapatkan path
-                val imgPath = bitmap.let { bitmap1 -> bitmapToUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
+                val imgPath = fileUtil.getPath(requireContext(), fileUtil.bitmapToUri(requireContext(), bitmap))
                 // Simpan ke variable global
                 uri = Uri.parse(imgPath)
             }
@@ -412,7 +412,7 @@ class DetailProdukFragment : Fragment() {
                                             transition: Transition<in Bitmap>?
                                         ) {
                                             ivPicture.setImageBitmap(resource)
-                                            val imgPath = resource.let { bitmap1 -> bitmapToUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
+                                            val imgPath = fileUtil.getPath(requireContext(), fileUtil.bitmapToUri(requireContext(), resource))
                                             uri = Uri.parse(imgPath)
                                         }
                                         override fun onLoadCleared(placeholder: Drawable?) {}

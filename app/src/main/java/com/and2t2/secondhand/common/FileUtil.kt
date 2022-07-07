@@ -2,9 +2,12 @@ package com.and2t2.secondhand.common
 
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.util.Log
+import java.io.ByteArrayOutputStream
 
 class FileUtil {
     fun getPath(context: Context, uri: Uri): String? {
@@ -51,5 +54,25 @@ class FileUtil {
 
     private fun isMediaDocument(uri: Uri): Boolean {
         return "com.android.providers.media.documents" == uri.authority
+    }
+
+    // Convert Bitmap to Uri
+    fun bitmapToUri(inContext: Context, inImage: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            inContext.contentResolver,
+            inImage,
+            "secondhand_${getRandomString()}",
+            null
+        )
+        Log.d("image uri", path)
+        return Uri.parse(path)
+    }
+
+    // Random String Generator
+    fun getRandomString() : String {
+        val charset = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        return List(8) { charset.random() }.joinToString("")
     }
 }

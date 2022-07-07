@@ -55,6 +55,16 @@ class DatastoreViewModel(private val pref: DatastoreManager): ViewModel() {
         return pref.readTriggerUpdateProducteFromDataStore().asLiveData()
     }
 
+    fun saveIsUserProfileComplete(value: Boolean) {
+        viewModelScope.launch {
+            pref.saveProfileComplete(value)
+        }
+    }
+
+    fun getIsUserProfileComplete() : LiveData<Boolean> {
+        return pref.getProfileComplete().asLiveData()
+    }
+
     fun deleteAllData() {
         viewModelScope.launch {
             pref.removeFromDataStore()

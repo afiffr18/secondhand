@@ -6,7 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class DaftarJualAdapter(
-    private val fragments: List<Fragment>,
+    private val fragments: MutableList<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
 ): FragmentStateAdapter(fragmentManager, lifecycle) {

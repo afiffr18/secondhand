@@ -65,7 +65,7 @@ interface SellerService {
     @GET("seller/product")
     suspend fun getSellerProduct(
         @Header("access_token") token :String
-    ) : Response<SellerProductDto>
+    ) : SellerProductDto
 
     @GET("seller/product/{id}")
     suspend fun getSellerProductById(
