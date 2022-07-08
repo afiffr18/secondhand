@@ -4,6 +4,8 @@ package com.and2t2.secondhand.data.remote.dto.notification
 import com.google.gson.annotations.SerializedName
 
 data class NotificationDtoItem(
+    @SerializedName("base_price")
+    val basePrice: String,
     @SerializedName("bid_price")
     val bidPrice: Int,
     @SerializedName("buyer_name")
@@ -19,7 +21,7 @@ data class NotificationDtoItem(
     @SerializedName("product_id")
     val productId: Int,
     @SerializedName("product_name")
-    val productName: Any,
+    val productName: String,
     @SerializedName("read")
     val read: Boolean,
     @SerializedName("receiver_id")
@@ -31,5 +33,7 @@ data class NotificationDtoItem(
     @SerializedName("transaction_date")
     val transactionDate: String,
     @SerializedName("updatedAt")
-    val updatedAt: String
+    val updatedAt: String,
+    @SerializedName("User")
+    val user: User
 )
