@@ -28,7 +28,6 @@
                 android:id="@+id/iv_product_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:padding="50dp"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/todo" />
 
@@ -49,19 +48,6 @@
             app:layout_constraintStart_toEndOf="@+id/materialCardView"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_tanggal_diminati"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/poppins_regular"
-            android:maxLines="2"
-            android:text="@tools:sample/lorem"
-            android:textColor="@color/neutral03"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/tv_waktu_diminati"
-            app:layout_constraintStart_toEndOf="@+id/tv_penawaran_produk"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_waktu_diminati"
@@ -69,12 +55,10 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
-            android:maxLines="2"
-            android:text="@tools:sample/lorem"
             android:textColor="@color/neutral03"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_tanggal_diminati"
+            app:layout_constraintStart_toEndOf="@+id/tv_penawaran_produk"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -85,7 +69,6 @@
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
             android:maxLines="2"
-            android:text="@tools:sample/lorem"
             android:textColor="@color/neutral05"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/materialCardView"
@@ -99,7 +82,6 @@
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
             android:maxLines="2"
-            android:text="@tools:sample/lorem"
             android:textColor="@color/neutral05"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/materialCardView"
@@ -113,7 +95,6 @@
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
             android:maxLines="2"
-            android:text="@tools:sample/lorem"
             android:textColor="@color/neutral05"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/materialCardView"

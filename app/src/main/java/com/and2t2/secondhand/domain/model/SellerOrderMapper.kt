@@ -1,6 +1,7 @@
 package com.and2t2.secondhand.domain.model
 
 import com.and2t2.secondhand.common.DomainMapper
+import com.and2t2.secondhand.common.toFormatDate
 import com.and2t2.secondhand.data.remote.dto.seller.SellerOrderDtoItem
 import com.and2t2.secondhand.data.remote.dto.seller.SellerProductDtoItem
 
@@ -15,11 +16,11 @@ class SellerOrderMapper: DomainMapper<SellerOrderDtoItem, SellerOrder> {
             basePrice = modelDto.product.basePrice,
             imageProduct = modelDto.product.imageUrl,
             status = modelDto.status,
-            updatedAt = modelDto.updatedAt,
+            updatedAt = modelDto.updatedAt.toFormatDate(),
             createdAt = modelDto.createdAt,
             Product = modelDto.product.name,
-            transactionDate = modelDto.transactionDate,
-            User = modelDto.user
+            transactionDate = modelDto.transactionDate
+//            User = modelDto.user
         )
     }
 

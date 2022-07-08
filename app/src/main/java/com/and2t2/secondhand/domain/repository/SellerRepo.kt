@@ -33,14 +33,14 @@ class SellerRepo(
         }
     )
 
-    suspend fun getOrder(accessToken: String, status: String): List<SellerOrder> {
-        val result = sellerService.getSellerOrder(accessToken,status)
+    suspend fun getOrder(accessToken: String): List<SellerOrder> {
+        val result = sellerService.getSellerOrder(accessToken)
         return orderMapper.toDomainList(result)
     }
 
-    fun getAllOrder(accessToken: String, status: String) = networkBoundResource(
+    fun getAllOrder(accessToken: String) = networkBoundResource(
         query = { sellerDao.getOrderDetail() },
-        fetch = { getOrder(accessToken, status) },
+        fetch = { getOrder(accessToken) },
         saveFetchResult = { sellerOrder ->
             mDb.withTransaction {
                 sellerDao.deleteOrderDetail()

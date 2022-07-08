@@ -74,7 +74,7 @@ class Diminati : Fragment() {
     }
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-            sellerProductViewModel.getAllOrder(token,"pending").observe(viewLifecycleOwner) {
+            sellerProductViewModel.getAllOrder(token).observe(viewLifecycleOwner) {
                 it.data?.let { data ->
                     diminatiAdapter.updateDataRecycler(data)
                 }

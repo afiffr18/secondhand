@@ -109,7 +109,7 @@ interface SellerService {
     @GET("seller/order")
     suspend fun getSellerOrder(
         @Header("access_token") token : String,
-        @Query("status") status: String?
+//        @Query("status") status: String?
     ) : SellerOrderDto
 
     // need review
