@@ -3,13 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/drawable/placeholder_image.xml" value="0.188" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/activity_main.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/fragment_register.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/item_daftarjual_diminati.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/item_daftarjual_produk.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/item_daftarjual_produk_add.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/Kazakimaru/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/ic_back_button.xml" value="0.1615" />
         <entry key="..\:/Users/Kazakimaru/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_register.xml" value="0.25" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/circle_shape.xml" value="0.1275" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_buyer.xml" value="0.16547066272688898" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_notifikasi.xml" value="0.25" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_home_list_product.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/notifikasi_card.xml" value="0.5" />
       </map>
     </option>
   </component>

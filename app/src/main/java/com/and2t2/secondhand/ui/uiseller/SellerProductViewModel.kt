@@ -128,4 +128,6 @@ class SellerProductViewModel(private val sellerRepo: SellerRepo): ViewModel() {
             emit(Resource.error(null, "Something went wrong"))
         }
     }
+
+    fun getAllOrder(accessToken: String) = sellerRepo.getAllOrder(accessToken).asLiveData()
 }

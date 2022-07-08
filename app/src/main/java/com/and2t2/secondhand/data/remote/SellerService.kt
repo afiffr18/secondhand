@@ -107,8 +107,9 @@ interface SellerService {
     /** Seller Order **//** Status : Delayed for @PATCH(seller/order/{id}) and @GET(seller/order/product/{product_id})**/
 
     @GET("seller/order")
-    fun getSellerOrder(
-        @Header("access_token") token : String
+    suspend fun getSellerOrder(
+        @Header("access_token") token : String,
+//        @Query("status") status: String?
     ) : SellerOrderDto
 
     // need review
