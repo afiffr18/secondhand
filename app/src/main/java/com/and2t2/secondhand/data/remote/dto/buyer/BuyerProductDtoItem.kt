@@ -26,6 +26,8 @@ data class BuyerProductDtoItem(
     val status: String,
     @SerializedName("updatedAt")
     val updatedAt: String,
+    @SerializedName("User")
+    val user: User,
     @SerializedName("user_id")
     val userId: Int
 )

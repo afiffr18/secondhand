@@ -54,6 +54,7 @@ object ApiClient {
         retrofit.create(BuyerService::class.java)
     }
 
+    // create instance ApiService
     val INSTANCE_AUTH : AuthService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

@@ -194,7 +194,7 @@ class Profile : Fragment() {
                     setImageBitmap(bitmap)
                 }
                 // Mendapatkan path
-                val imgPath = bitmap.let { bitmap1 -> bitmapToUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
+                val imgPath = fileUtil.getPath(requireContext(), fileUtil.bitmapToUri(requireContext(), bitmap))
                 // Simpan ke variable global
                 uri = Uri.parse(imgPath)
             }
@@ -226,22 +226,67 @@ class Profile : Fragment() {
         val address = etAlamat.toRequestBody("address".toMediaTypeOrNull())
         val city = etKota.toRequestBody("city".toMediaTypeOrNull())
 
-        profileViewModel.doUpdateUser(accessToken!!, fullName, phoneNumber, address, city, image).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    hideLoading()
-                    showSnackbar(requireContext(), requireView(), "Berhasil Perbarui Akun", R.color.success)
-                    observeDataFromNetwork()
-                }
-                Status.ERROR -> {
-                    hideLoading()
-                    showSnackbar(requireContext(), requireView(), "Gagal Perbarui Akun", R.color.danger)
-                }
-                Status.LOADING -> {
-                    // Munculkan LoadingDialog
-                    showLoading(requireActivity())
+        if (validateData(etNamaLengkap, etKota, etAlamat, etNoHP)) {
+            profileViewModel.doUpdateUser(
+                accessToken!!,
+                fullName,
+                phoneNumber,
+                address,
+                city,
+                image
+            ).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        hideLoading()
+                        showSnackbar(
+                            requireContext(),
+                            requireView(),
+                            "Berhasil Perbarui Akun",
+                            R.color.success
+                        )
+                        observeDataFromNetwork()
+                    }
+                    Status.ERROR -> {
+                        hideLoading()
+                        showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
+                    }
+                    Status.LOADING -> {
+                        // Munculkan LoadingDialog
+                        showLoading(requireActivity())
+                    }
                 }
             }
+        }
+    }
+
+    private fun validateData(
+        nama: String,
+        kota: String,
+        alamat: String,
+        noHp: String
+    ): Boolean {
+        return when {
+            nama.isEmpty() -> {
+                binding.etNama.error = "Nama tidak boleh kosong"
+                binding.etNama.requestFocus()
+                false
+            }
+            kota.isEmpty() -> {
+                binding.etlKota.error = "Kota tidak boleh kosong"
+                binding.etlKota.requestFocus()
+                false
+            }
+            alamat.isEmpty() -> {
+                binding.etAlamat.error = "Alamat tidak boleh kosong"
+                binding.etAlamat.requestFocus()
+                false
+            }
+            noHp.isEmpty() -> {
+                binding.etNohp.error = "Nomor Hp tidak boleh kosong"
+                binding.etNohp.requestFocus()
+                false
+            }
+            else -> true
         }
     }
 
@@ -249,7 +294,7 @@ class Profile : Fragment() {
         val file = File(fileUri.path)
         Log.i("PATH IMAGE", file.absolutePath)
         // Create RequestBody instance from file
-        val requestFile: RequestBody = file.asRequestBody("image".toMediaTypeOrNull())
+        val requestFile: RequestBody = file.asRequestBody("image/jpg".toMediaTypeOrNull())
 
         // MultipartBody.Part is used to send also the actual file name
         return MultipartBody.Part.createFormData("image", file.name, requestFile)
@@ -269,24 +314,9 @@ class Profile : Fragment() {
                         }
 
                         etNama.setText(data.fullName)
-
-                        if (data.city == "Ex. Jakarta") {
-                            etlKota.editText?.text?.clear()
-                        } else {
-                            etlKota.editText?.setText(data.city)
-                        }
-
-                        if (data.address == "Ex. Jl. Raya Kebayoran Lama No. 39") {
-                            etAlamat.text?.clear()
-                        } else {
-                            etAlamat.setText(data.address)
-                        }
-
-                        if (data.phoneNumber == "Ex. 082132xxx") {
-                            etNohp.text?.clear()
-                        } else {
-                            etNohp.setText(data.phoneNumber)
-                        }
+                        etlKota.editText?.setText(data.city)
+                        etAlamat.setText(data.address)
+                        etNohp.setText(data.phoneNumber)
                     }
                 }
             }

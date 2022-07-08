@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.uiseller.PreviewProdukFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@android:color/transparent"
+        android:elevation="30dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_produk"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="centerCrop"
+        android:background="@color/neutral02"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+
+    <ImageView
+        android:id="@+id/iv_back_button"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/white"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@drawable/circle_shape"
+        android:layout_margin="16dp"
+        app:tint="@color/black" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_barang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-36dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_produk">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_nama_barang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Nama Produk"
+                android:textColor="@color/neutral05"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_kategori"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Kategori"
+                android:textColor="@color/neutral03"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_harga_barang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rp.250.000"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/neutral05" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_penjual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:focusable="true"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_barang">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_img_profile"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:elevation="0dp"
+                android:backgroundTint="@color/darkblue02"
+                app:cardCornerRadius="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_penjual"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_nama_penjual"
+                android:text="Nama Penjual"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/neutral05"
+                android:layout_marginStart="16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                app:layout_constraintStart_toEndOf="@id/card_img_profile"
+                app:layout_constraintTop_toTopOf="@id/card_img_profile"
+                app:layout_constraintBottom_toTopOf="@id/tv_lokasi"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_lokasi"
+                android:text="Kota"
+                android:textSize="11sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/neutral03"
+                android:layout_marginStart="16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                app:layout_constraintStart_toEndOf="@id/card_img_profile"
+                app:layout_constraintBottom_toBottomOf="@id/card_img_profile"
+                app:layout_constraintTop_toBottomOf="@id/tv_nama_penjual"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_deskripsi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:focusable="true"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_penjual">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_judul_deskripsi"
+                android:text="Deskripsi"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/neutral05"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_deskripsi"
+                android:text="deskripsi"
+                android:textSize="11sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/neutral03"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_terbitkan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp"
+        android:backgroundTint="@color/darkblue04"
+        android:text="Terbitkan"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="14sp"
+        android:textColor="@color/neutral01"
+        android:textAllCaps="false"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

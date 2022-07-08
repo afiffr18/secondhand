@@ -6,6 +6,8 @@ import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.AuthService
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginDtoItem
+import com.and2t2.secondhand.data.remote.dto.auth.AuthUserDtoItem
+import com.and2t2.secondhand.data.remote.dto.auth.AuthUserError
 import com.and2t2.secondhand.domain.model.AuthUser
 import com.and2t2.secondhand.domain.model.AuthUserMapper
 import okhttp3.MultipartBody
@@ -24,10 +26,13 @@ class AuthRepo(
     suspend fun postRegister(fullName: RequestBody,
                              email: RequestBody,
                              password: RequestBody,
-                             phoneNumber: RequestBody,
-                             address: RequestBody,
-                             city: RequestBody
-    ) = authService.postRegister(fullName, email, password, phoneNumber, address, city, null)
+                             phoneNumber: RequestBody?,
+                             address: RequestBody?,
+                             city: RequestBody?,
+                             image: MultipartBody.Part?
+    ) : Response<AuthUserDtoItem> {
+        return authService.postRegister(fullName, email, password, phoneNumber, address, city, image)
+    }
 
     suspend fun getUserByToken(access_token: String) : AuthUser {
         val result = authService.getUser(access_token)
@@ -50,10 +55,20 @@ class AuthRepo(
     )
 
     suspend fun updateUser(access_token: String,
-                           fullName: RequestBody,
-                           phoneNumber: RequestBody,
-                           address: RequestBody,
-                           city: RequestBody,
+                           fullName: RequestBody?,
+                           phoneNumber: RequestBody?,
+                           address: RequestBody?,
+                           city: RequestBody?,
                            image: MultipartBody.Part?
-    ) = authService.updateUser(access_token, fullName, phoneNumber, address, city, image)
+    ) : Response<AuthUserDtoItem> {
+        return authService.updateUser(access_token, fullName, phoneNumber, address, city, image)
+    }
+
+    suspend fun changePasswordUser(accessToken: String,
+                                   oldPass: RequestBody,
+                                   newPass: RequestBody,
+                                   newPassConfirm: RequestBody
+    ) : Response<AuthUserError> {
+        return authService.changePassword(accessToken, oldPass, newPass, newPassConfirm)
+    }
 }

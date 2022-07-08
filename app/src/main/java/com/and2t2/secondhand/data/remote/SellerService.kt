@@ -3,6 +3,7 @@ package com.and2t2.secondhand.data.remote
 import com.and2t2.secondhand.data.remote.dto.seller.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -40,7 +41,7 @@ interface SellerService {
     /** seller category **/
 
     @GET("seller/category")
-    fun getSellerCategory() : SellerCategoryDto
+    suspend fun getSellerCategory() : SellerCategoryDto
 
     @GET("seller/category/{id}")
     fun getSellerCategoryId(
@@ -67,14 +68,14 @@ interface SellerService {
     ) : SellerProductDto
 
     @GET("seller/product/{id}")
-    fun getSellerProductById(
+    suspend fun getSellerProductById(
         @Header("access_token") token : String,
         @Path("id") id : Int
-    ) : SellerCategoryDtoItem
+    ) : Response<SellerProductDtoItem>
 
     @Multipart
     @POST("seller/product")
-    fun setSellerProduct(
+    suspend fun setSellerProduct(
         @Header("access_token") token : String,
         @Part("name") name: RequestBody,
         @Part("description") description : RequestBody,
@@ -82,12 +83,11 @@ interface SellerService {
         @Part("category_ids") categoryId : RequestBody,
         @Part("location") location : RequestBody,
         @Part image : MultipartBody.Part?
-
-    ) : SellerProductDtoPutPost
+    ) : Response<SellerProductDtoPutPost>
 
     @Multipart
     @PUT("seller/product/{id}")
-    fun updateSellerProduct(
+    suspend fun updateSellerProduct(
         @Header("access_token") token : String,
         @Path("id") id : Int,
         @Part("name") name: RequestBody?,
@@ -96,13 +96,13 @@ interface SellerService {
         @Part("category_ids") categoryId : RequestBody?,
         @Part("location") location : RequestBody?,
         @Part image : MultipartBody.Part?
-    ) : SellerProductDtoPutPost
+    ) : Response<SellerProductDtoPutPost>
 
     @DELETE("seller/product/{id}")
-    fun deleteSellerProduct(
+    suspend fun deleteSellerProduct(
         @Header("access_token") token : String,
         @Path("id") id : Int
-    ) : SellerProductDtoDelete
+    ) : Response<SellerProductDtoDelete>
 
     /** Seller Order **//** Status : Delayed for @PATCH(seller/order/{id}) and @GET(seller/order/product/{product_id})**/
 

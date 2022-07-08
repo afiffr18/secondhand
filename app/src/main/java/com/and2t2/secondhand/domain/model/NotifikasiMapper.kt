@@ -15,7 +15,9 @@ class NotifikasiMapper : DomainMapper<NotificationDtoItem,Notifikasi> {
             transactionDate = modelDto.transactionDate,
             updatedAt = modelDto.updatedAt.toFormatDate(),
             read = modelDto.read,
-            imageUrl = modelDto.imageUrl
+            imageUrl = modelDto.imageUrl,
+            basePrice = modelDto.product.basePrice,
+            namaBarang = modelDto.product.name
 
         )
     }

@@ -1,60 +1,147 @@
 package com.and2t2.secondhand.ui.uihome
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.hideKeyboard
+import com.and2t2.secondhand.common.onDone
+import com.and2t2.secondhand.common.viewModelsFactory
+import com.and2t2.secondhand.data.local.DatabaseSecondHand
+import com.and2t2.secondhand.data.remote.ApiClient
+import com.and2t2.secondhand.databinding.FragmentHomeBinding
+import com.and2t2.secondhand.domain.model.BuyerProductMapper
+import com.and2t2.secondhand.domain.model.SellerCategoryMapper
+import com.and2t2.secondhand.domain.repository.HomeRepo
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Home.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Home : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding : FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var kategoriAdapter: KategoriAdapter
+    private lateinit var productAdapter: ProductAdapter
+
+
+    private val homeRepo : HomeRepo by lazy { HomeRepo(ApiClient.instanceSeller,ApiClient.instanceBuyer,
+    BuyerProductMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!
+    ) }
+    private val viewModel : HomeViewModel by viewModelsFactory { HomeViewModel(homeRepo) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Home.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Home().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initKategoriRecycler()
+        getKategori()
+        initProduct()
+        getDataProduct()
+        getDataBySearch()
+        onTopofListClicked()
+    }
+
+
+    private fun initKategoriRecycler(){
+        val linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+
+        kategoriAdapter = KategoriAdapter(){ id ->
+            if (id == 0){
+                getDataProduct()
+
+            }else{
+                getDataByKategori(id)
+            }
+        }
+        binding.rvListCategoryHomeProduct.apply {
+            adapter = kategoriAdapter
+            layoutManager = linearLayoutManager
+        }
+
+    }
+    private fun getKategori(){
+        viewModel.getKategori().observe(viewLifecycleOwner){
+            it.data?.let{ data->
+                kategoriAdapter.updateDataKategori(data)
+            }
+        }
+    }
+
+
+    private fun initProduct(){
+        productAdapter = ProductAdapter {
+            val bundle = Bundle()
+            bundle.putInt("product_key",it)
+            findNavController().navigate(R.id.action_navigation_home_to_buyerFragment,bundle)
+        }
+        binding.rvListProductHomeProduct.apply {
+            adapter = productAdapter
+            layoutManager = GridLayoutManager(requireContext(),2)
+        }
+    }
+    private fun getDataProduct(){
+        viewModel.getBuyerProduct(null,null,null).observe(viewLifecycleOwner){
+            it.data?.let { BuyerProduct ->
+                productAdapter.updateDataProduct(BuyerProduct)
+                binding.rvListProductHomeProduct.scrollToPosition(0)
+            }
+        }
+    }
+
+    private fun getDataByKategori(id : Int){
+        viewModel.getBuyerProduct(null,id,null).observe(viewLifecycleOwner){
+            it.data?.let { BuyerProduct ->
+                productAdapter.updateDataProduct(BuyerProduct)
+            }
+        }
+    }
+
+
+    private fun getDataBySearch(){
+        //from icon search klik
+        binding.ivProductSearch.setOnClickListener {
+            val search = binding.etProductSearch.editableText.toString()
+            viewModel.getBuyerProduct(null,null,search).observe(viewLifecycleOwner){
+                it.data?.let { BuyerProduct ->
+                    productAdapter.updateDataProduct(BuyerProduct)
                 }
             }
+            binding.etProductSearch.editableText.clear()
+            hideKeyboard()
+        }
+
+        binding.etProductSearch.onDone {
+            val search = binding.etProductSearch.editableText.toString()
+            viewModel.getBuyerProduct(null,null,search).observe(viewLifecycleOwner){
+                it.data?.let { BuyerProduct ->
+                    productAdapter.updateDataProduct(BuyerProduct)
+                }
+            }
+            binding.etProductSearch.editableText.clear()
+        }
     }
+
+    private fun onTopofListClicked(){
+        binding.fabToTopList.setOnClickListener {
+            binding.rvListProductHomeProduct.smoothScrollToPosition(0)
+        }
+    }
+
+
+
 }

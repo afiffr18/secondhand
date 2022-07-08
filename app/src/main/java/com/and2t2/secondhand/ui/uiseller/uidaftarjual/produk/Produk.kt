@@ -1,5 +1,6 @@
 package com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentProdukBinding
 import com.and2t2.secondhand.domain.model.SellerOrderMapper
+import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.model.SellerProductMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
@@ -55,14 +58,12 @@ class Produk : Fragment() {
         produkAdapter = ProdukAdapter { id ->
             if (id == 0) {
                 // Action Button Add
-                Toast.makeText(requireContext(), "INi Button Add ID $id", Toast.LENGTH_SHORT).show()
-                Log.d("TEST", id.toString())
+                findNavController().navigate(R.id.action_navigation_daftarjual_to_navigation_jual)
             } else {
                 val bundle = Bundle()
-                bundle.putInt("productId", id)
-                // Move to Detail Product
-                Toast.makeText(requireContext(), "INi item ID $id", Toast.LENGTH_SHORT).show()
-                Log.d("TEST", id.toString())
+                bundle.putInt("sellerProductId", id)
+                // Move to Detail
+                findNavController().navigate(R.id.action_navigation_daftarjual_to_detail, bundle)
             }
         }
         binding.apply {
@@ -71,6 +72,7 @@ class Produk : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllProduct(token).observe(viewLifecycleOwner) {
@@ -81,6 +83,7 @@ class Produk : Fragment() {
                         btn?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
                     }
                     produkAdapter.updateDataRecycler(data)
+                    produkAdapter.notifyDataSetChanged()
                 }
             }
         }

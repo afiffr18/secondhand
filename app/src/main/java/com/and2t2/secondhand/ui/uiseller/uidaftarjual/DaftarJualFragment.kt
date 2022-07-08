@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.databinding.FragmentDaftarJualBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -13,6 +12,7 @@ import com.and2t2.secondhand.ui.uiseller.uidaftarjual.diminati.Diminati
 import com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk.Produk
 import com.and2t2.secondhand.ui.uiseller.uidaftarjual.terjual.Terjual
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.showSnackbar
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.domain.model.AuthUserMapper
@@ -53,13 +53,14 @@ class DaftarJualFragment : Fragment() {
         setTabAndViewPager()
         observeData()
         moveToEditProfile()
+        getMsgSnackbar()
     }
 
     private fun setTabAndViewPager() {
         val tabLayout = binding.tlDaftarjual
         val viewPager2 = binding.viewPager2
 
-        val listFragment = mutableListOf<Fragment>(
+        val listFragment = mutableListOf(
             Produk(),
             Diminati(),
             Terjual()
@@ -100,12 +101,7 @@ class DaftarJualFragment : Fragment() {
                         }
 
                         tvNamaPenjual.text = data.fullName
-
-                        if (data.city == "Ex. Jakarta") {
-                            tvCity.isGone = true
-                        } else {
-                            tvCity.text = data.city
-                        }
+                        tvCity.text = data.city
                     }
                 }
             }
@@ -116,5 +112,15 @@ class DaftarJualFragment : Fragment() {
         binding.btnEditprofile.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_daftarjual_to_profile)
         }
+    }
+
+    private fun getMsgSnackbar() {
+        datastoreViewModel.getMsgSnackbar().observe(viewLifecycleOwner) {
+            if (it != "default") {
+                showSnackbar(requireContext(), requireView(), it, R.color.success)
+            }
+        }
+        // kembalikan ke default
+        datastoreViewModel.saveMsgSnackbar("default")
     }
 }
