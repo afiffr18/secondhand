@@ -4,12 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.and2t2.secondhand.domain.model.AuthUser
-import com.and2t2.secondhand.domain.model.BuyerProduct
-import com.and2t2.secondhand.domain.model.Notifikasi
-import com.and2t2.secondhand.domain.model.SellerProduct
+import com.and2t2.secondhand.domain.model.*
 
-@Database(entities = [Notifikasi::class,BuyerProduct::class,AuthUser::class,SellerProduct::class], version = 4)
+@Database(entities = [Notifikasi::class,BuyerProduct::class,AuthUser::class,SellerProduct::class,SellerOrder::class], version = 4)
 abstract class DatabaseSecondHand : RoomDatabase() {
     abstract fun notifikasiDao(): NotifikasiDao
     abstract fun buyerDao() : BuyerDao

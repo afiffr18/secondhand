@@ -4,12 +4,15 @@ import androidx.room.withTransaction
 import com.and2t2.secondhand.common.networkBoundResource
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.SellerService
+import com.and2t2.secondhand.domain.model.SellerOrder
+import com.and2t2.secondhand.domain.model.SellerOrderMapper
 import com.and2t2.secondhand.domain.model.SellerProduct
 import com.and2t2.secondhand.domain.model.SellerProductMapper
 
 class SellerRepo(
     private val sellerService: SellerService,
     private val mapper: SellerProductMapper,
+    private val orderMapper: SellerOrderMapper,
     private val mDb: DatabaseSecondHand
 ) {
     suspend fun getProduct(accessToken: String): List<SellerProduct> {
@@ -29,4 +32,22 @@ class SellerRepo(
             }
         }
     )
+
+    suspend fun getOrder(accessToken: String, status: String): List<SellerOrder> {
+        val result = sellerService.getSellerOrder(accessToken,status)
+        return orderMapper.toDomainList(result)
+    }
+
+    fun getAllOrder(accessToken: String, status: String) = networkBoundResource(
+        query = { sellerDao.getOrderDetail() },
+        fetch = { getOrder(accessToken, status) },
+        saveFetchResult = { sellerOrder ->
+            mDb.withTransaction {
+                sellerDao.deleteOrderDetail()
+                sellerDao.insertOrderDetail(sellerOrder)
+            }
+        }
+    )
+
+
 }

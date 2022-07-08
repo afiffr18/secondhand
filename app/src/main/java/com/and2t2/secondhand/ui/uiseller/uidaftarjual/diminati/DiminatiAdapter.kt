@@ -36,7 +36,7 @@ class DiminatiAdapter(private val onClick: (id: Int) -> Unit): RecyclerView.Adap
         return when (viewType) {
             R.layout.item_daftarjual_diminati -> {
                 val binding = ItemDaftarjualDiminatiBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ProdukViewHolder(binding)
+                OrderViewHolder(binding)
             }
             else -> throw IllegalArgumentException("unknown view type $viewType")
         }
@@ -44,20 +44,14 @@ class DiminatiAdapter(private val onClick: (id: Int) -> Unit): RecyclerView.Adap
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            R.layout.item_daftarjual_diminati -> (holder as DiminatiAdapter.ProdukViewHolder).bind(differ.currentList[position - 0])
+            R.layout.item_daftarjual_diminati -> (holder as DiminatiAdapter.OrderViewHolder).bind(differ.currentList[position])
         }
     }
 
-    override fun getItemCount(): Int = differ.currentList.size + 1
+    override fun getItemCount(): Int = differ.currentList.size
 
-    override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> R.layout.item_daftarjual_produk
-            else -> R.layout.item_daftarjual_produk
-        }
-    }
 
-    inner class ProdukViewHolder(private val binding: ItemDaftarjualDiminatiBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class OrderViewHolder(private val binding: ItemDaftarjualDiminatiBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: SellerOrder) {
             binding.apply {
                 Glide.with(itemView.context)

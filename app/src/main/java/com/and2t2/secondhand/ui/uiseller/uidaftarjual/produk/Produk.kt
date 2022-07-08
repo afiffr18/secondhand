@@ -12,6 +12,7 @@ import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentProdukBinding
+import com.and2t2.secondhand.domain.model.SellerOrderMapper
 import com.and2t2.secondhand.domain.model.SellerProductMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
@@ -24,7 +25,7 @@ class Produk : Fragment() {
 
     private lateinit var produkAdapter: ProdukAdapter
 
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
+    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(),SellerOrderMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
