@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
+import com.and2t2.secondhand.common.toFormatPhone
 import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -108,7 +109,7 @@ class InfoPenawarFragment : Fragment() {
                        binding.tvName.text = data.buyerName
                        binding.tvCity.text = data.buyerLocation
                        binding.btnContact.setOnClickListener {
-                           data.phoneNumber?.let { it1 -> openWhatsapp(it1) }
+                           data.phoneNumber?.let { it1 -> openWhatsapp(it1.toFormatPhone()) }
                        }
                    }
                }
@@ -150,7 +151,7 @@ class InfoPenawarFragment : Fragment() {
             sendIntent.action = Intent.ACTION_SEND
             sendIntent.type = "text/plain"
             sendIntent.putExtra(Intent.EXTRA_TEXT, "Hello,thanks for ordering my product")
-            sendIntent.putExtra("", "$smsNumber@s.whatsapp.net")
+            sendIntent.putExtra("jid", "$smsNumber@s.whatsapp.net")
             sendIntent.setPackage("com.whatsapp")
             startActivity(sendIntent)
         } catch (e: Exception) {

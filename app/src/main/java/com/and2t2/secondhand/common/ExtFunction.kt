@@ -28,6 +28,19 @@ fun Int.toRp() : String{
 
 }
 
+fun String.toFormatPhone() : String{
+
+    val result = if(this.subSequence(0,2) == "08"){
+        val tes = this.subSequence(0,2)
+        this.replace(tes.toString(),"628")
+    }else{
+      this.replace("+","")
+    }
+
+
+    return result
+}
+
 
 fun String.toFormatDate() : String {
 
