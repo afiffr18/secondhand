@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.AuthActivity
+import com.and2t2.secondhand.MainActivity
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -86,12 +87,11 @@ class AkunFragment : Fragment() {
 
     private fun logoutButtonOnPressed() {
         binding.logout.setOnClickListener {
+            startActivity(Intent(requireContext(), MainActivity::class.java))
             datastoreViewModel.apply {
                 saveLoginState(false)
                 deleteAllData()
             }
-            startActivity(Intent(requireContext(), AuthActivity::class.java))
-            requireActivity().finish()
         }
     }
 

@@ -34,11 +34,7 @@ class SellerRepo(
 
     fun getAllProduct(accessToken: String) = networkBoundResource(
         query = { sellerDao.getProductDetail() },
-        fetch = {
-            Handler(Looper.getMainLooper()).postDelayed({}, 2000)
-            getProduct(accessToken)
-
-                },
+        fetch = { getProduct(accessToken) },
         saveFetchResult = { sellerProduct ->
             mDb.withTransaction {
                 sellerDao.deleteProductDetail()

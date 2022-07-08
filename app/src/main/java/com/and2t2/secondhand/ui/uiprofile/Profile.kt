@@ -195,7 +195,6 @@ class Profile : Fragment() {
                 }
                 // Mendapatkan path
                 val imgPath = fileUtil.getPath(requireContext(), fileUtil.bitmapToUri(requireContext(), bitmap))
-//                val imgPath = bitmap.let { bitmap1 ->bitmapToUri(requireContext(), bitmap1).let { fileUtil.getPath(requireContext(), it) } }
                 // Simpan ke variable global
                 uri = Uri.parse(imgPath)
             }
