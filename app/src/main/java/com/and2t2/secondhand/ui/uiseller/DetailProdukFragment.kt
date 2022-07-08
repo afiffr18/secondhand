@@ -63,7 +63,7 @@ class DetailProdukFragment : Fragment() {
     private var _binding : FragmentDetailProdukBinding? = null
     private val binding get() = _binding!!
 
-    private val sellerRepo: SellerRepo by lazy {SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!)}
+    private val sellerRepo: SellerRepo by lazy {SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!)}
     private val sellerCategoryViewModel: SellerCategoryViewModel by lazy { SellerCategoryViewModel(sellerRepo) }
     private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
 

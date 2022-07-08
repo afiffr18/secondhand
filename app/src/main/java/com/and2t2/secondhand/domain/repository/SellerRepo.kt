@@ -33,8 +33,7 @@ class SellerRepo(
         val result = sellerService.getSellerProduct(accessToken)
         return mapper.toDomainList(result)
     }
-
-    private val sellerDao = mDb.sellerDao()
+    
 
     fun getAllProduct(accessToken: String) = networkBoundResource(
         query = { sellerDao.getProductDetail() },

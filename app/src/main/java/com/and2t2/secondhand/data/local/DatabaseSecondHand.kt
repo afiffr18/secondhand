@@ -10,9 +10,8 @@ import com.and2t2.secondhand.domain.model.BuyerProductDetail
 import com.and2t2.secondhand.domain.model.Notifikasi
 import com.and2t2.secondhand.domain.model.SellerCategory
 import com.and2t2.secondhand.domain.model.*
-import com.and2t2.secondhand.domain.model.*
 
-@Database(entities = [Notifikasi::class,BuyerProduct::class,AuthUser::class,SellerProduct::class,SellerOrder::class], version = 5)
+@Database(entities = [Notifikasi::class,BuyerProduct::class,AuthUser::class,SellerProduct::class,SellerOrder::class,BuyerProductDetail::class,SellerCategory::class], version = 6)
 abstract class DatabaseSecondHand : RoomDatabase() {
     abstract fun notifikasiDao(): NotifikasiDao
     abstract fun buyerDao() : BuyerDao

@@ -15,6 +15,7 @@ import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentDetailBinding
 import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
+import com.and2t2.secondhand.domain.model.SellerOrderMapper
 import com.and2t2.secondhand.domain.model.SellerProductMapper
 import com.and2t2.secondhand.domain.repository.AuthRepo
 import com.and2t2.secondhand.domain.repository.DatastoreManager
@@ -30,7 +31,7 @@ class Detail : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
+    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
 
     private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
