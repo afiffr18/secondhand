@@ -57,24 +57,34 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
         private val ivImage = itemView.findViewById<ShapeableImageView>(R.id.iv_barang)
         private val ivRead = itemView.findViewById<ImageView>(R.id.iv_cirlce)
         private val cardClick = itemView.findViewById<ConstraintLayout>(R.id.constraint)
-
+        private val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
         private val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_image_24)
         fun bind(notifikasi : Notifikasi){
-            if(notifikasi.status == "success"){
-                tvHargaBarang.paintFlags = tvHargaBarang.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                tvHargaBarang.text = notifikasi.basePrice?.toRp()
-                tvNotif.visibility = View.VISIBLE
-                tvPenawaran.text = "Berhasil ditawar " + notifikasi.bidPrice?.toRp()
-            }else if(notifikasi.status == "declined"){
-                tvPenawaran.paintFlags = tvPenawaran.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                tvHargaBarang.text = notifikasi.basePrice?.toRp()
-                tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp()}"
-            }else{
-                tvHargaBarang.text = notifikasi.basePrice?.toRp()
-                tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp()}"
+            when (notifikasi.status) {
+                "success" -> {
+                    tvHargaBarang.paintFlags = tvHargaBarang.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    tvHargaBarang.text = notifikasi.basePrice?.toRp()
+                    tvNotif.visibility = View.VISIBLE
+                    tvPenawaran.text = "Berhasil ditawar " + notifikasi.bidPrice?.toRp()
+                }
+                "declined" -> {
+                    tvPenawaran.paintFlags = tvPenawaran.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    tvHargaBarang.text = notifikasi.basePrice?.toRp()
+                    tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp()}"
+                }
+                else -> {
+                    tvHargaBarang.text = notifikasi.basePrice?.toRp()
+                    tvPenawaran.text = "Ditawar ${ notifikasi.bidPrice?.toRp()}"
+                }
             }
             if(notifikasi.read == true){
                 ivRead.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral03), android.graphics.PorterDuff.Mode.SRC_IN)
+            }
+
+            if(notifikasi.bidPrice == 0){
+                tvPenawaran.visibility = View.GONE
+                tvTitle.text = "Berhasil di terbitkan"
+                tvPenawaran.text = notifikasi.basePrice?.toRp()
             }
             tvProductName.text = notifikasi.namaBarang
             tvUpdateDate.text = notifikasi.updatedAt
