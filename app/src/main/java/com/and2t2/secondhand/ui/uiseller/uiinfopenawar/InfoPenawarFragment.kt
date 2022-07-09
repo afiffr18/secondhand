@@ -10,12 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
-import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.toFormatPhone
-import com.and2t2.secondhand.common.toRp
-import com.and2t2.secondhand.common.viewModelsFactory
+import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
+import com.and2t2.secondhand.data.remote.dto.seller.SellerOrderStatusBody
 import com.and2t2.secondhand.databinding.FragmentInfoPenawarBinding
 import com.and2t2.secondhand.databinding.Seller30Binding
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
@@ -26,7 +24,6 @@ import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
 
 
 class InfoPenawarFragment : Fragment() {
@@ -77,12 +74,49 @@ class InfoPenawarFragment : Fragment() {
 
     private fun updateOrderStatus(access_token : String, status : String,id : Int){
         if(status == "terima"){
-            Toast.makeText(requireContext(),status,Toast.LENGTH_SHORT).show()
-//            infoPenawarViewModel.updateSellerOrderStatus(access_token,id,"accepted")
-            openStatusBottomDialog(access_token, id)
+            val statusBody = SellerOrderStatusBody("accepted")
+            infoPenawarViewModel.updateSellerOrderStatus(access_token,id,statusBody).observe(viewLifecycleOwner){
+                when(it.status){
+                    Status.LOADING ->{
+                        showLoading(requireActivity())
+                    }
+                    Status.SUCCESS ->{
+                        it.data?.let { data->
+                            showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
+                        }
+                        hideLoading()
+                        openStatusBottomDialog(access_token, id)
+                    }
+                    Status.ERROR ->{
+                        showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
+                        hideLoading()
+                    }
+                }
+            }
+
         }else if(status=="tolak"){
-            Toast.makeText(requireContext(),status,Toast.LENGTH_SHORT).show()
-            infoPenawarViewModel.updateSellerOrderStatus(access_token,id,"declined")
+            val statusBody = SellerOrderStatusBody("declined")
+            infoPenawarViewModel.updateSellerOrderStatus(access_token,id,statusBody).observe(viewLifecycleOwner){
+                when(it.status){
+                    Status.LOADING ->{
+                        showLoading(requireActivity())
+                    }
+                    Status.SUCCESS ->{
+                        it.data?.let { data->
+                            showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
+                        }
+                        hideLoading()
+                    }
+                    Status.ERROR ->{
+                        showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
+                        hideLoading()
+                    }
+                }
+            }
+        }else if(status=="status"){
+
+        }else if(status == "hubungi"){
+            openStatusBottomDialog(access_token, id)
         }
 
     }

@@ -99,7 +99,7 @@ class SellerRepo(
         return mapperOrder.mapToDomainModel(result)
     }
 
-    suspend fun updateSelerOrderStatus(accessToken: String,id : Int,status: String?) : SellerOrderStatusDto{
+    suspend fun updateSelerOrderStatus(accessToken: String,id : Int,status: SellerOrderStatusBody) : SellerOrderStatusDto{
         return sellerService.updateSellerOrderStatus(accessToken,id, status)
     }
 

@@ -123,6 +123,6 @@ interface SellerService {
     suspend fun updateSellerOrderStatus(
         @Header("access_token") access_token : String,
         @Path("id") id : Int,
-        @Body status: String?
+        @Body status: SellerOrderStatusBody
     ) : SellerOrderStatusDto
 }

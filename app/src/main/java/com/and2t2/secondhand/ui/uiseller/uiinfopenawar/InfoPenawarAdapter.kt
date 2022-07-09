@@ -4,10 +4,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -16,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.toFormatDate
 import com.and2t2.secondhand.common.toRp
-import com.and2t2.secondhand.domain.model.Notifikasi
 import com.and2t2.secondhand.domain.model.SellerOrder
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
@@ -25,6 +21,7 @@ import com.google.android.material.textview.MaterialTextView
 
 class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Unit) : RecyclerView.Adapter<InfoPenawarAdapter.InfoPenawarViewHolder>() {
 
+    private var selectedItem : Int = -1
     private val difCallback = object : DiffUtil.ItemCallback<SellerOrder>() {
         override fun areItemsTheSame(oldItem: SellerOrder, newItem: SellerOrder): Boolean {
             return oldItem.id == newItem.id
@@ -61,6 +58,8 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
         private val constraintItem = view.findViewById<ConstraintLayout>(R.id.constarinItemProduct)
         private val btnTolak = view.findViewById<MaterialButton>(R.id.btn_tolak)
         private val btnTerima = view.findViewById<MaterialButton>(R.id.btn_terima)
+        private val btnStatus = view.findViewById<MaterialButton>(R.id.btn_status)
+        private val btnHubungi = view.findViewById<MaterialButton>(R.id.btn_hubungi)
         fun bind(sellerOrder: SellerOrder){
             Glide.with(itemView.context).load(sellerOrder.imageProduct).into(gambar)
             namaBarang.text = sellerOrder.namaBarang
@@ -77,16 +76,30 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
                 hargaBarang.text = sellerOrder.basePrice?.toInt()?.toRp()
                 hargaTawar.text = "Ditawar ${ sellerOrder.price?.toRp()}"
             }
-            constraintItem.setOnClickListener {
-                if(sellerOrder.status=="pending"){
-                    btnTolakTerima.isVisible = true
-                    btnTolak.setOnClickListener {
-                        onStatus.invoke("tolak",sellerOrder.id!!)
-                    }
-                    btnTerima.setOnClickListener {
-                        onStatus.invoke("terima",sellerOrder.id!!)
-                    }
+            if(sellerOrder.status=="pending" && selectedItem == adapterPosition){
+                btnTolakTerima.isVisible = true
+                btnTolak.setOnClickListener {
+                    onStatus.invoke("tolak",sellerOrder.id!!)
                 }
+                btnTerima.setOnClickListener {
+                    onStatus.invoke("terima",sellerOrder.id!!)
+                }
+            }else if(sellerOrder.status=="accepted"){
+                btnStatusHubungi.isVisible = true
+                btnStatus.setOnClickListener {
+                    onStatus.invoke("status",sellerOrder.id!!)
+                }
+                btnHubungi.setOnClickListener {
+                    onStatus.invoke("hubungi",sellerOrder.id!!)
+                }
+            }else{
+                btnTolakTerima.isGone = true
+            }
+
+            constraintItem.setOnClickListener {
+                notifyItemChanged(selectedItem)
+                selectedItem = adapterPosition
+                notifyItemChanged(selectedItem)
             }
 
 

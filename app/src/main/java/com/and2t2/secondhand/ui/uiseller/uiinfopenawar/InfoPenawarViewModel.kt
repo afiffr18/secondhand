@@ -3,6 +3,7 @@ package com.and2t2.secondhand.ui.uiseller.uiinfopenawar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.and2t2.secondhand.common.Resource
+import com.and2t2.secondhand.data.remote.dto.seller.SellerOrderStatusBody
 import com.and2t2.secondhand.domain.repository.SellerRepo
 import kotlinx.coroutines.Dispatchers
 import retrofit2.HttpException
@@ -36,7 +37,7 @@ class InfoPenawarViewModel(private val sellerRepo: SellerRepo) : ViewModel() {
         }
     }
 
-    fun updateSellerOrderStatus(access_token : String,id : Int,status: String) = liveData(Dispatchers.IO){
+    fun updateSellerOrderStatus(access_token : String,id : Int,status: SellerOrderStatusBody) = liveData(Dispatchers.IO){
         emit(Resource.loading(null))
         try {
             emit(Resource.success(sellerRepo.updateSelerOrderStatus(access_token,id, status)))

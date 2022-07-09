@@ -61,9 +61,9 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
         private val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_image_24)
         fun bind(notifikasi : Notifikasi){
             when (notifikasi.status) {
-                "success" -> {
+                "accepted" -> {
                     tvHargaBarang.paintFlags = tvHargaBarang.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    tvHargaBarang.text = notifikasi.basePrice?.toRp()
+                    tvHargaBarang.text = notifikasi.bidPrice?.toRp()
                     tvNotif.visibility = View.VISIBLE
                     tvPenawaran.text = "Berhasil ditawar " + notifikasi.bidPrice?.toRp()
                 }
@@ -81,7 +81,7 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
                 ivRead.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral03), android.graphics.PorterDuff.Mode.SRC_IN)
             }
 
-            if(notifikasi.bidPrice == 0){
+            if(notifikasi.status == "create"){
                 tvPenawaran.visibility = View.GONE
                 tvTitle.text = "Berhasil di terbitkan"
                 tvPenawaran.text = notifikasi.basePrice?.toRp()
