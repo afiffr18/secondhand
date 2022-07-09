@@ -26,7 +26,7 @@ data class SellerOrderDtoItem(
     @SerializedName("Product")
     val product: Product,
     @SerializedName("transaction_date")
-    val transactionDate: Int,
+    val transactionDate: String,
     @SerializedName("User")
     val user: User
 )
