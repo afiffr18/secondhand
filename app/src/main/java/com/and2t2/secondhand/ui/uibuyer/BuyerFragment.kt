@@ -1,7 +1,6 @@
 package com.and2t2.secondhand.ui.uibuyer
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.delay
 
 
 class BuyerFragment : Fragment() {
