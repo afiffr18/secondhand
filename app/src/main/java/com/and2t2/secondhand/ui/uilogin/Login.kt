@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.MainActivity
@@ -20,6 +19,8 @@ import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.AuthRepo
+import com.and2t2.secondhand.ui.uiprofile.LengkapiProfileActivity
+import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 
 
 class Login : Fragment() {
@@ -28,6 +29,7 @@ class Login : Fragment() {
 
     private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val loginViewModel: LoginViewModel by viewModelsFactory { LoginViewModel(authRepo) }
+    private val profileViewModel: ProfileViewModel by viewModelsFactory { ProfileViewModel(authRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
     private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
@@ -73,17 +75,12 @@ class Login : Fragment() {
                 loginViewModel.doLogin(dataUser).observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.SUCCESS -> {
-                            hideLoading()
                             // Simpan login state & access token
                             datastoreViewModel.apply {
                                 saveLoginState(true)
                                 saveAccessToken(it.data?.accessToken!!)
-                                saveIdUser(it.data.id)
                             }
-                            // Pindah ke Home (tambahkan findNavController dari Login ke Home dibawah ini)
-                            startActivity(Intent(requireContext(), MainActivity::class.java))
-                            requireActivity().finish()
-
+                            it.data?.accessToken?.let { token -> getUserData(token, it.data.name) }
                         }
                         Status.ERROR -> {
                             hideLoading()
@@ -128,6 +125,25 @@ class Login : Fragment() {
     private fun moveToRegisterViaClickableText() {
         binding.clickableTextDaftar.setOnClickListener {
             findNavController().navigate(R.id.action_login_to_register)
+        }
+    }
+
+    private fun getUserData(token: String, namaLengkap: String) {
+        profileViewModel.getUser(token).observe(viewLifecycleOwner) {
+            it.data?.let { data ->
+                hideLoading()
+                if (data.city != null && data.phoneNumber != null) {
+                    // Pindah ke Home
+                    startActivity(Intent(requireContext(), MainActivity::class.java))
+                    requireActivity().finish()
+                } else {
+                    // Pindah ke Lengkapi Profile
+                    val intent = Intent(requireContext(), LengkapiProfileActivity::class.java)
+                    intent.putExtra("nama_lengkap", namaLengkap)
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+            }
         }
     }
 
