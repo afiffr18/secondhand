@@ -1,13 +1,12 @@
 package com.and2t2.secondhand.ui.uiseller.uidaftarjual.diminati
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -20,7 +19,6 @@ import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.and2t2.secondhand.ui.uiseller.SellerProductViewModel
-import com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk.ProdukAdapter
 
 class Diminati : Fragment() {
     private var _binding: FragmentDiminatiBinding? = null
@@ -56,28 +54,27 @@ class Diminati : Fragment() {
 
     private fun initRecyclerView() {
         diminatiAdapter = DiminatiAdapter { id ->
-            if (id == 0) {
-                // Action Button Add
-                Toast.makeText(requireContext(), "INi Button Add ID $id", Toast.LENGTH_SHORT).show()
-                Log.d("TEST", id.toString())
-            } else {
-                val bundle = Bundle()
-                bundle.putInt("productId", id)
-                // Move to Detail Product
-                Toast.makeText(requireContext(), "INi item ID $id", Toast.LENGTH_SHORT).show()
-                Log.d("TEST", id.toString())
-            }
+            val bundle = Bundle()
+            bundle.putInt("orderId", id)
+            Toast.makeText(requireContext(), "INi item ID $id", Toast.LENGTH_SHORT).show()
         }
         binding.apply {
             rvDataOrder.adapter = diminatiAdapter
             rvDataOrder.layoutManager = LinearLayoutManager(requireContext())
         }
     }
+
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllOrder(token).observe(viewLifecycleOwner) {
                 it.data?.let { data ->
-                    diminatiAdapter.updateDataRecycler(data)
+                    if (!data.isNullOrEmpty()) {
+                        diminatiAdapter.updateDataRecycler(data)
+                        binding.ivNoProduk.isGone = true
+                    } else {
+                        diminatiAdapter.updateDataRecycler(data)
+                        binding.ivNoProduk.isGone = false
+                    }
                 }
             }
         }
