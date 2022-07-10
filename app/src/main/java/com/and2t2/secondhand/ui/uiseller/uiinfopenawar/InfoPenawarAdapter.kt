@@ -79,10 +79,10 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
             if(sellerOrder.status=="pending" && selectedItem == adapterPosition){
                 btnTolakTerima.isVisible = true
                 btnTolak.setOnClickListener {
-                    onStatus.invoke("tolak",sellerOrder.id!!)
+                    onStatus.invoke("declined",sellerOrder.id!!)
                 }
                 btnTerima.setOnClickListener {
-                    onStatus.invoke("terima",sellerOrder.id!!)
+                    onStatus.invoke("accepted",sellerOrder.id!!)
                 }
             }else if(sellerOrder.status=="accepted"){
                 btnStatusHubungi.isVisible = true

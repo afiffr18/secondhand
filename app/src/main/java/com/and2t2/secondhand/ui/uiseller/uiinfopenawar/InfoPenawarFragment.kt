@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -60,6 +62,12 @@ class InfoPenawarFragment : Fragment() {
         backButtonOnPressed()
     }
 
+    private fun getAccessToken(){
+        dataStore.getAccessToken().observe(viewLifecycleOwner){
+            getDataOrder(it)
+        }
+    }
+
     private fun initRecycler(){
         infoPenawarAdapter = InfoPenawarAdapter{ status,id ->
             dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
@@ -72,63 +80,76 @@ class InfoPenawarFragment : Fragment() {
         }
     }
 
+
+
     private fun updateOrderStatus(access_token : String, status : String,id : Int){
-        if(status == "terima"){
-            val statusBody = SellerOrderStatusBody("accepted")
-            infoPenawarViewModel.updateSellerOrderStatus(access_token,id,statusBody).observe(viewLifecycleOwner){
-                when(it.status){
-                    Status.LOADING ->{
-                        showLoading(requireActivity())
-                    }
-                    Status.SUCCESS ->{
-                        it.data?.let { data->
-                            showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
-                        }
-                        hideLoading()
-                        openStatusBottomDialog(access_token, id)
-                    }
-                    Status.ERROR ->{
-                        showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
-                        hideLoading()
-                    }
-                }
+        when (status) {
+            "accepted" -> {
+                onStatusAccepted(access_token, id)
             }
-
-        }else if(status=="tolak"){
-            val statusBody = SellerOrderStatusBody("declined")
-            infoPenawarViewModel.updateSellerOrderStatus(access_token,id,statusBody).observe(viewLifecycleOwner){
-                when(it.status){
-                    Status.LOADING ->{
-                        showLoading(requireActivity())
-                    }
-                    Status.SUCCESS ->{
-                        it.data?.let { data->
-                            showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
-                        }
-                        hideLoading()
-                    }
-                    Status.ERROR ->{
-                        showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
-                        hideLoading()
-                    }
-                }
+            "declined" -> {
+                onStatusDeclined(access_token, id)
             }
-        }else if(status=="status"){
-
-        }else if(status == "hubungi"){
-            openStatusBottomDialog(access_token, id)
+            "status" -> {
+                statusButtonOnPressed(access_token, id)
+            }
+            "hubungi" -> {
+                hubungiButtonOnPressed(access_token, id)
+            }
         }
 
     }
 
-    private fun openStatusBottomDialog(access_token: String,id : Int){
+    private fun onStatusAccepted(access_token: String,id: Int){
+        val statusBody = SellerOrderStatusBody("accepted")
+        infoPenawarViewModel.updateSellerOrderStatus(access_token,id,statusBody).observe(viewLifecycleOwner){
+            when(it.status){
+                Status.LOADING ->{
+                    showLoading(requireActivity())
+                }
+                Status.SUCCESS ->{
+                    it.data?.let { data->
+                        showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
+                    }
+                    hideLoading()
+                    hubungiButtonOnPressed(access_token, id)
+                }
+                Status.ERROR ->{
+                    showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
+                    hideLoading()
+                }
+            }
+        }
+    }
+
+    private fun onStatusDeclined(access_token: String,id: Int){
+        val statusBody = SellerOrderStatusBody("declined")
+        infoPenawarViewModel.updateSellerOrderStatus(access_token,id,statusBody).observe(viewLifecycleOwner){
+            when(it.status){
+                Status.LOADING ->{
+                    showLoading(requireActivity())
+                }
+                Status.SUCCESS ->{
+                    it.data?.let { data->
+                        showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
+                    }
+                    hideLoading()
+                }
+                Status.ERROR ->{
+                    showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
+                    hideLoading()
+                }
+            }
+        }
+    }
+
+    private fun hubungiButtonOnPressed(access_token: String,id : Int){
         //menampilkan dialog
         val dialog = BottomSheetDialog(requireContext())
         val binding = Seller30Binding.inflate(LayoutInflater.from(requireContext()))
 
         dialog.setContentView(binding.root)
         dialog.show()
-
         infoPenawarViewModel.getSellerOrderById(access_token,id).observe(viewLifecycleOwner){
            when(it.status){
                Status.LOADING ->{
@@ -144,6 +165,7 @@ class InfoPenawarFragment : Fragment() {
                        binding.tvCity.text = data.buyerLocation
                        binding.btnContact.setOnClickListener {
                            data.phoneNumber?.let { it1 -> openWhatsapp(it1.toFormatPhone()) }
+                           dialog.dismiss()
                        }
                    }
                }
@@ -151,31 +173,6 @@ class InfoPenawarFragment : Fragment() {
 
                }
            }
-        }
-
-
-    }
-
-    private fun getAccessToken(){
-        dataStore.getAccessToken().observe(viewLifecycleOwner){
-            getDataOrder(it)
-        }
-    }
-
-
-    private fun getDataOrder(accessToken : String){
-        infoPenawarViewModel.getSellerOrder(accessToken,null).observe(viewLifecycleOwner){
-            when(it.status){
-                Status.LOADING ->{
-
-                }
-                Status.SUCCESS ->{
-                    it.data?.let { it1 -> infoPenawarAdapter.updateDataOrder(it1) }
-                }
-                Status.ERROR ->{
-                    Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
-                }
-            }
         }
     }
 
@@ -193,77 +190,76 @@ class InfoPenawarFragment : Fragment() {
         }
     }
 
+    private fun statusButtonOnPressed(access_token: String,id: Int) {
+
+            // on below line we are creating a new bottom sheet dialog.
+            val dialog = BottomSheetDialog(requireContext())
+
+            // on below line we are inflating a layout file which we have created.
+            val view = layoutInflater.inflate(R.layout.seller_28, null)
+
+            dialog.setContentView(view)
+            dialog.show()
+            val buttonKirim = dialog.findViewById<Button>(R.id.btn_set_status)
+            val buttonSuccess = dialog.findViewById<RadioButton>(R.id.radio_success)
+            val buttonCancel = dialog.findViewById<RadioButton>(R.id.radio_cancel)
+
+            var tes : String? = null
+            buttonSuccess?.setOnClickListener{
+                buttonKirim?.isEnabled = true
+                tes = ""
+            }
+
+            buttonCancel?.setOnClickListener{
+                buttonKirim?.isEnabled = true
+                tes = "declined"
+            }
+
+            buttonKirim?.setOnClickListener {
+                if(tes != ""){
+                    val body = SellerOrderStatusBody(tes!!)
+                    infoPenawarViewModel.updateSellerOrderStatus(access_token,id,body).observe(viewLifecycleOwner){
+                        when(it.status){
+                            Status.LOADING ->{
+                                showLoading(requireActivity())
+                            }
+                            Status.SUCCESS ->{
+                                it.data?.let { data->
+                                    showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
+                                }
+                                hideLoading()
+                            }
+                            Status.ERROR ->{
+                                showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
+                                hideLoading()
+                            }
+                        }
+                    }
+                }else{
+                    showSnackbar(requireContext(), requireView(),"Diterima belum ada logic", R.color.success)
+                }
+                dialog.dismiss()
+            }
 
 
-//    private fun acceptanceButtonOnPressed() {
-//        binding.btnTerima.setOnClickListener {
-//            hubungiDialog()
-//            binding.sudahDiterima.isVisible = true
-//            binding.belumDiterima.isVisible = false
-//        }
-//
-//        binding.btnTolak.setOnClickListener {
-//            binding.belumDiterima.isVisible = false
-//            binding.sudahDiterima.isGone = true
-//            binding.divider1.isVisible = true
-//
-//            showSnackbar(requireContext(), requireView(), "test", R.color.success)
-//
-//            binding.tvProductBid.apply {
-//                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-//                text = "Striked thru text"
-//            }
-//        }
-////        binding.tvName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-//    }
 
-    private fun hubungiDialog() {
-        // on below line we are creating a new bottom sheet dialog.
-        val dialog = BottomSheetDialog(requireContext())
-
-        // on below line we are inflating a layout file which we have created.
-        val view = layoutInflater.inflate(R.layout.seller_30, null)
-
-        dialog.setContentView(view)
-        dialog.show()
     }
 
-//    private fun hubungiButtonOnPressed() {
-//        binding.btnHubungi.setOnClickListener {
-//            hubungiDialog()
-//        }
-//    }
-//
-//    private fun statusButtonOnPressed() {
-//        binding.btnStatus.setOnClickListener {
-//            // on below line we are creating a new bottom sheet dialog.
-//            val dialog = BottomSheetDialog(requireContext())
-//
-//            // on below line we are inflating a layout file which we have created.
-//            val view = layoutInflater.inflate(R.layout.seller_28, null)
-//
-//            dialog.setContentView(view)
-//            dialog.show()
-//
-//            val buttonKirim = dialog.findViewById<Button>(R.id.btn_set_status)
-//            val buttonSuccess = dialog.findViewById<RadioButton>(R.id.radio_success)
-//            val buttonCancel = dialog.findViewById<RadioButton>(R.id.radio_cancel)
-//
-//
-//            buttonSuccess?.setOnClickListener{
-//                buttonKirim?.isEnabled = true
-//            }
-//
-//            buttonCancel?.setOnClickListener{
-//                buttonKirim?.isEnabled = true
-//            }
-//
-//            buttonKirim?.setOnClickListener {
-//                showSnackbar(requireContext(), requireView(), "Status produk", R.color.success)
-//                dialog.dismiss()
-//            }
-//        }
-//    }
+    private fun getDataOrder(accessToken : String){
+        infoPenawarViewModel.getSellerOrder(accessToken,null).observe(viewLifecycleOwner){
+            when(it.status){
+                Status.LOADING ->{
+
+                }
+                Status.SUCCESS ->{
+                    it.data?.let { it1 -> infoPenawarAdapter.updateDataOrder(it1) }
+                }
+                Status.ERROR ->{
+                    Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     private fun backButtonOnPressed() {
         binding.backBtn.setOnClickListener {

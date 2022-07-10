@@ -41,7 +41,7 @@ class NotifikasiFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentNotifikasiBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -100,17 +100,15 @@ class NotifikasiFragment : Fragment() {
             val isTrue : Boolean = it.data.isNullOrEmpty()
             binding.pbLoading.isVisible = isTrue
             binding.tvError.text = when(it.status){
-                Status.ERROR -> ({
+                Status.ERROR -> {
                     binding.pbLoading.isVisible = false
-                    Toast.makeText(requireContext(),it.message,Toast.LENGTH_LONG).show()
-                }).toString()
+                    it.message
+                }
                 else -> {
-                    "Error Occured"
+                    binding.pbLoading.isVisible = false
+                    "Tidak ada data"
                 }
             }
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.pbLoading.isVisible = false
-            },1000)
         }
     }
 
