@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
+import com.and2t2.secondhand.common.showSnackbar
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
@@ -73,7 +74,7 @@ class NotifikasiFragment : Fragment() {
         linearLayoutManager.stackFromEnd = true
 
         notifAdapter = NotifikasiAdapter{ id: Int ->
-//            viewModel.updateNotifikasiRead(accessToken,id)
+            updateDataNotifikasi(accessToken,id)
             findNavController().navigate(R.id.action_navigation_notifikasi_to_infoPenawarFragment2)
         }
 
@@ -85,7 +86,7 @@ class NotifikasiFragment : Fragment() {
 
     }
 
-    fun getData(){
+    private fun getData(){
         dataStore.getAccessToken().observe(viewLifecycleOwner){
             getDataNotifikasi(it)
             accessToken = it
@@ -107,6 +108,22 @@ class NotifikasiFragment : Fragment() {
                 else -> {
                     binding.pbLoading.isVisible = false
                     "Tidak ada data"
+                }
+            }
+        }
+    }
+
+    private fun updateDataNotifikasi(access_token: String,id : Int){
+        viewModel.updateNotifikasiRead(access_token, id).observe(viewLifecycleOwner){
+            when(it.status){
+                Status.LOADING ->{
+
+                }
+                Status.SUCCESS ->{
+
+                }
+                Status.ERROR ->{
+                    Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
                 }
             }
         }
