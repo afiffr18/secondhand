@@ -89,7 +89,7 @@ class BuyerFragment : Fragment() {
         binding.btnNego.setOnClickListener {
 
             //menampilkan dialog
-            val dialog = BottomSheetDialog(requireContext())
+            val dialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialog)
             val view = layoutInflater.inflate(R.layout.buyer_10, null)
 
             dialog.setContentView(view)

@@ -145,7 +145,7 @@ class InfoPenawarFragment : Fragment() {
 
     private fun hubungiButtonOnPressed(access_token: String,id : Int){
         //menampilkan dialog
-        val dialog = BottomSheetDialog(requireContext())
+        val dialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialog)
         val binding = Seller30Binding.inflate(LayoutInflater.from(requireContext()))
 
         dialog.setContentView(binding.root)
@@ -193,7 +193,7 @@ class InfoPenawarFragment : Fragment() {
     private fun statusButtonOnPressed(access_token: String,id: Int) {
 
             // on below line we are creating a new bottom sheet dialog.
-            val dialog = BottomSheetDialog(requireContext())
+            val dialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialog)
 
             // on below line we are inflating a layout file which we have created.
             val view = layoutInflater.inflate(R.layout.seller_28, null)

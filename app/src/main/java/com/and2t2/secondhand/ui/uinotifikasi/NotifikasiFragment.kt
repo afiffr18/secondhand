@@ -73,7 +73,7 @@ class NotifikasiFragment : Fragment() {
         linearLayoutManager.stackFromEnd = true
 
         notifAdapter = NotifikasiAdapter{ id: Int ->
-            viewModel.updateNotifikasiRead(accessToken,id)
+//            viewModel.updateNotifikasiRead(accessToken,id)
             findNavController().navigate(R.id.action_navigation_notifikasi_to_infoPenawarFragment2)
         }
 
