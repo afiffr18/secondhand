@@ -198,7 +198,7 @@ class LengkapiProfileActivity : AppCompatActivity() {
         val etNamaLengkap = binding.etNama.text.toString()
         val etKota = binding.etlKota.editText?.text.toString()
         val etAlamat = binding.etAlamat.text.toString()
-        val etNoHP = binding.etNohp.text.toString()
+        val etNoHP = "+62" + binding.etNohp.text.toString()
 
         val fullName = etNamaLengkap.toRequestBody("full_name".toMediaTypeOrNull())
         val phoneNumber = etNoHP.toRequestBody("phone_humber".toMediaTypeOrNull())

@@ -37,7 +37,7 @@
             android:id="@+id/lengkapi_info_akun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/poppins_medium"
             android:text="Lengkapi Detail Produk"
             android:textAlignment="center"
             android:textColor="@color/black"

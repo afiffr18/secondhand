@@ -219,7 +219,7 @@ class Profile : Fragment() {
         val etNamaLengkap = binding.etNama.text.toString()
         val etKota = binding.etlKota.editText?.text.toString()
         val etAlamat = binding.etAlamat.text.toString()
-        val etNoHP = binding.etNohp.text.toString()
+        val etNoHP = "+62" + binding.etNohp.text.toString()
 
         val fullName = etNamaLengkap.toRequestBody("full_name".toMediaTypeOrNull())
         val phoneNumber = etNoHP.toRequestBody("phone_humber".toMediaTypeOrNull())
@@ -306,6 +306,7 @@ class Profile : Fragment() {
             profileViewModel.getUser(accessToken!!).observe(viewLifecycleOwner) {
                 it.data?.let { data ->
                     binding.apply {
+                        val phoneNumber = data.phoneNumber?.drop(3)
                         if (data.imageUrl != null) {
                             editIvPicture.setPadding(0,0,0,0)
                             Glide.with(requireContext())
@@ -316,7 +317,7 @@ class Profile : Fragment() {
                         etNama.setText(data.fullName)
                         etlKota.editText?.setText(data.city)
                         etAlamat.setText(data.address)
-                        etNohp.setText(data.phoneNumber)
+                        etNohp.setText(phoneNumber)
                     }
                 }
             }

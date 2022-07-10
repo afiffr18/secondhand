@@ -53,4 +53,9 @@
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_bottomsheet</item>
     </style>
+
+    <style name="CustomPreffixTextInputStyle" parent="Widget.Design.TextInputLayout">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+    </style>
 </resources>
