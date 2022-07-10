@@ -1,8 +1,6 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.showSnackbar
 import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
