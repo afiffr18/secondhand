@@ -86,6 +86,7 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
                 }
             }else if(sellerOrder.status=="accepted"){
                 btnStatusHubungi.isVisible = true
+                btnTolakTerima.isGone = true
                 btnStatus.setOnClickListener {
                     onStatus.invoke("status",sellerOrder.id!!)
                 }
@@ -97,9 +98,11 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
             }
 
             constraintItem.setOnClickListener {
-                notifyItemChanged(selectedItem)
-                selectedItem = adapterPosition
-                notifyItemChanged(selectedItem)
+                if(sellerOrder.status == "pending"){
+                    notifyItemChanged(selectedItem)
+                    selectedItem = adapterPosition
+                    notifyItemChanged(selectedItem)
+                }
             }
 
 
