@@ -35,14 +35,14 @@
 
         <TextView
             android:id="@+id/lengkapi_info_akun"
-            android:layout_width="342dp"
-            android:layout_height="21dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:text="Lengkapi Detail Produk"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/back_btn"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
