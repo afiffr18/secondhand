@@ -54,12 +54,12 @@ class KategoriAdapter(val onclick: (id: Int) -> Unit) : RecyclerView.Adapter<Rec
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         when (getItemViewType(position)) {
-            R.layout.item_home_category -> (holder as KategoriViewHolder).bind(differ.currentList[position+1],position)
+            R.layout.item_home_category -> (holder as KategoriViewHolder).bind(differ.currentList[position],position)
             R.layout.item_home_category_semua -> (holder as KategoriSemuaViewHolder).bind(position)
         }
     }
 
-    override fun getItemCount(): Int = differ.currentList.size-1
+    override fun getItemCount(): Int = differ.currentList.size
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
