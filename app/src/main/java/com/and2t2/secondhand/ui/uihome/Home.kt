@@ -95,7 +95,7 @@ class Home : Fragment() {
         }
     }
     private fun getDataProduct(){
-        viewModel.getBuyerProduct(null,null,null).observe(viewLifecycleOwner){
+        viewModel.getBuyerProduct(null,null).observe(viewLifecycleOwner){
             it.data?.let { BuyerProduct ->
                 productAdapter.updateDataProduct(BuyerProduct)
                 binding.rvListProductHomeProduct.scrollToPosition(0)
@@ -104,7 +104,7 @@ class Home : Fragment() {
     }
 
     private fun getDataByKategori(id : Int){
-        viewModel.getBuyerProduct(null,id,null).observe(viewLifecycleOwner){
+        viewModel.getBuyerProduct(id,null).observe(viewLifecycleOwner){
             it.data?.let { BuyerProduct ->
                 productAdapter.updateDataProduct(BuyerProduct)
             }
@@ -116,7 +116,7 @@ class Home : Fragment() {
         //from icon search klik
         binding.ivProductSearch.setOnClickListener {
             val search = binding.etProductSearch.editableText.toString()
-            viewModel.getBuyerProduct(null,null,search).observe(viewLifecycleOwner){
+            viewModel.getBuyerProduct(null,search).observe(viewLifecycleOwner){
                 it.data?.let { BuyerProduct ->
                     productAdapter.updateDataProduct(BuyerProduct)
                 }
@@ -127,7 +127,7 @@ class Home : Fragment() {
 
         binding.etProductSearch.onDone {
             val search = binding.etProductSearch.editableText.toString()
-            viewModel.getBuyerProduct(null,null,search).observe(viewLifecycleOwner){
+            viewModel.getBuyerProduct(null,search).observe(viewLifecycleOwner){
                 it.data?.let { BuyerProduct ->
                     productAdapter.updateDataProduct(BuyerProduct)
                 }
