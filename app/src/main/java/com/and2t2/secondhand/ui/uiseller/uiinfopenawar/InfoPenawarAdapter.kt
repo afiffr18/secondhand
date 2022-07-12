@@ -62,8 +62,8 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
         private val btnHubungi = view.findViewById<MaterialButton>(R.id.btn_hubungi)
         fun bind(sellerOrder: SellerOrder){
             Glide.with(itemView.context).load(sellerOrder.imageProduct).into(gambar)
-            namaBarang.text = sellerOrder.namaBarang
-            updateDate.text = sellerOrder.date?.toFormatDate()
+            namaBarang.text = sellerOrder.productName
+            updateDate.text = sellerOrder.updatedAt
             if(sellerOrder.status=="success"){
                 hargaBarang.text = sellerOrder.basePrice?.toInt()?.toRp()
                 hargaTawar.text = "Ditawar ${ sellerOrder.price?.toRp()}"

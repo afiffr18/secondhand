@@ -35,7 +35,7 @@ class InfoPenawarFragment : Fragment() {
     private lateinit var infoPenawarAdapter: InfoPenawarAdapter
 
     private val sellerRepo : SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller,
-        SellerProductMapper(), SellerCategoryMapper(), SellerOrderMapper(), DatabaseSecondHand.getInstance(requireContext())!!
+        SellerProductMapper(), SellerOrderMapper(),SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!
     ) }
 
     private val pref : DatastoreManager by lazy { DatastoreManager(requireContext()) }
@@ -158,7 +158,7 @@ class InfoPenawarFragment : Fragment() {
                Status.SUCCESS ->{
                    it.data?.let{ data ->
                        Glide.with(requireContext()).load(data.imageProduct).into(binding.ivProductImage)
-                       binding.tvProductName.text = data.namaBarang
+                       binding.tvProductName.text = data.productName
                        binding.tvProductPrice.text = data.basePrice?.toInt()?.toRp()
                        binding.tvProductBid.text = data.price?.toRp()
                        binding.tvName.text = data.buyerName

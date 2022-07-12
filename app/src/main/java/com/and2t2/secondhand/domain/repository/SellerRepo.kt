@@ -27,7 +27,6 @@ class SellerRepo(
     private val mapper: SellerProductMapper,
     private val orderMapper: SellerOrderMapper,
     private val mapperCategory: SellerCategoryMapper,
-    private val mapperOrder: SellerOrderMapper,
     private val mDb: DatabaseSecondHand
 ) {
     private val sellerDao = mDb.sellerDao()
@@ -97,14 +96,14 @@ class SellerRepo(
         return sellerService.setSellerProduct(access_token, name, description, basePrice, categoryIds, location, image)
     }
 
-    suspend fun getOrder(accessToken: String): List<SellerOrder> {
-        val result = sellerService.getSellerOrder(accessToken)
+    suspend fun getOrder(accessToken: String,status: String?): List<SellerOrder> {
+        val result = sellerService.getSellerOrder(accessToken,status)
         return orderMapper.toDomainList(result)
     }
 
-    fun getAllOrder(accessToken: String) = networkBoundResource(
+    fun getAllOrder(accessToken: String,status: String?) = networkBoundResource(
         query = { sellerDao.getOrderDetail() },
-        fetch = { getOrder(accessToken) },
+        fetch = { getOrder(accessToken, status) },
         saveFetchResult = { sellerOrder ->
             mDb.withTransaction {
                 sellerDao.deleteOrderDetail()
@@ -118,12 +117,12 @@ class SellerRepo(
     /*** Seller Order ***/
     suspend fun getSellerOrder(accessToken: String,status : String?) : List<SellerOrder>{
         val result = sellerService.getSellerOrder(accessToken,status)
-        return mapperOrder.toDomainList(result)
+        return orderMapper.toDomainList(result)
     }
 
     suspend fun getSelletOrderById(accessToken: String,id: Int) : SellerOrder{
         val result = sellerService.getSellerOrderById(accessToken,id)
-        return mapperOrder.mapToDomainModel(result)
+        return orderMapper.mapToDomainModel(result)
     }
 
     suspend fun updateSelerOrderStatus(accessToken: String,id : Int,status: SellerOrderStatusBody) : SellerOrderStatusDto{

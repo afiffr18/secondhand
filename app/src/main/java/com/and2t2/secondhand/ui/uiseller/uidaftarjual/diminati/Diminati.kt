@@ -66,7 +66,7 @@ class Diminati : Fragment() {
 
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-            sellerProductViewModel.getAllOrder(token).observe(viewLifecycleOwner) {
+            sellerProductViewModel.getAllOrder(token,null).observe(viewLifecycleOwner) {
                 it.data?.let { data ->
                     if (!data.isNullOrEmpty()) {
                         diminatiAdapter.updateDataRecycler(data)
