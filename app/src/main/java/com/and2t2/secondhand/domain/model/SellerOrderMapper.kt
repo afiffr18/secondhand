@@ -19,8 +19,10 @@ class SellerOrderMapper: DomainMapper<SellerOrderDtoItem, SellerOrder> {
             updatedAt = modelDto.updatedAt.toFormatDate(),
             createdAt = modelDto.createdAt,
             Product = modelDto.product.name,
-            transactionDate = modelDto.transactionDate.toFormatDate()
-//            User = modelDto.user
+            transactionDate = modelDto.transactionDate.toFormatDate(),
+            phoneNumber = modelDto.user.phoneNumber,
+            buyerName = modelDto.user.fullName,
+            buyerLocation = modelDto.user.city
         )
     }
 

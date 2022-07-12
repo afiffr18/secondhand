@@ -3,33 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:foreground="?android:attr/selectableItemBackground"
+    android:id="@+id/constarinItemProduct"
     android:paddingHorizontal="16dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/iv_profile"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_picture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/darkblue02"
-        android:clickable="true"
-        android:elevation="0dp"
-        android:focusable="true"
-        android:foreground="?selectableItemBackgroundBorderless"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/iv_picture"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="0dp"
-            android:padding="@dimen/padding_img_profile"
-            android:scaleType="centerCrop" />
-
-    </com.google.android.material.card.MaterialCardView>
-
+        android:scaleType="centerCrop"
+        android:theme="@style/ShapeAppearanceOverlay.App.CornerSize12"
+        android:background="@color/darkblue03" />
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_product_status"
         android:layout_width="wrap_content"
@@ -40,8 +28,8 @@
         android:text="Penawaran produk"
         android:textColor="@android:color/darker_gray"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/iv_profile"
-        app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+        app:layout_constraintStart_toEndOf="@+id/iv_picture"
+        app:layout_constraintTop_toTopOf="@+id/iv_picture" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_product_time"
@@ -53,7 +41,7 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+        app:layout_constraintTop_toTopOf="@+id/iv_picture" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_product_name"
@@ -64,7 +52,7 @@
         android:maxLines="1"
         android:text="Jam Tangan Casio"
         android:textColor="@android:color/black"
-        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+        app:layout_constraintStart_toEndOf="@+id/iv_picture"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_status" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -76,7 +64,7 @@
         android:maxLines="1"
         android:text="Rp 250.000"
         android:textColor="@android:color/black"
-        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+        app:layout_constraintStart_toEndOf="@+id/iv_picture"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -84,14 +72,115 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
+        android:paddingBottom="10dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="Ditawar Rp 200.000"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+        app:layout_constraintStart_toEndOf="@+id/iv_picture"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_price" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tolak_terima"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_bid"
+        tools:layout_editor_absoluteX="24dp"
+        android:visibility="gone">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_tolak"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_top_textfield"
+            android:layout_marginEnd="8dp"
+            android:text="Tolak"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:cornerRadius="@dimen/corner_radius_textfield"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_terima"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/neutral05"
+            app:strokeColor="@color/darkblue04" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_terima"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/margin_top_textfield"
+            android:backgroundTint="@color/darkblue04"
+            android:text="Terima"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:cornerRadius="@dimen/corner_radius_textfield"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_tolak"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_tolak"
+            app:layout_constraintTop_toTopOf="@+id/btn_tolak" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/status_hubungi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_bid"
+        tools:layout_editor_absoluteX="24dp"
+        android:visibility="gone">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_status"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_top_textfield"
+            android:layout_marginEnd="8dp"
+            android:text="Status"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:cornerRadius="@dimen/corner_radius_textfield"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_hubungi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/neutral05"
+            app:strokeColor="@color/darkblue04" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_hubungi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/margin_top_textfield"
+            android:backgroundTint="@color/darkblue04"
+            android:text="Hubungi"
+            android:paddingStart="24dp"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium"
+            app:icon="@drawable/ic_fi_whatsapp"
+            app:iconGravity="textEnd"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            app:cornerRadius="@dimen/corner_radius_textfield"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_status"
+            app:layout_constraintTop_toTopOf="@+id/btn_status" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <View
         android:layout_width="match_parent"

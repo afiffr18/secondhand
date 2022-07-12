@@ -109,13 +109,20 @@ interface SellerService {
     @GET("seller/order")
     suspend fun getSellerOrder(
         @Header("access_token") token : String,
-//        @Query("status") status: String?
+        @Query("status") status : String?
     ) : SellerOrderDto
 
     // need review
     @GET("seller/order/{id}")
-    fun getSellerOrderById(
+    suspend fun getSellerOrderById(
         @Header("access_token") token : String,
         @Path("id") id : Int
     ) : SellerOrderDtoItem
+
+    @PATCH("seller/order/{id}")
+    suspend fun updateSellerOrderStatus(
+        @Header("access_token") access_token : String,
+        @Path("id") id : Int,
+        @Body status: SellerOrderStatusBody
+    ) : SellerOrderStatusDto
 }

@@ -24,6 +24,6 @@ class HomeViewModel(private val homeRepo: HomeRepo) : ViewModel() {
 
     fun getKategori() = homeRepo.getSellerKategori().asLiveData()
 
-    fun getBuyerProduct(status : String?,categoryId : Int?,search : String?)
-    = homeRepo.getBuyerProduct(status, categoryId, search).asLiveData()
+    fun getBuyerProduct(categoryId : Int?,search : String?)
+    = homeRepo.getBuyerProduct("available", categoryId, search).asLiveData()
 }

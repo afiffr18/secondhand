@@ -16,6 +16,8 @@ import com.and2t2.secondhand.domain.model.SellerCategory
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.model.SellerProduct
 import com.and2t2.secondhand.domain.model.SellerProductMapper
+import com.and2t2.secondhand.data.remote.dto.seller.*
+import com.and2t2.secondhand.domain.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -33,7 +35,7 @@ class SellerRepo(
         val result = sellerService.getSellerProduct(accessToken)
         return mapper.toDomainList(result)
     }
-    
+
 
     fun getAllProduct(accessToken: String) = networkBoundResource(
         query = { sellerDao.getProductDetail() },
@@ -94,14 +96,14 @@ class SellerRepo(
         return sellerService.setSellerProduct(access_token, name, description, basePrice, categoryIds, location, image)
     }
 
-    suspend fun getOrder(accessToken: String): List<SellerOrder> {
-        val result = sellerService.getSellerOrder(accessToken)
+    suspend fun getOrder(accessToken: String,status: String?): List<SellerOrder> {
+        val result = sellerService.getSellerOrder(accessToken,status)
         return orderMapper.toDomainList(result)
     }
 
-    fun getAllOrder(accessToken: String) = networkBoundResource(
+    fun getAllOrder(accessToken: String,status: String?) = networkBoundResource(
         query = { sellerDao.getOrderDetail() },
-        fetch = { getOrder(accessToken) },
+        fetch = { getOrder(accessToken, status) },
         saveFetchResult = { sellerOrder ->
             mDb.withTransaction {
                 sellerDao.deleteOrderDetail()
@@ -109,6 +111,23 @@ class SellerRepo(
             }
         }
     )
+
+
+
+    /*** Seller Order ***/
+    suspend fun getSellerOrder(accessToken: String,status : String?) : List<SellerOrder>{
+        val result = sellerService.getSellerOrder(accessToken,status)
+        return orderMapper.toDomainList(result)
+    }
+
+    suspend fun getSelletOrderById(accessToken: String,id: Int) : SellerOrder{
+        val result = sellerService.getSellerOrderById(accessToken,id)
+        return orderMapper.mapToDomainModel(result)
+    }
+
+    suspend fun updateSelerOrderStatus(accessToken: String,id : Int,status: SellerOrderStatusBody) : SellerOrderStatusDto{
+        return sellerService.updateSellerOrderStatus(accessToken,id, status)
+    }
 
 
 }

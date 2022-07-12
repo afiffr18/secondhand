@@ -11,14 +11,14 @@
         android:id="@+id/iv_barang"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize12"
+        android:theme="@style/ShapeAppearanceOverlay.App.CornerSize12"
         android:background="#d3d3d3"
         android:src="@drawable/ic_baseline_image_24"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:contentDescription="TODO"
-        app:tint="@color/neutral03" />
-    
+        android:scaleType="centerCrop"
+        />
+
     <TextView
         android:id="@+id/tv_title"
         android:text="Penawaran produk"

@@ -129,5 +129,5 @@ class SellerProductViewModel(private val sellerRepo: SellerRepo): ViewModel() {
         }
     }
 
-    fun getAllOrder(accessToken: String) = sellerRepo.getAllOrder(accessToken).asLiveData()
+    fun getAllOrder(accessToken: String,status : String?) = sellerRepo.getAllOrder(accessToken,status).asLiveData()
 }

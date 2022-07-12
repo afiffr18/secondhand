@@ -16,5 +16,6 @@ data class Notifikasi (
     @ColumnInfo(name = "read") val read : Boolean? = false,
     @ColumnInfo(name = "imageUrl") val imageUrl : String?=null,
     @ColumnInfo(name = "basePrice") val basePrice : Int?=null,
-    @ColumnInfo(name = "namaBarang") val namaBarang : String?=null
+    @ColumnInfo(name = "namaBarang") val namaBarang : String?=null,
+
 )

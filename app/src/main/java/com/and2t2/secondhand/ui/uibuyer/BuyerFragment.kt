@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -24,7 +25,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.delay
 
 
 class BuyerFragment : Fragment() {
@@ -89,7 +89,7 @@ class BuyerFragment : Fragment() {
         binding.btnNego.setOnClickListener {
 
             //menampilkan dialog
-            val dialog = BottomSheetDialog(requireContext())
+            val dialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialog)
             val view = layoutInflater.inflate(R.layout.buyer_10, null)
 
             dialog.setContentView(view)
@@ -114,29 +114,39 @@ class BuyerFragment : Fragment() {
             }
 
             btnKirim.setOnClickListener {
-                val harga = etHarga.editText?.text.toString().toInt()
-                dataHarga = PostBuyerOrderBody(harga,productId!!)
-                dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
-                    viewModel.setBuyerOrder(dataHarga,access_token).observe(viewLifecycleOwner){
-                        when(it.status){
-                            Status.LOADING -> {
-                                showLoading(requireActivity())
-                            }
-                            Status.SUCCESS ->{
-                                showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
-                                binding.btnNego.isVisible = false
-                                binding.btnNegoSuccess.isVisible = true
-                                hideLoading()
-                                dialog.dismiss()
-                            }
-                            Status.ERROR -> {
-                                showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
-                                hideLoading()
-                                dialog.dismiss()
+                val inputNumber = etHarga.editText?.text.toString()
+                if(inputNumber == ""){
+                    Toast.makeText(requireContext(),"Input tidak valid",Toast.LENGTH_SHORT).show()
+                }else{
+                    val harga = inputNumber.toInt()
+                    if(harga > 0){
+                        dataHarga = PostBuyerOrderBody(harga,productId!!)
+                        dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
+                            viewModel.setBuyerOrder(dataHarga,access_token).observe(viewLifecycleOwner){
+                                when(it.status){
+                                    Status.LOADING -> {
+                                        showLoading(requireActivity())
+                                    }
+                                    Status.SUCCESS ->{
+                                        showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
+                                        binding.btnNego.isVisible = false
+                                        binding.btnNegoSuccess.isVisible = true
+                                        hideLoading()
+                                        dialog.dismiss()
+                                    }
+                                    Status.ERROR -> {
+                                        showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
+                                        hideLoading()
+                                        dialog.dismiss()
+                                    }
+                                }
                             }
                         }
+                    }else{
+                        Toast.makeText(requireContext(),"",Toast.LENGTH_SHORT).show()
                     }
                 }
+
             }
 
         }

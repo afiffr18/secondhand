@@ -16,6 +16,7 @@ import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentHomeBinding
 import com.and2t2.secondhand.domain.model.BuyerProductMapper
+import com.and2t2.secondhand.domain.model.SellerCategory
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.repository.HomeRepo
 
@@ -26,7 +27,7 @@ class Home : Fragment() {
     private val binding get() = _binding!!
     private lateinit var kategoriAdapter: KategoriAdapter
     private lateinit var productAdapter: ProductAdapter
-
+    private val listOfCategory: MutableList<SellerCategory> = mutableListOf()
 
     private val homeRepo : HomeRepo by lazy { HomeRepo(ApiClient.instanceSeller,ApiClient.instanceBuyer,
     BuyerProductMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!
@@ -60,7 +61,7 @@ class Home : Fragment() {
     private fun initKategoriRecycler(){
         val linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
 
-        kategoriAdapter = KategoriAdapter(){ id ->
+        kategoriAdapter = KategoriAdapter{ id ->
             if (id == 0){
                 getDataProduct()
 
@@ -75,10 +76,13 @@ class Home : Fragment() {
 
     }
     private fun getKategori(){
+    val newKategori = SellerCategory(0,"Semua")
         viewModel.getKategori().observe(viewLifecycleOwner){
-            it.data?.let{ data->
-                kategoriAdapter.updateDataKategori(data)
+            listOfCategory.add(newKategori)
+            it.data?.map { dataKategori ->
+                listOfCategory.add(dataKategori)
             }
+            kategoriAdapter.updateDataKategori(listOfCategory)
         }
     }
 
@@ -95,7 +99,7 @@ class Home : Fragment() {
         }
     }
     private fun getDataProduct(){
-        viewModel.getBuyerProduct(null,null,null).observe(viewLifecycleOwner){
+        viewModel.getBuyerProduct(null,null).observe(viewLifecycleOwner){
             it.data?.let { BuyerProduct ->
                 productAdapter.updateDataProduct(BuyerProduct)
                 binding.rvListProductHomeProduct.scrollToPosition(0)
@@ -104,7 +108,7 @@ class Home : Fragment() {
     }
 
     private fun getDataByKategori(id : Int){
-        viewModel.getBuyerProduct(null,id,null).observe(viewLifecycleOwner){
+        viewModel.getBuyerProduct(id,null).observe(viewLifecycleOwner){
             it.data?.let { BuyerProduct ->
                 productAdapter.updateDataProduct(BuyerProduct)
             }
@@ -116,7 +120,7 @@ class Home : Fragment() {
         //from icon search klik
         binding.ivProductSearch.setOnClickListener {
             val search = binding.etProductSearch.editableText.toString()
-            viewModel.getBuyerProduct(null,null,search).observe(viewLifecycleOwner){
+            viewModel.getBuyerProduct(null,search).observe(viewLifecycleOwner){
                 it.data?.let { BuyerProduct ->
                     productAdapter.updateDataProduct(BuyerProduct)
                 }
@@ -127,7 +131,7 @@ class Home : Fragment() {
 
         binding.etProductSearch.onDone {
             val search = binding.etProductSearch.editableText.toString()
-            viewModel.getBuyerProduct(null,null,search).observe(viewLifecycleOwner){
+            viewModel.getBuyerProduct(null,search).observe(viewLifecycleOwner){
                 it.data?.let { BuyerProduct ->
                     productAdapter.updateDataProduct(BuyerProduct)
                 }

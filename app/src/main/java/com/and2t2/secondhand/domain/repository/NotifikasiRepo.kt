@@ -5,6 +5,7 @@ import com.and2t2.secondhand.common.networkBoundResource
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 //import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.NotifikasiService
+import com.and2t2.secondhand.data.remote.dto.notification.NotificationDtoItem
 import com.and2t2.secondhand.domain.model.Notifikasi
 import com.and2t2.secondhand.domain.model.NotifikasiMapper
 import kotlinx.coroutines.Dispatchers
@@ -37,8 +38,8 @@ class NotifikasiRepo(
         }
       )
 
-    suspend fun updateNotifikasiRead(access_token: String, id : Int) = withContext(Dispatchers.IO){
-        apiService.updateNotificationRead(access_token,id)
+    suspend fun updateNotifikasiRead(access_token: String, id : Int) : NotificationDtoItem{
+        return apiService.updateNotificationRead(access_token,id)
     }
 
 

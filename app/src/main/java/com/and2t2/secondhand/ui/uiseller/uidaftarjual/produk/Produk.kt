@@ -85,6 +85,14 @@ class Produk : Fragment() {
                     produkAdapter.updateDataRecycler(data)
                     produkAdapter.notifyDataSetChanged()
                 }
+//                val btn = view?.findViewById<View>(R.id.parent_btn_add_product)
+//                it.data?.let { data ->
+//                    if (!data.isNullOrEmpty()) {
+//                        btn?.layoutParams?.width = ViewGroup.LayoutParams.MATCH_PARENT
+//                        btn?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+//                    }
+//                    produkAdapter.updateDataRecycler(data)
+//                }
             }
         }
     }
