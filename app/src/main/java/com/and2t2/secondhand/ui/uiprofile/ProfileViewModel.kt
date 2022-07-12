@@ -46,4 +46,32 @@ class ProfileViewModel(private val authRepo: AuthRepo): ViewModel() {
             emit(Resource.error(null, "Something went wrong"))
         }
     }
+
+    fun changePasswordUser(accessToken: String,
+                           oldPass: RequestBody,
+                           newPass: RequestBody,
+                           newPassConfirm: RequestBody
+    ) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+        try {
+            val response = authRepo.changePasswordUser(accessToken, oldPass, newPass, newPassConfirm)
+            if (response.isSuccessful) {
+                emit(Resource.success(response.body()))
+                Log.d("CHANGE PASS RESPONSE", "CHANGE PASSWORD USER SUKSES")
+            } else {
+                val gson = Gson()
+                val errorMessage = response.errorBody()?.string()
+                val data = gson.fromJson(errorMessage, AuthUserError::class.java)
+                response.errorBody()?.close()
+                emit(Resource.error(null, data.message))
+                Log.d("CHANGE PASS RESPONSE", "CHANGE PASSWORD USER GAGAL")
+            }
+        } catch (e: HttpException) {
+            emit(Resource.error(null, "Something went wrong"))
+        } catch (e: IOException) {
+            emit(Resource.error(null, "Please check your network connection"))
+        } catch (e: Exception) {
+            emit(Resource.error(null, "Something went wrong"))
+        }
+    }
 }

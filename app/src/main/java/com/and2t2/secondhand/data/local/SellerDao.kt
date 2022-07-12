@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.and2t2.secondhand.domain.model.SellerOrder
 import com.and2t2.secondhand.domain.model.SellerCategory
 import com.and2t2.secondhand.domain.model.SellerProduct
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,16 @@ interface SellerDao {
 
     @Query("DELETE FROM SellerProduct")
     fun deleteProductDetail()
+
+
+    @Query("SELECT * FROM SellerOrder")
+    fun getOrderDetail() : Flow<List<SellerOrder>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrderDetail(sellerProduct: List<SellerOrder>)
+
+    @Query("DELETE FROM SellerOrder")
+    fun deleteOrderDetail()
 
     /** Seller Category */
     @Query("SELECT * FROM SellerCategory ORDER by id ASC")

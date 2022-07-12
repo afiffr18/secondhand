@@ -1,17 +1,20 @@
 package com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.and2t2.secondhand.R
-import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentProdukBinding
+import com.and2t2.secondhand.domain.model.SellerOrderMapper
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.model.SellerOrderMapper
 import com.and2t2.secondhand.domain.model.SellerProductMapper
@@ -26,7 +29,7 @@ class Produk : Fragment() {
 
     private lateinit var produkAdapter: ProdukAdapter
 
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerCategoryMapper(), SellerOrderMapper(),DatabaseSecondHand.getInstance(requireContext())!!) }
+    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(),SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
@@ -70,20 +73,18 @@ class Produk : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllProduct(token).observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        val btn = view?.findViewById<View>(R.id.parent_btn_add_product)
-                        if (!it.data.isNullOrEmpty()) {
-                            btn?.layoutParams?.width = ViewGroup.LayoutParams.MATCH_PARENT
-                            btn?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                        }
-                        produkAdapter.updateDataRecycler(it.data!!)
+                val btn = view?.findViewById<View>(R.id.parent_btn_add_product)
+                it.data?.let { data ->
+                    if (!data.isNullOrEmpty()) {
+                        btn?.layoutParams?.width = ViewGroup.LayoutParams.MATCH_PARENT
+                        btn?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
                     }
-                    Status.ERROR -> {}
-                    Status.LOADING -> {}
+                    produkAdapter.updateDataRecycler(data)
+                    produkAdapter.notifyDataSetChanged()
                 }
 //                val btn = view?.findViewById<View>(R.id.parent_btn_add_product)
 //                it.data?.let { data ->

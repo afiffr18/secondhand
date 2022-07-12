@@ -6,28 +6,17 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="24dp"
     android:paddingTop="24dp"
-    tools:context=".ui.uiprofile.Profile">
-
-    <ImageView
-        android:id="@+id/back_btn"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="?android:selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_back_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"/>
+    tools:context=".ui.uiprofile.LengkapiProfileActivity">
 
     <TextView
         android:id="@+id/lengkapi_info_akun"
         android:layout_width="248dp"
         android:layout_height="24dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="Ubah Informasi Akun"
+        android:text="@string/lengkapiinfoakun"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/back_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

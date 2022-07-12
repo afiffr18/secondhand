@@ -3,38 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/drawable/placeholder_image.xml" value="0.188" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/activity_main.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/fragment_register.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/item_daftarjual_diminati.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/item_daftarjual_produk.xml" value="0.37083333333333335" />
+        <entry key="..\:/FINAL PROJECT/app/src/main/res/layout/item_daftarjual_produk_add.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/Kazakimaru/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/ic_back_button.xml" value="0.1615" />
         <entry key="..\:/Users/Kazakimaru/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_register.xml" value="0.25" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable-v24/bg_divider.xml" value="0.1255" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable-v24/ic_fi_home.xml" value="0.1255" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/bottom_dialog_rounded.xml" value="0.192" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/drawable/circle_shape.xml" value="0.1275" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/activity_main.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/buyer_10.xml" value="0.22" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/card_add.xml" value="0.5" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_akun.xml" value="0.16" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_buyer.xml" value="0.18" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_detail.xml" value="0.16547066272688898" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_detail_produk.xml" value="0.21" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_home.xml" value="0.18" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_info_penawar.xml" value="0.22" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_login.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_main.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_notifikasi.xml" value="0.25" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_preview_produk.xml" value="0.16547066272688898" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_profile.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/fragment_register.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_daftarjual_produk.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_home_category.xml" value="0.5" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_home_category_semua.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_home_list_product.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_info_penawar_list.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/item_product.xml" value="0.33" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/loading_dialog.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/notifikasi_card.xml" value="0.4431818181818182" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/seller_28.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/layout/seller_30.xml" value="0.25" />
-        <entry key="..\:/Users/afiff/AndroidStudioProjects/second-hand-kelompok-2/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

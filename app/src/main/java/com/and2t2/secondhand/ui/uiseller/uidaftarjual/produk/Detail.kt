@@ -31,7 +31,7 @@ class Detail : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerCategoryMapper(), SellerOrderMapper(),DatabaseSecondHand.getInstance(requireContext())!!) }
+    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
     private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
 
     private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
@@ -129,7 +129,7 @@ class Detail : Fragment() {
 
     private fun showDeleteDialog() {
         val dialog = AlertDialog.Builder(requireContext())
-        dialog.setTitle("Apakah anda yakin ingin menghapus Produk ini ?")
+        dialog.setMessage("Hapus produk ini ?")
         dialog.setCancelable(true)
         dialog.setPositiveButton("Hapus") { dialogInterface, _ ->
             sellerProductViewModel.deleteProductById(accessToken!!, getProductId()!!).observe(viewLifecycleOwner) {

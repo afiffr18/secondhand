@@ -6,30 +6,25 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
+import com.and2t2.secondhand.MainActivity
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
-import com.and2t2.secondhand.databinding.FragmentProfileBinding
+import com.and2t2.secondhand.databinding.ActivityLengkapiProfileBinding
 import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.repository.AuthRepo
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.bumptech.glide.Glide
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -38,50 +33,27 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
-
-class Profile : Fragment() {
+class LengkapiProfileActivity : AppCompatActivity() {
     private val fileUtil = FileUtil()
     private var uri : Uri? = null
-    private var accessToken : String? = null
 
-    companion object { const val REQUEST_CODE_PERMISSION = 100 }
+    private lateinit var binding: ActivityLengkapiProfileBinding
 
-    private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
+    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(this)!!) }
+    private val profileViewModel: ProfileViewModel by lazy { ProfileViewModel(authRepo) }
 
-    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val profileViewModel: ProfileViewModel by viewModelsFactory { ProfileViewModel(authRepo) }
+    private val pref: DatastoreManager by lazy { DatastoreManager(this) }
+    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
 
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityLengkapiProfileBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         pickImgAndRequestPermission()
         initAdapterCity()
-        doUpdate()
-        observeDataFromNetwork()
-        backButtonOnPressed()
-    }
-
-    private fun backButtonOnPressed() {
-        binding.backBtn.setOnClickListener {
-            it.findNavController().popBackStack()
-        }
+        getNama()
+        btnSimpanOnPressed()
     }
 
     private fun pickImgAndRequestPermission() {
@@ -93,14 +65,14 @@ class Profile : Fragment() {
     private fun checkingPermission() {
         // apakah permission sudah di setujui atau belum
         if (isGranted(
-                requireActivity(),
+                this,
                 Manifest.permission.CAMERA,
                 arrayOf(
                     Manifest.permission.CAMERA,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ),
-                REQUEST_CODE_PERMISSION,
+                Profile.REQUEST_CODE_PERMISSION,
             )
         ) {
             chooseImageDialog()
@@ -131,7 +103,7 @@ class Profile : Fragment() {
 
     // dialoag yg muncul kalau user menolak permission yg di butuhkan
     private fun showPermissionDeniedDialog() {
-        AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(this)
             .setTitle("Permission Denied")
             .setMessage("Permission is denied, Please allow permissions from App Settings.")
             .setPositiveButton(
@@ -140,7 +112,7 @@ class Profile : Fragment() {
                 // mengarahkan user untuk buka halaman setting
                 val intent = Intent()
                 intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                val uri = Uri.fromParts("package", requireActivity().packageName, null)
+                val uri = Uri.fromParts("package", this.packageName, null)
                 intent.data = uri
                 startActivity(intent)
             }
@@ -149,7 +121,7 @@ class Profile : Fragment() {
     }
 
     private fun chooseImageDialog() {
-        AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(this)
             .setMessage("Pilih Gambar")
             .setPositiveButton("Gallery") { _, _ -> openGallery() }
             .setNegativeButton("Camera") { _, _ -> openCamera() }
@@ -158,7 +130,7 @@ class Profile : Fragment() {
 
     // buat buka gallery
     private fun openGallery() {
-        requireActivity().intent.type = "image/*"
+        this.intent.type = "image/*"
         galleryResult.launch("image/*")
     }
 
@@ -171,7 +143,7 @@ class Profile : Fragment() {
                 setImageURI(result)
             }
             // Mendapatkan path
-            val imgPath = result.let { fileUtil.getPath(requireContext(), it) }
+            val imgPath = result.let { fileUtil.getPath(this, it) }
             // Simpan ke variable global
             uri = Uri.parse(imgPath)
         }
@@ -194,24 +166,31 @@ class Profile : Fragment() {
                     setImageBitmap(bitmap)
                 }
                 // Mendapatkan path
-                val imgPath = fileUtil.getPath(requireContext(), fileUtil.bitmapToUri(requireContext(), bitmap))
+                val imgPath = fileUtil.getPath(this, fileUtil.bitmapToUri(this, bitmap))
                 // Simpan ke variable global
                 uri = Uri.parse(imgPath)
             }
         }
 
     private fun initAdapterCity() {
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, cityIndonesia())
+        val adapter = ArrayAdapter(this, R.layout.list_item, cityIndonesia())
         (binding.etlKota.editText as? MaterialAutoCompleteTextView)?.setAdapter(adapter)
     }
 
-    private fun doUpdate() {
-        binding.btnSimpan.setOnClickListener {
-            uploadData()
+    private fun getNama() {
+        val nama = intent.extras?.getString("nama_lengkap")
+        if (nama != null) {
+            binding.etNama.setText(nama)
         }
     }
 
-    private fun uploadData() {
+    private fun btnSimpanOnPressed() {
+        binding.btnSimpan.setOnClickListener {
+            doUpdate()
+        }
+    }
+
+    private fun doUpdate() {
         // Get Image from MultipartBody.Part
         val image = uri?.let { prepareFilePart(it) }
 
@@ -226,68 +205,59 @@ class Profile : Fragment() {
         val address = etAlamat.toRequestBody("address".toMediaTypeOrNull())
         val city = etKota.toRequestBody("city".toMediaTypeOrNull())
 
-        if (validateData(etNamaLengkap, etKota, etAlamat, etNoHP)) {
-            profileViewModel.doUpdateUser(
-                accessToken!!,
-                fullName,
-                phoneNumber,
-                address,
-                city,
-                image
-            ).observe(viewLifecycleOwner) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        hideLoading()
-                        showSnackbar(
-                            requireContext(),
-                            requireView(),
-                            "Berhasil Perbarui Akun",
-                            R.color.success
-                        )
-                        observeDataFromNetwork()
-                    }
-                    Status.ERROR -> {
-                        hideLoading()
-                        showSnackbar(requireContext(), requireView(), it.message!!, R.color.danger)
-                    }
-                    Status.LOADING -> {
-                        // Munculkan LoadingDialog
-                        showLoading(requireActivity())
+        if (profileValidation(etNamaLengkap, etKota, etAlamat, etNoHP)) {
+            datastoreViewModel.getAccessToken().observe(this) { token ->
+                profileViewModel.doUpdateUser(token, fullName, phoneNumber, address, city, image).observe(this) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            hideLoading()
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }
+                        Status.ERROR -> {
+                            hideLoading()
+                            showSnackbar(this, binding.root, it.message!!, R.color.danger)
+                        }
+                        Status.LOADING -> {
+                            showLoading(this)
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun validateData(
-        nama: String,
-        kota: String,
-        alamat: String,
-        noHp: String
-    ): Boolean {
-        return when {
-            nama.isEmpty() -> {
-                binding.etNama.error = "Nama tidak boleh kosong"
-                binding.etNama.requestFocus()
-                false
-            }
-            kota.isEmpty() -> {
-                binding.etlKota.error = "Kota tidak boleh kosong"
-                binding.etlKota.requestFocus()
-                false
-            }
-            alamat.isEmpty() -> {
-                binding.etAlamat.error = "Alamat tidak boleh kosong"
-                binding.etAlamat.requestFocus()
-                false
-            }
-            noHp.isEmpty() -> {
-                binding.etNohp.error = "Nomor Hp tidak boleh kosong"
-                binding.etNohp.requestFocus()
-                false
-            }
-            else -> true
+    private fun profileValidation(namaLengkap: String, kota: String, alamat: String, noHp: String): Boolean {
+        var result = true
+        if (namaLengkap.isEmpty()) { // jika kosong
+            binding.etlNama.error = "Nama tidak boleh kosong!"
+            result = false
+        }  else {
+            binding.etlNama.isErrorEnabled = false
         }
+
+        if (kota.isEmpty()) { // jika kosong
+            binding.etlKota.error = "Kota tidak boleh kosong!"
+            result = false
+        } else {
+            binding.etlKota.isErrorEnabled = false
+        }
+
+        if (alamat.isEmpty()) { // jika kosong
+            binding.etlAlamat.error = "Alamat tidak boleh kosong!"
+            result = false
+        }  else {
+            binding.etlAlamat.isErrorEnabled = false
+        }
+
+        if (noHp.isEmpty()) { // jika kosong
+            binding.etlNohp.error = "No. HP tidak boleh kosong!"
+            result = false
+        } else {
+            binding.etlNohp.isErrorEnabled = false
+        }
+
+        return result
     }
 
     private fun prepareFilePart(fileUri: Uri): MultipartBody.Part {
@@ -299,29 +269,4 @@ class Profile : Fragment() {
         // MultipartBody.Part is used to send also the actual file name
         return MultipartBody.Part.createFormData("image", file.name, requestFile)
     }
-
-    private fun observeDataFromNetwork() {
-        datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
-            accessToken = token
-            profileViewModel.getUser(accessToken!!).observe(viewLifecycleOwner) {
-                it.data?.let { data ->
-                    binding.apply {
-                        val phoneNumber = data.phoneNumber?.drop(3)
-                        if (data.imageUrl != null) {
-                            editIvPicture.setPadding(0,0,0,0)
-                            Glide.with(requireContext())
-                                .load(data.imageUrl)
-                                .into(editIvPicture)
-                        }
-
-                        etNama.setText(data.fullName)
-                        etlKota.editText?.setText(data.city)
-                        etAlamat.setText(data.address)
-                        etNohp.setText(phoneNumber)
-                    }
-                }
-            }
-        }
-    }
-
 }

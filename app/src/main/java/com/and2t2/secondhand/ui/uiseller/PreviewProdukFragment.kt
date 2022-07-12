@@ -48,7 +48,7 @@ class PreviewProdukFragment : Fragment() {
     private var _binding: FragmentPreviewProdukBinding? = null
     private val binding get() = _binding!!
 
-    private val sellerRepo: SellerRepo by lazy {SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerCategoryMapper(), SellerOrderMapper(),DatabaseSecondHand.getInstance(requireContext())!!)}
+    private val sellerRepo: SellerRepo by lazy {SellerRepo(ApiClient.instanceSeller, SellerProductMapper(),SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!)}
     private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
