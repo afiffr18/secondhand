@@ -15,6 +15,7 @@ import com.and2t2.secondhand.common.toFormatDate
 import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.domain.model.SellerOrder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
@@ -60,8 +61,9 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
         private val btnTerima = view.findViewById<MaterialButton>(R.id.btn_terima)
         private val btnStatus = view.findViewById<MaterialButton>(R.id.btn_status)
         private val btnHubungi = view.findViewById<MaterialButton>(R.id.btn_hubungi)
+        private val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_image_24)
         fun bind(sellerOrder: SellerOrder){
-            Glide.with(itemView.context).load(sellerOrder.imageProduct).into(gambar)
+            Glide.with(itemView.context).load(sellerOrder.imageProduct).apply(bgOptions).into(gambar)
             namaBarang.text = sellerOrder.productName
             updateDate.text = sellerOrder.updatedAt
             if(sellerOrder.status=="success"){
