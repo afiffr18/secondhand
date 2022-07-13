@@ -33,42 +33,43 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id == R.id.profile ||
-                    destination.id == R.id.navigation_jual ||
-                    destination.id == R.id.previewProdukFragment ||
-                    destination.id == R.id.detail ||
-                    destination.id == R.id.buyerFragment ||
-                    destination.id == R.id.pengaturanAkunFragment
-                ) {
-                    binding.bottomNavigationView.visibility = View.GONE
-                } else {
-                    binding.bottomNavigationView.visibility = View.VISIBLE
-                }
             if (destination.id == R.id.navigation_notifikasi ||
                 destination.id == R.id.navigation_jual ||
                 destination.id == R.id.navigation_daftarjual ||
-                destination.id == R.id.navigation_akun ||
-                destination.id == R.id.buyerFragment
+                destination.id == R.id.navigation_akun
             ) {
                 datastoreViewModel.getLoginState().observe(this) {
                     if (!it) {
-                        navController.navigate(R.id.navigation_home)
                         showAlertDialogWithAction()
                     }
                 }
+            }
+            if (destination.id == R.id.profile ||
+                destination.id == R.id.navigation_jual ||
+                destination.id == R.id.previewProdukFragment ||
+                destination.id == R.id.detail ||
+                destination.id == R.id.buyerFragment ||
+                destination.id == R.id.pengaturanAkunFragment
+            ) {
+                binding.bottomNavigationView.visibility = View.GONE
+            } else {
+                binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }
         binding.bottomNavigationView.setupWithNavController(navController)
     }
 
     private fun showAlertDialogWithAction() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
             val dialog = AlertDialog.Builder(this)
             dialog.setMessage("Anda harus login terlebih dahulu")
             dialog.setPositiveButton("Login") { dialogInterface, angka ->
                 startActivity(Intent(this, AuthActivity::class.java))
             }
             dialog.setNegativeButton("Batal") { dialogInterface, _ ->
-
+                navHostFragment.navController.popBackStack()
             }
             dialog.setCancelable(false)
             dialog.show()

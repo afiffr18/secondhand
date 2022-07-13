@@ -1,15 +1,19 @@
 package com.and2t2.secondhand.ui.uibuyer
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.and2t2.secondhand.AuthActivity
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -31,6 +35,8 @@ class BuyerFragment : Fragment() {
 
     private lateinit var dataHarga : PostBuyerOrderBody
     private var productId : Int? = null
+
+    private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
 
     private val buyerRepo : BuyerRepo by lazy { BuyerRepo(ApiClient.instanceBuyer,
         BuyerProductDetailMapper(), DatabaseSecondHand.getInstance(requireContext())!!
@@ -87,77 +93,95 @@ class BuyerFragment : Fragment() {
 
     private fun onNegoButtonClicked(){
         binding.btnNego.setOnClickListener {
-
-            //menampilkan dialog
-            val dialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialog)
-            val view = layoutInflater.inflate(R.layout.buyer_10, null)
-
-            dialog.setContentView(view)
-            dialog.show()
-
-
-            //logic dialog
-
-            val ivBarang = view.findViewById<ShapeableImageView>(R.id.iv_tawar_barang)
-            val namaBarang = view.findViewById<TextView>(R.id.tv_nama_barang)
-            val hargaBarang = view.findViewById<TextView>(R.id.tv_harga_barang)
-            val btnKirim = view.findViewById<MaterialButton>(R.id.btn_kirim)
-            val etHarga = view.findViewById<TextInputLayout>(R.id.et_harga)
-
-            viewModel.getProductDetail(productId!!).observe(viewLifecycleOwner){
-                it.data?.let { data ->
-                    Glide.with(requireContext()).load(data.imageUrl)
-                        .into(ivBarang)
-                    namaBarang.text = data.namaBarang
-                    hargaBarang.text = data.hargaBarang.toRp()
+            datastoreViewModel.getLoginState().observe(requireActivity()) {
+                if (!it) {
+                    showAlertDialogWithAction()
+                } else {
+                    showBottomSheetDialog()
                 }
             }
+        }
+    }
 
-            btnKirim.setOnClickListener {
-                val inputNumber = etHarga.editText?.text.toString()
-                if(inputNumber == ""){
-                    Toast.makeText(requireContext(),"Input tidak valid",Toast.LENGTH_SHORT).show()
-                }else{
-                    val harga = inputNumber.toInt()
-                    if(harga > 0){
-                        dataHarga = PostBuyerOrderBody(harga,productId!!)
-                        dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
-                            viewModel.setBuyerOrder(dataHarga,access_token).observe(viewLifecycleOwner){
-                                when(it.status){
-                                    Status.LOADING -> {
-                                        showLoading(requireActivity())
-                                    }
-                                    Status.SUCCESS ->{
-                                        showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
-                                        binding.btnNego.isVisible = false
-                                        binding.btnNegoSuccess.isVisible = true
-                                        hideLoading()
-                                        dialog.dismiss()
-                                    }
-                                    Status.ERROR -> {
-                                        showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
-                                        hideLoading()
-                                        dialog.dismiss()
-                                    }
+    private fun showAlertDialogWithAction() {
+        val dialog = AlertDialog.Builder(requireActivity())
+        dialog.setMessage("Anda harus login terlebih dahulu")
+        dialog.setPositiveButton("Login") { dialogInterface, angka ->
+            startActivity(Intent(requireActivity(), AuthActivity::class.java))
+        }
+        dialog.setNegativeButton("Batal") { dialogInterface, _ ->
+
+        }
+        dialog.setCancelable(false)
+        dialog.show()
+    }
+
+    private fun showBottomSheetDialog() {
+        //menampilkan dialog
+        val dialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialog)
+        val view = layoutInflater.inflate(R.layout.buyer_10, null)
+
+        dialog.setContentView(view)
+        dialog.show()
+
+
+        //logic dialog
+
+        val ivBarang = view.findViewById<ShapeableImageView>(R.id.iv_tawar_barang)
+        val namaBarang = view.findViewById<TextView>(R.id.tv_nama_barang)
+        val hargaBarang = view.findViewById<TextView>(R.id.tv_harga_barang)
+        val btnKirim = view.findViewById<MaterialButton>(R.id.btn_kirim)
+        val etHarga = view.findViewById<TextInputLayout>(R.id.et_harga)
+
+        viewModel.getProductDetail(productId!!).observe(viewLifecycleOwner){
+            it.data?.let { data ->
+                Glide.with(requireContext()).load(data.imageUrl)
+                    .into(ivBarang)
+                namaBarang.text = data.namaBarang
+                hargaBarang.text = data.hargaBarang.toRp()
+            }
+        }
+
+        btnKirim.setOnClickListener {
+            val inputNumber = etHarga.editText?.text.toString()
+            if(inputNumber == ""){
+                Toast.makeText(requireContext(),"Input tidak valid",Toast.LENGTH_SHORT).show()
+            }else{
+                val harga = inputNumber.toInt()
+                if(harga > 0){
+                    dataHarga = PostBuyerOrderBody(harga,productId!!)
+                    dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
+                        viewModel.setBuyerOrder(dataHarga,access_token).observe(viewLifecycleOwner){
+                            when(it.status){
+                                Status.LOADING -> {
+                                    showLoading(requireActivity())
+                                }
+                                Status.SUCCESS ->{
+                                    showSnackbar(requireContext(), requireView(), "Harga tawaranmu berhasil dikirim ke penjual", R.color.success)
+                                    binding.btnNego.isVisible = false
+                                    binding.btnNegoSuccess.isVisible = true
+                                    hideLoading()
+                                    dialog.dismiss()
+                                }
+                                Status.ERROR -> {
+                                    showSnackbar(requireContext(), requireView(), it.message.toString(), R.color.danger)
+                                    hideLoading()
+                                    dialog.dismiss()
                                 }
                             }
                         }
-                    }else{
-                        Toast.makeText(requireContext(),"",Toast.LENGTH_SHORT).show()
                     }
+                }else{
+                    Toast.makeText(requireContext(),"",Toast.LENGTH_SHORT).show()
                 }
-
             }
 
         }
     }
-
 
     private fun onBackPressed(){
         binding.ivBackButton.setOnClickListener {
             findNavController().popBackStack()
         }
     }
-
-
 }
