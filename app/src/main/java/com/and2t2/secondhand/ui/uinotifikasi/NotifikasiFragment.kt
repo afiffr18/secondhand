@@ -19,6 +19,7 @@ import com.and2t2.secondhand.domain.model.NotifikasiMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class NotifikasiFragment : Fragment() {
@@ -26,12 +27,8 @@ class NotifikasiFragment : Fragment() {
     private  var accessToken : String = ""
 
     private lateinit var notifAdapter: NotifikasiAdapter
-    private val notifikasiRepo : NotifikasiRepo by lazy { NotifikasiRepo(ApiClient.instanceNotifikasi,
-        NotifikasiMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val viewModel : NotifikasiViewModel by viewModelsFactory { NotifikasiViewModel(notifikasiRepo) }
-
-    private val pref : DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val dataStore : DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val viewModel : NotifikasiViewModel by viewModel()
+    private val dataStore : DatastoreViewModel by viewModel()
     private var _binding : FragmentNotifikasiBinding? = null
     private val binding get() = _binding!!
 

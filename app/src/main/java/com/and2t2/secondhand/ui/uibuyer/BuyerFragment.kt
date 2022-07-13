@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
@@ -25,6 +26,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class BuyerFragment : Fragment() {
@@ -32,13 +34,8 @@ class BuyerFragment : Fragment() {
     private lateinit var dataHarga : PostBuyerOrderBody
     private var productId : Int? = null
 
-    private val buyerRepo : BuyerRepo by lazy { BuyerRepo(ApiClient.instanceBuyer,
-        BuyerProductDetailMapper(), DatabaseSecondHand.getInstance(requireContext())!!
-    ) }
-    private val viewModel : BuyerViewModel by lazy { BuyerViewModel(buyerRepo) }
-
-    private val pref : DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val dataStore : DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
+    private val viewModel : BuyerViewModel by viewModel()
+    private val dataStore : DatastoreViewModel by viewModel()
 
     private var _binding : FragmentBuyerBinding? = null
     private val binding get() = _binding!!

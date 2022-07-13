@@ -13,19 +13,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.data.remote.dto.seller.SellerOrderStatusBody
 import com.and2t2.secondhand.databinding.FragmentInfoPenawarBinding
 import com.and2t2.secondhand.databinding.Seller30Binding
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.model.SellerOrderMapper
-import com.and2t2.secondhand.domain.model.SellerProductMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class InfoPenawarFragment : Fragment() {
@@ -34,14 +29,9 @@ class InfoPenawarFragment : Fragment() {
 
     private lateinit var infoPenawarAdapter: InfoPenawarAdapter
 
-    private val sellerRepo : SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller,
-        SellerProductMapper(), SellerOrderMapper(),SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!
-    ) }
+    private val dataStore : DatastoreViewModel by viewModel()
 
-    private val pref : DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val dataStore : DatastoreViewModel by lazy { DatastoreViewModel(pref) }
-
-    private val infoPenawarViewModel : InfoPenawarViewModel by viewModelsFactory { InfoPenawarViewModel(sellerRepo) }
+    private val infoPenawarViewModel : InfoPenawarViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -159,7 +149,7 @@ class InfoPenawarFragment : Fragment() {
                    it.data?.let{ data ->
                        Glide.with(requireContext()).load(data.imageProduct).into(binding.ivProductImage)
                        binding.tvProductName.text = data.productName
-                       binding.tvProductPrice.text = data.basePrice?.toInt()?.toRp()
+                       binding.tvProductPrice.text = data.basePrice?.toRp()
                        binding.tvProductBid.text = data.price?.toRp()
                        binding.tvName.text = data.buyerName
                        binding.tvCity.text = data.buyerLocation

@@ -143,7 +143,7 @@ class LengkapiProfileActivity : AppCompatActivity() {
                 setImageURI(result)
             }
             // Mendapatkan path
-            val imgPath = result.let { fileUtil.getPath(this, it) }
+            val imgPath = result?.let { fileUtil.getPath(this,it) }
             // Simpan ke variable global
             uri = Uri.parse(imgPath)
         }
