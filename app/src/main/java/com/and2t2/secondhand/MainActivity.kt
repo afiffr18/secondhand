@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setBottomNav()
-        addBadge()
+        addNotifikasiBadge()
     }
 
     private fun setBottomNav() {
@@ -78,21 +78,30 @@ class MainActivity : AppCompatActivity() {
             dialog.show()
     }
 
-    private fun addBadge() {
+    private fun addNotifikasiBadge() {
         datastoreViewModel.getAccessToken().observe(this){ access_token ->
             notifikasiViewModel.getNotifikasi(access_token).observe(this){
                 val data = it.data?.filter { data ->
                     data.read == false
                 }?.size
-
-                val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.navigation_notifikasi)
-                badge.isVisible = true
-
-                if (data != null) {
+                if (data != null && data != 0) {
+                    val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.navigation_notifikasi)
+                    badge.isVisible = true
                     badge.number = data
+                }else if(data == 0){
+                    hideNotifikasiBadge()
                 }
+
+
             }
         }
+    }
 
+    private fun hideNotifikasiBadge(){
+        val badgeDrawable = binding.bottomNavigationView.getBadge(R.id.navigation_notifikasi)
+        if (badgeDrawable != null) {
+            badgeDrawable.isVisible = false
+            badgeDrawable.clearNumber()
+        }
     }
 }
