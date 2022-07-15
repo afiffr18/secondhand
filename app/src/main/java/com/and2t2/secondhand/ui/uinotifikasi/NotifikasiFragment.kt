@@ -11,14 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.viewModelsFactory
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentNotifikasiBinding
-import com.and2t2.secondhand.domain.model.NotifikasiMapper
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.NotifikasiRepo
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -50,17 +44,16 @@ class NotifikasiFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
         getData()
-//        onSwipeRefreshLayout()
+//        addBadge()
     }
 
-//    private fun onSwipeRefreshLayout(){
-//        binding.swipe.setOnRefreshListener {
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                binding.swipe.isRefreshing = false
-//            },2000)
-//        }
-//    }
 
+//    private fun addBadge() {
+//        var badge = bottomNav.getOrCreateBadge(menuItemId)
+//        badge.isVisible = true
+//// An icon only badge will be displayed unless a number is set:
+//        badge.number = 99
+//    }
 
     private fun initRecycler(){
         val linearLayoutManager = LinearLayoutManager(requireContext())
