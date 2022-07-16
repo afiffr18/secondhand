@@ -55,6 +55,7 @@ class AkunFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
+        wishlistButtonOnPressed()
         buttonEditOnPressed()
         buttonPengaturanOnPressed()
         logoutButtonOnPressed()
@@ -77,6 +78,12 @@ class AkunFragment : Fragment() {
         }
     }
 
+    private fun wishlistButtonOnPressed(){
+        binding.wishlist.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_akun_to_wishlistFragment)
+        }
+    }
+
     private fun buttonEditOnPressed() {
         binding.ubahAkun.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_akun_to_profile)
@@ -91,12 +98,8 @@ class AkunFragment : Fragment() {
 
     private fun logoutButtonOnPressed() {
         binding.logout.setOnClickListener {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                DatabaseSecondHand.getInstance(requireContext())?.clearAllTables()
-//            }
-//            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(requireContext(), MainActivity::class.java))
-//            }, 2000)
+            requireActivity().finish()
+            startActivity(Intent(requireContext(), MainActivity::class.java))
             clearLoginState()
         }
     }

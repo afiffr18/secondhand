@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_navigation_akun_to_pengaturanAkunFragment"
             app:destination="@id/pengaturanAkunFragment" />
+        <action
+            android:id="@+id/action_navigation_akun_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
     </fragment>
 
     <fragment
@@ -116,4 +119,13 @@
         android:name="com.and2t2.secondhand.ui.uiseller.uiinfopenawar.InfoPenawarFragment"
         android:label="fragment_info_penawar"
         tools:layout="@layout/fragment_info_penawar" />
+    <fragment
+        android:id="@+id/wishlistFragment"
+        android:name="com.and2t2.secondhand.ui.uiakun.WishlistFragment"
+        android:label="fragment_wishlist"
+        tools:layout="@layout/fragment_wishlist" >
+        <action
+            android:id="@+id/action_wishlistFragment_to_navigation_akun"
+            app:destination="@id/navigation_akun" />
+    </fragment>
 </navigation>

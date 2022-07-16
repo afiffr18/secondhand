@@ -51,8 +51,11 @@ class NotifikasiFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecycler()
-        getData()
+        dataStore.getLoginState().observe(requireActivity()) {
+            if (it) {
+                test()
+            }
+        }
 //        onSwipeRefreshLayout()
     }
 
@@ -63,6 +66,11 @@ class NotifikasiFragment : Fragment() {
 //            },2000)
 //        }
 //    }
+
+    private fun test(){
+        initRecycler()
+        getData()
+    }
 
 
     private fun initRecycler(){
