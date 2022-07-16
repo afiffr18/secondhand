@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.hideKeyboard
 import com.and2t2.secondhand.common.onDone
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -73,13 +74,24 @@ class Home : Fragment() {
 
     }
     private fun getKategori(){
-    val newKategori = SellerCategory(0,"Semua")
         viewModel.getKategori().observe(viewLifecycleOwner){
-            listOfCategory.add(newKategori)
-            it.data?.map { dataKategori ->
-                listOfCategory.add(dataKategori)
+            when(it.status){
+                Status.LOADING ->{
+
+                }
+                Status.SUCCESS ->{
+                    val newKategori = SellerCategory(0,"Semua")
+                    listOfCategory.add(newKategori)
+                    it.data?.map { dataKategori ->
+                        listOfCategory.add(dataKategori)
+                    }
+                    kategoriAdapter.updateDataKategori(listOfCategory)
+                }
+                Status.ERROR ->{
+
+                }
             }
-            kategoriAdapter.updateDataKategori(listOfCategory)
+
         }
     }
 
