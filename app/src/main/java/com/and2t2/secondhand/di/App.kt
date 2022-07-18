@@ -5,6 +5,7 @@ import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.domain.model.*
 import com.and2t2.secondhand.domain.repository.*
+import com.and2t2.secondhand.ui.uiakun.WishlistViewModel
 import com.and2t2.secondhand.ui.uibuyer.BuyerViewModel
 import com.and2t2.secondhand.ui.uihome.HomeViewModel
 import com.and2t2.secondhand.ui.uilogin.LoginViewModel
@@ -46,6 +47,7 @@ class App : Application() {
         single { BuyerProductDetailMapper() }
         single { NotifikasiMapper()}
         single { AuthUserMapper()}
+        single { WishlistMapper()}
     }
 
     private val repoModule = module {
@@ -55,6 +57,7 @@ class App : Application() {
         single { BuyerRepo(get(),get(),get())}
         single { NotifikasiRepo(get(),get(),get())}
         single { AuthRepo(get(),get(),get())}
+        single { WishlistRepo(get(),get())}
     }
 
     private val viewModelModule = module{
@@ -64,6 +67,7 @@ class App : Application() {
         viewModel { BuyerViewModel(get()) }
         viewModel { NotifikasiViewModel(get()) }
         viewModel { LoginViewModel(get()) }
+        viewModel { WishlistViewModel(get())}
     }
 
 }
