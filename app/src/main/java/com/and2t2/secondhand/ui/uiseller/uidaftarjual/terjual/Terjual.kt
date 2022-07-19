@@ -68,15 +68,10 @@ class Terjual : Fragment() {
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllOrder(token,null).observe(viewLifecycleOwner) {
-                it.data?.let { data ->
-                    if (!data.isNullOrEmpty()) {
-                        terjualAdapter.updateDataRecycler(data)
-                        binding.ivNoProduk.isGone = true
-                    } else {
-                        terjualAdapter.updateDataRecycler(data)
-                        binding.ivNoProduk.isGone = false
-                    }
+                val filterData = it.data?.filter { data ->
+                    data.status == "accepted"
                 }
+                terjualAdapter.updateDataRecycler(filterData!!)
             }
         }
     }
