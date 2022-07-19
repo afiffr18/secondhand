@@ -214,12 +214,12 @@ class BuyerFragment : Fragment() {
     }
 
     private fun insertIntoDb(){
-        val wishlistId = WishlistId(null,productId!!)
+        val wishlistId = WishlistId(productId!!)
         wishlistDBViewModel.insertWishlist(wishlistId)
     }
 
     private fun deleteFromDb(){
-        val wishlistId = WishlistId(null,productId!!)
+        val wishlistId = WishlistId(productId!!)
         wishlistDBViewModel.deleteWishlistid(wishlistId)
     }
 

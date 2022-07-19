@@ -6,6 +6,5 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class WishlistId(
-    @PrimaryKey(autoGenerate = true) val id: Int?,
-    @ColumnInfo(name = "productId") val productId: Int
+    @PrimaryKey(autoGenerate = false) val productId: Int,
     )
