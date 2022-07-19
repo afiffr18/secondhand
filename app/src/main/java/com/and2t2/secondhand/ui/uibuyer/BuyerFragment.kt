@@ -104,10 +104,10 @@ class BuyerFragment : Fragment() {
     }
 
     private fun showAlertDialogWithAction() {
-        val dialog = AlertDialog.Builder(requireActivity())
+        val dialog = AlertDialog.Builder(requireContext())
         dialog.setMessage("Anda harus login terlebih dahulu")
         dialog.setPositiveButton("Login") { dialogInterface, angka ->
-            startActivity(Intent(requireActivity(), AuthActivity::class.java))
+            startActivity(Intent(requireContext(), AuthActivity::class.java))
         }
         dialog.setNegativeButton("Batal") { dialogInterface, _ ->
 

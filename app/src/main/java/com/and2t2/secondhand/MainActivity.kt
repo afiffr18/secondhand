@@ -35,27 +35,27 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.navigation_notifikasi ||
+            if (destination.id == R.id.navigation_home ||
+                destination.id == R.id.navigation_notifikasi ||
                 destination.id == R.id.navigation_jual ||
                 destination.id == R.id.navigation_daftarjual ||
-                destination.id == R.id.navigation_akun
-            ) {
-                datastoreViewModel.getLoginState().observe(this) {
-                    if (!it) {
-                        showAlertDialogWithAction()
+                destination.id == R.id.navigation_akun) {
+
+                binding.bottomNavigationView.visibility = View.VISIBLE
+
+                if (destination.id != R.id.navigation_home) {
+                    datastoreViewModel.getLoginState().observe(this) {
+                        if (!it) {
+                            showAlertDialogWithAction()
+                        } else {
+                            if (destination.id == R.id.navigation_jual) {
+                                binding.bottomNavigationView.visibility = View.GONE
+                            }
+                        }
                     }
                 }
-            }
-            if (destination.id == R.id.profile ||
-                destination.id == R.id.navigation_jual ||
-                destination.id == R.id.previewProdukFragment ||
-                destination.id == R.id.detail ||
-                destination.id == R.id.buyerFragment ||
-                destination.id == R.id.pengaturanAkunFragment
-            ) {
-                binding.bottomNavigationView.visibility = View.GONE
             } else {
-                binding.bottomNavigationView.visibility = View.VISIBLE
+                binding.bottomNavigationView.visibility = View.GONE
             }
         }
         binding.bottomNavigationView.setupWithNavController(navController)

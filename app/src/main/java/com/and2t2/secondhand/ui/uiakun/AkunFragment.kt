@@ -2,15 +2,11 @@ package com.and2t2.secondhand.ui.uiakun
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.and2t2.secondhand.AuthActivity
 import com.and2t2.secondhand.MainActivity
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.viewModelsFactory
@@ -23,10 +19,6 @@ import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 
 class AkunFragment : Fragment() {
@@ -98,8 +90,8 @@ class AkunFragment : Fragment() {
 
     private fun logoutButtonOnPressed() {
         binding.logout.setOnClickListener {
-            requireActivity().finish()
             startActivity(Intent(requireContext(), MainActivity::class.java))
+            requireActivity().finish()
             clearLoginState()
         }
     }
