@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
+import com.and2t2.secondhand.data.local.WishlistId
 import com.and2t2.secondhand.data.remote.dto.buyer.PostBuyerOrderBody
 import com.and2t2.secondhand.data.remote.dto.wishlist.PostWishlistBody
 import com.and2t2.secondhand.databinding.FragmentBuyerBinding
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
+import com.and2t2.secondhand.ui.uiwishlist.WishlistDBViewModel
 import com.and2t2.secondhand.ui.uiwishlist.WishlistViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -29,10 +31,12 @@ class BuyerFragment : Fragment() {
 
     private lateinit var dataHarga : PostBuyerOrderBody
     private var productId : Int? = null
+    private var wishlistId : Int? = null
 
     private val viewModel : BuyerViewModel by viewModel()
     private val dataStore : DatastoreViewModel by viewModel()
     private val wishlistViewModel : WishlistViewModel by viewModel()
+    private val wishlistDBViewModel : WishlistDBViewModel by viewModel()
     private lateinit var postWishlistBody: PostWishlistBody
     private var _binding : FragmentBuyerBinding? = null
     private val binding get() = _binding!!
@@ -52,13 +56,13 @@ class BuyerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.hide()
-//        getAccesstoken()
         productId = arguments?.getInt("product_key")!!
         productId?.let {
+            getWishlistId(it)
             getData(it)
             postWishlistBody = PostWishlistBody(it)
         }
+
         onNegoButtonClicked()
         onFavoritesButtonPressed()
         onBackPressed()
@@ -148,38 +152,95 @@ class BuyerFragment : Fragment() {
         }
     }
 
+
+
     private fun onFavoritesButtonPressed(){
-        binding.btnFavorites.setOnClickListener {
-             if(isAlreadyinFavorites()){
-                 addtoFavorites()
-             }else{
-                deleteFromFavorites()
-             }
+        wishlistDBViewModel.getWishlistId(productId!!)
+        wishlistDBViewModel.inWishlistId.observe(viewLifecycleOwner){ isAlreadyInWhislist ->
+            if(isAlreadyInWhislist == true){
+                binding.btnFavorites.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.danger))
+                binding.btnFavorites.setOnClickListener {
+                    deleteFromFavorites(wishlistId!!)
+                }
+            }else{
+                binding.btnFavorites.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.neutral02))
+                binding.btnFavorites.setOnClickListener {
+                    addtoFavorites()
+                }
+            }
         }
+
     }
 
     private fun addtoFavorites(){
         dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
-            wishlistViewModel.postBuyerWishlist(access_token,postWishlistBody).observe(viewLifecycleOwner){
+            val postObject = PostWishlistBody(productId!!)
+            wishlistViewModel.postBuyerWishlist(access_token,postObject).observe(viewLifecycleOwner){
                 when(it.status){
                     Status.LOADING ->{
 
                     }
                     Status.SUCCESS ->{
-                        showSnackbar(requireContext(),requireView(),"add to favorites",R.color.success)
+                        insertIntoDb()
+                        binding.btnFavorites.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.danger))
+                        showSnackbar(requireContext(),requireView(),"add to wishlist",R.color.success)
                     }
                     Status.ERROR ->{
-                        showSnackbar(requireContext(),requireView(),"failed to favorites",R.color.danger)
+                        showSnackbar(requireContext(),requireView(),"failed to add",R.color.danger)
                     }
                 }
             }
         }
     }
-    private fun deleteFromFavorites(){
+    private fun deleteFromFavorites(id : Int){
+        dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
+            wishlistViewModel.deleteWishlist(access_token,id).observe(viewLifecycleOwner){
+                when(it.status){
+                    Status.LOADING ->{
 
+                    }
+                    Status.SUCCESS ->{
+                        deleteFromDb()
+                        binding.btnFavorites.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.neutral02))
+                        showSnackbar(requireContext(),requireView(),"Dihapus dari wishlist",R.color.success)
+                    }
+                    Status.ERROR ->{
+                        showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
+                    }
+                }
+            }
+
+        }
     }
-    private fun isAlreadyinFavorites() : Boolean{
-        return productId == 1
+
+    private fun insertIntoDb(){
+        val wishlistId = WishlistId(null,productId!!)
+        wishlistDBViewModel.insertWishlist(wishlistId)
+    }
+
+    private fun deleteFromDb(){
+        val wishlistId = WishlistId(null,productId!!)
+        wishlistDBViewModel.deleteWishlistid(wishlistId)
+    }
+
+    private fun getWishlistId(productId : Int){
+        dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
+            wishlistViewModel.getBuyerWishlist(access_token).observe(viewLifecycleOwner){
+                when(it.status){
+                    Status.LOADING ->{
+
+                    }
+                    Status.SUCCESS ->{
+                        wishlistId = it.data?.filter { data ->
+                            data.productId == productId
+                        }?.component1()?.id
+                    }
+                    Status.ERROR ->{
+
+                    }
+                }
+            }
+        }
     }
 
 

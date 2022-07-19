@@ -6,7 +6,8 @@ import com.and2t2.secondhand.data.remote.dto.wishlist.WishlistDtoItem
 class WishlistMapper : DomainMapper<WishlistDtoItem,Wishlist> {
     override fun mapToDomainModel(modelDto: WishlistDtoItem): Wishlist {
         return Wishlist(
-            id = modelDto.productId,
+            id = modelDto.id,
+            productId = modelDto.productId,
             product_image = modelDto.product.imageUrl,
             product_name = modelDto.product.name,
             base_price = modelDto.product.basePrice

@@ -11,6 +11,7 @@ import com.and2t2.secondhand.ui.uihome.HomeViewModel
 import com.and2t2.secondhand.ui.uilogin.LoginViewModel
 import com.and2t2.secondhand.ui.uinotifikasi.NotifikasiViewModel
 import com.and2t2.secondhand.ui.uiseller.uiinfopenawar.InfoPenawarViewModel
+import com.and2t2.secondhand.ui.uiwishlist.WishlistDBViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -58,6 +59,7 @@ class App : Application() {
         single { NotifikasiRepo(get(),get(),get())}
         single { AuthRepo(get(),get(),get())}
         single { WishlistRepo(get(),get())}
+        single { WishlistDBRepo(get())}
     }
 
     private val viewModelModule = module{
@@ -68,6 +70,7 @@ class App : Application() {
         viewModel { NotifikasiViewModel(get()) }
         viewModel { LoginViewModel(get()) }
         viewModel { WishlistViewModel(get()) }
+        viewModel { WishlistDBViewModel(get()) }
     }
 
 }
