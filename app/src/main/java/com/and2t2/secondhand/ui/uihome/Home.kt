@@ -58,7 +58,6 @@ class Home : Fragment() {
 
     private fun initKategoriRecycler(){
         val linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-
         kategoriAdapter = KategoriAdapter{ id ->
             if (id == 0){
                 getDataProduct()

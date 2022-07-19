@@ -5,7 +5,7 @@ import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.domain.model.*
 import com.and2t2.secondhand.domain.repository.*
-import com.and2t2.secondhand.ui.uiakun.WishlistViewModel
+import com.and2t2.secondhand.ui.uiwishlist.WishlistViewModel
 import com.and2t2.secondhand.ui.uibuyer.BuyerViewModel
 import com.and2t2.secondhand.ui.uihome.HomeViewModel
 import com.and2t2.secondhand.ui.uilogin.LoginViewModel
@@ -67,7 +67,7 @@ class App : Application() {
         viewModel { BuyerViewModel(get()) }
         viewModel { NotifikasiViewModel(get()) }
         viewModel { LoginViewModel(get()) }
-        viewModel { WishlistViewModel(get())}
+        viewModel { WishlistViewModel(get()) }
     }
 
 }

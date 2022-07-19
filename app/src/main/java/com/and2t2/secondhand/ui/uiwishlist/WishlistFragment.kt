@@ -1,13 +1,12 @@
-package com.and2t2.secondhand.ui.uiakun
+package com.and2t2.secondhand.ui.uiwishlist
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.databinding.FragmentWishlistBinding
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
@@ -38,6 +37,7 @@ class WishlistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
         getDataWishlist()
+        onBackButtonPressed()
     }
 
     private fun initRecycler(){
@@ -67,6 +67,14 @@ class WishlistFragment : Fragment() {
             }
         }
     }
+
+    private fun onBackButtonPressed(){
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+
 
 
 }

@@ -121,7 +121,7 @@
         tools:layout="@layout/fragment_info_penawar" />
     <fragment
         android:id="@+id/wishlistFragment"
-        android:name="com.and2t2.secondhand.ui.uiakun.WishlistFragment"
+        android:name="com.and2t2.secondhand.ui.uiwishlist.WishlistFragment"
         android:label="fragment_wishlist"
         tools:layout="@layout/fragment_wishlist" />
 </navigation>

@@ -13,8 +13,10 @@ import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.remote.dto.buyer.PostBuyerOrderBody
+import com.and2t2.secondhand.data.remote.dto.wishlist.PostWishlistBody
 import com.and2t2.secondhand.databinding.FragmentBuyerBinding
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
+import com.and2t2.secondhand.ui.uiwishlist.WishlistViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
@@ -30,7 +32,8 @@ class BuyerFragment : Fragment() {
 
     private val viewModel : BuyerViewModel by viewModel()
     private val dataStore : DatastoreViewModel by viewModel()
-
+    private val wishlistViewModel : WishlistViewModel by viewModel()
+    private lateinit var postWishlistBody: PostWishlistBody
     private var _binding : FragmentBuyerBinding? = null
     private val binding get() = _binding!!
 
@@ -52,8 +55,12 @@ class BuyerFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.hide()
 //        getAccesstoken()
         productId = arguments?.getInt("product_key")!!
-        productId?.let { getData(it) }
+        productId?.let {
+            getData(it)
+            postWishlistBody = PostWishlistBody(it)
+        }
         onNegoButtonClicked()
+        onFavoritesButtonPressed()
         onBackPressed()
     }
 
@@ -137,10 +144,42 @@ class BuyerFragment : Fragment() {
                         Toast.makeText(requireContext(),"",Toast.LENGTH_SHORT).show()
                     }
                 }
-
             }
-
         }
+    }
+
+    private fun onFavoritesButtonPressed(){
+        binding.btnFavorites.setOnClickListener {
+             if(isAlreadyinFavorites()){
+                 addtoFavorites()
+             }else{
+                deleteFromFavorites()
+             }
+        }
+    }
+
+    private fun addtoFavorites(){
+        dataStore.getAccessToken().observe(viewLifecycleOwner){ access_token ->
+            wishlistViewModel.postBuyerWishlist(access_token,postWishlistBody).observe(viewLifecycleOwner){
+                when(it.status){
+                    Status.LOADING ->{
+
+                    }
+                    Status.SUCCESS ->{
+                        showSnackbar(requireContext(),requireView(),"add to favorites",R.color.success)
+                    }
+                    Status.ERROR ->{
+                        showSnackbar(requireContext(),requireView(),"failed to favorites",R.color.danger)
+                    }
+                }
+            }
+        }
+    }
+    private fun deleteFromFavorites(){
+
+    }
+    private fun isAlreadyinFavorites() : Boolean{
+        return productId == 1
     }
 
 

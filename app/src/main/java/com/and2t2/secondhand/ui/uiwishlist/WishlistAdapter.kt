@@ -1,4 +1,4 @@
-package com.and2t2.secondhand.ui.uiakun
+package com.and2t2.secondhand.ui.uiwishlist
 
 import android.view.LayoutInflater
 import android.view.View

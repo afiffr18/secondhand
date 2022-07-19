@@ -196,9 +196,29 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_nego"
-        android:layout_width="328dp"
+        android:id="@+id/btn_favorites"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
+        app:icon="@drawable/ic_baseline_favorite_border_24"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="24dp"
+        android:backgroundTint="@color/neutral02"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        app:cornerRadius="16dp"
+        android:layout_marginStart="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="24dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_nego"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
         android:paddingVertical="16dp"
         android:paddingHorizontal="24dp"
         android:backgroundTint="@color/darkblue04"
@@ -209,14 +229,14 @@
         android:textAllCaps="false"
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_favorites"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="24dp"
         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_nego_success"
-        android:layout_width="328dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:paddingVertical="16dp"
         android:paddingHorizontal="24dp"
@@ -228,7 +248,7 @@
         android:textAllCaps="false"
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_favorites"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="24dp"
         android:visibility="gone"

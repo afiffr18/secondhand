@@ -1,6 +1,8 @@
 package com.and2t2.secondhand.data.remote
 
 import com.and2t2.secondhand.data.remote.dto.buyer.*
+import com.and2t2.secondhand.data.remote.dto.wishlist.PostWishlistBody
+import com.and2t2.secondhand.data.remote.dto.wishlist.PostWishlistDto
 import com.and2t2.secondhand.data.remote.dto.wishlist.WishlistDto
 import retrofit2.http.*
 
@@ -65,4 +67,10 @@ interface BuyerService {
 
     @GET("buyer/wishlist")
     suspend fun getBuyerWishlist(@Header("access_token") access_token : String) : WishlistDto
+
+    @POST("buyer/wishlist")
+    suspend fun getPostBuyerWishlist(
+        @Header("access_token") access_token : String,
+        @Body postWishlistBody: PostWishlistBody
+        ) : PostWishlistDto
 }
