@@ -81,19 +81,19 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
             if(sellerOrder.status=="pending" && selectedItem == adapterPosition){
                 btnTolakTerima.isVisible = true
                 btnTolak.setOnClickListener {
-                    onStatus.invoke("declined",sellerOrder.id!!)
+                    onStatus.invoke("declined", sellerOrder.id)
                 }
                 btnTerima.setOnClickListener {
-                    onStatus.invoke("accepted",sellerOrder.id!!)
+                    onStatus.invoke("accepted", sellerOrder.id)
                 }
             }else if(sellerOrder.status=="accepted"){
                 btnStatusHubungi.isVisible = true
                 btnTolakTerima.isGone = true
                 btnStatus.setOnClickListener {
-                    onStatus.invoke("status",sellerOrder.id!!)
+                    onStatus.invoke("status", sellerOrder.id)
                 }
                 btnHubungi.setOnClickListener {
-                    onStatus.invoke("hubungi",sellerOrder.id!!)
+                    onStatus.invoke("hubungi", sellerOrder.id)
                 }
             }else{
                 btnTolakTerima.isGone = true
@@ -106,8 +106,6 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
                     notifyItemChanged(selectedItem)
                 }
             }
-
-
         }
     }
 }

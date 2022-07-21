@@ -2,6 +2,7 @@ package com.and2t2.secondhand.ui.uiseller.uiinfopenawar
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,9 @@ class InfoPenawarFragment : Fragment() {
 
     private fun getAccessToken(){
         dataStore.getAccessToken().observe(viewLifecycleOwner){
-            getDataOrder(it)
+            val buyerId = arguments?.getInt("buyerId")
+            Log.e("id",buyerId.toString())
+            buyerId?.let { it1 -> getDataOrder(it, it1) }
         }
     }
 
@@ -79,6 +82,7 @@ class InfoPenawarFragment : Fragment() {
             }
             "declined" -> {
                 onStatusDeclined(access_token, id)
+                infoPenawarAdapter.notifyDataSetChanged()
             }
             "status" -> {
                 statusButtonOnPressed(access_token, id)
@@ -235,14 +239,21 @@ class InfoPenawarFragment : Fragment() {
 
     }
 
-    private fun getDataOrder(accessToken : String){
+    private fun getDataOrder(accessToken : String,buyerId: Int){
         infoPenawarViewModel.getSellerOrder(accessToken,null).observe(viewLifecycleOwner){
             when(it.status){
                 Status.LOADING ->{
 
                 }
                 Status.SUCCESS ->{
-                    it.data?.let { it1 -> infoPenawarAdapter.updateDataOrder(it1) }
+                    val dataFilter = it.data?.filter {
+                        it.buyerId == buyerId
+                    }
+                    dataFilter?.let { data ->
+                        infoPenawarAdapter.updateDataOrder(data)
+                        binding.tvName.text = data.component1().buyerName ?: "Nama Pembeli"
+                        binding.tvCity.text = data.component1().buyerLocation ?: "Kota"
+                    }
                 }
                 Status.ERROR ->{
                     Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
