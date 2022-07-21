@@ -44,20 +44,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_product_image" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_product_category"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Aksesoris"
-            android:textColor="@color/neutral03"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_product_price"
@@ -74,7 +60,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_category" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
