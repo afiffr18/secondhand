@@ -74,21 +74,8 @@ class Home : Fragment() {
     }
     private fun getKategori(){
         viewModel.getKategori().observe(viewLifecycleOwner){
-            when(it.status){
-                Status.LOADING ->{
-
-                }
-                Status.SUCCESS ->{
-                    val newKategori = SellerCategory(0,"Semua")
-                    listOfCategory.add(newKategori)
-                    it.data?.map { dataKategori ->
-                        listOfCategory.add(dataKategori)
-                    }
-                    kategoriAdapter.updateDataKategori(listOfCategory)
-                }
-                Status.ERROR ->{
-
-                }
+            it.data?.let{ dataKategori ->
+                kategoriAdapter.updateDataKategori(dataKategori)
             }
 
         }

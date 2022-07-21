@@ -44,6 +44,7 @@ class App : Application() {
         single { SellerProductMapper()}
         single { SellerOrderMapper()}
         single { SellerCategoryMapper()}
+        single { SellerCategoryHomeMapper()}
         single { BuyerProductMapper()}
         single { BuyerProductDetailMapper() }
         single { NotifikasiMapper()}
