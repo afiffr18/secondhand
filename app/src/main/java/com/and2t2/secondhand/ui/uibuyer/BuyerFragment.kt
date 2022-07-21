@@ -20,6 +20,8 @@ import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.ui.uiwishlist.WishlistDBViewModel
 import com.and2t2.secondhand.ui.uiwishlist.WishlistViewModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
@@ -70,10 +72,11 @@ class BuyerFragment : Fragment() {
 
 
     private fun  getData(id : Int){
+        val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_person_24)
         viewModel.getProductDetail(id).observe(viewLifecycleOwner){
             it.data.let { data ->
                 Glide.with(requireContext()).load(data?.imageUrl).into(binding.ivProduk)
-                Glide.with(requireContext()).load(data?.imageUser).into(binding.ivPenjual)
+                Glide.with(requireContext()).load(data?.imageUser).apply(bgOptions).into(binding.ivPenjual)
                 binding.tvLokasi.text = data?.lokasi
                 binding.tvNamaBarang.text = data?.namaBarang
                 binding.tvHargaBarang.text = data?.hargaBarang?.toRp()
