@@ -37,8 +37,8 @@ android {
 }
 
 dependencies {
-    def nav_version = "2.4.2"
-
+    def nav_version = "2.5.0"
+    def koin_version = "3.2.0"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
@@ -64,8 +64,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // viewmodel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.0"
 
     //room
     implementation 'androidx.room:room-runtime:2.4.2'
@@ -77,4 +77,17 @@ dependencies {
 
     //coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    //KOIN
+    implementation "io.insert-koin:koin-core:3.2.0"
+    implementation "io.insert-koin:koin-android:3.2.0"
+
+    //mockito
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    testImplementation 'org.mockito:mockito-inline:3.1.0'
+
+    // Koin Test features
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    // Koin for JUnit 4
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
 }

@@ -91,7 +91,6 @@ class NotifikasiAdapter(val listener : (id:Int) -> Unit) : RecyclerView.Adapter<
             Glide.with(ivImage).load(notifikasi.imageUrl).apply(bgOptions).into(ivImage)
             cardClick.setOnClickListener {
                 listener.invoke(notifikasi.id)
-                ivRead.setColorFilter(ContextCompat.getColor(itemView.context,R.color.neutral03), android.graphics.PorterDuff.Mode.SRC_IN)
             }
         }
 
