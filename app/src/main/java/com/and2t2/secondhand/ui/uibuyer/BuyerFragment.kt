@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.AuthActivity
 import com.and2t2.secondhand.R
@@ -109,10 +107,10 @@ class BuyerFragment : Fragment() {
     private fun showAlertDialogWithAction() {
         val dialog = AlertDialog.Builder(requireActivity())
         dialog.setMessage("Anda harus login terlebih dahulu")
-        dialog.setPositiveButton("Login") { dialogInterface, angka ->
+        dialog.setPositiveButton("Login") { _, _ ->
             startActivity(Intent(requireActivity(), AuthActivity::class.java))
         }
-        dialog.setNegativeButton("Batal") { dialogInterface, _ ->
+        dialog.setNegativeButton("Batal") { _, _ ->
 
         }
         dialog.setCancelable(false)
@@ -179,8 +177,9 @@ class BuyerFragment : Fragment() {
                     }
                 }
             }
-        }
+
     }
+
 
 
 
