@@ -10,8 +10,8 @@ import com.and2t2.secondhand.domain.model.WishlistMapper
 import retrofit2.Response
 
 class WishlistRepo(
-    private val apiService : BuyerService,
-    private val mapper : WishlistMapper
+    val apiService : BuyerService,
+    val mapper : WishlistMapper
 ) {
 
     suspend fun getBuyerWishlist(access_token : String) : List<Wishlist>{

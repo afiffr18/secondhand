@@ -39,8 +39,8 @@ class HomeViewModelTest : KoinTest{
 
 
     // Lazy inject property
-//    private val homeViewModel : HomeViewModel by inject()
-//    private val homeRepo : HomeRepo by inject()
+    private val homeViewModel : HomeViewModel by inject()
+    private val homeRepo : HomeRepo by inject()
 
     private val databaseModule = module {
         factory { DatabaseSecondHand.getInstance(androidContext())}

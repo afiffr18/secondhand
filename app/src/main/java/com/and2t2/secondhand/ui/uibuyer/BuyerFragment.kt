@@ -160,7 +160,7 @@ class BuyerFragment : Fragment() {
             if(isAlreadyInWhislist == true){
                 binding.btnFavorites.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.danger))
                 binding.btnFavorites.setOnClickListener {
-                    deleteFromFavorites(wishlistId!!)
+                    wishlistId?.let { it1 -> deleteFromFavorites(it1) }
                 }
             }else{
                 binding.btnFavorites.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.neutral02))
@@ -182,8 +182,8 @@ class BuyerFragment : Fragment() {
                     }
                     Status.SUCCESS ->{
                         insertIntoDb()
-                        binding.btnFavorites.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.danger))
                         showSnackbar(requireContext(),requireView(),"add to wishlist",R.color.success)
+                        onFavoritesButtonPressed()
                     }
                     Status.ERROR ->{
                         showSnackbar(requireContext(),requireView(),"failed to add",R.color.danger)
@@ -201,8 +201,8 @@ class BuyerFragment : Fragment() {
                     }
                     Status.SUCCESS ->{
                         deleteFromDb()
-                        binding.btnFavorites.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.neutral02))
                         showSnackbar(requireContext(),requireView(),"Dihapus dari wishlist",R.color.success)
+                        onFavoritesButtonPressed()
                     }
                     Status.ERROR ->{
                         showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)

@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import retrofit2.HttpException
 import java.io.IOException
 
-class WishlistViewModel(private val wishlistRepo: WishlistRepo) : ViewModel() {
+class WishlistViewModel(val wishlistRepo: WishlistRepo) : ViewModel() {
 
     fun getBuyerWishlist(access_token : String) = liveData(Dispatchers.IO){
         emit(Resource.loading(null))
