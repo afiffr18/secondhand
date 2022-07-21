@@ -20,7 +20,6 @@ import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.ui.uiwishlist.WishlistDBViewModel
 import com.and2t2.secondhand.ui.uiwishlist.WishlistViewModel
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
