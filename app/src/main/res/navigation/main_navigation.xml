@@ -123,5 +123,9 @@
         android:id="@+id/wishlistFragment"
         android:name="com.and2t2.secondhand.ui.uiwishlist.WishlistFragment"
         android:label="fragment_wishlist"
-        tools:layout="@layout/fragment_wishlist" />
+        tools:layout="@layout/fragment_wishlist" >
+        <action
+            android:id="@+id/action_wishlistFragment_to_buyerFragment"
+            app:destination="@id/buyerFragment" />
+    </fragment>
 </navigation>

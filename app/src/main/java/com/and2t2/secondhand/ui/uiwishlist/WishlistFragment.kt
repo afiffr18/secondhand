@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.databinding.FragmentWishlistBinding
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
@@ -41,7 +42,11 @@ class WishlistFragment : Fragment() {
     }
 
     private fun initRecycler(){
-        wishlistAdapter = WishlistAdapter()
+        wishlistAdapter = WishlistAdapter{ id ->
+            val bundle = Bundle()
+            bundle.putInt("product_key",id)
+            findNavController().navigate(R.id.action_wishlistFragment_to_buyerFragment,bundle)
+        }
         binding.rvWishlist.apply {
             adapter = wishlistAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
