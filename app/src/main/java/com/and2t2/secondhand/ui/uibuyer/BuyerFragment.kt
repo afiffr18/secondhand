@@ -94,7 +94,7 @@ class BuyerFragment : Fragment() {
 
     private fun onNegoButtonClicked(){
         binding.btnNego.setOnClickListener {
-            dataStore.getLoginState().observe(requireActivity()) {
+            dataStore.getLoginState().observe(viewLifecycleOwner) {
                 if (!it) {
                     showAlertDialogWithAction()
                 } else {
@@ -105,7 +105,7 @@ class BuyerFragment : Fragment() {
     }
 
     private fun showAlertDialogWithAction() {
-        val dialog = AlertDialog.Builder(requireActivity())
+        val dialog = AlertDialog.Builder(requireContext())
         dialog.setMessage("Anda harus login terlebih dahulu")
         dialog.setPositiveButton("Login") { _, _ ->
             startActivity(Intent(requireActivity(), AuthActivity::class.java))
@@ -278,6 +278,4 @@ class BuyerFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
-
-
 }

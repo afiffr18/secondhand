@@ -19,17 +19,21 @@
         android:theme="@style/Theme.SecondHand">
         <activity
             android:name=".ui.uiprofile.LengkapiProfileActivity"
+            android:noHistory="true"
             android:exported="false" />
         <activity
             android:name=".AuthActivity"
+            android:noHistory="true"
             android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:noHistory="true"
             android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false" />
         <activity
             android:name=".ui.uisplash.SplashActivity"
+            android:noHistory="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
