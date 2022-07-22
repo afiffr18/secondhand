@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                 datastoreViewModel.getLoginState().observe(this) {
                     if (!it) {
                         showAlertDialogWithAction()
+//                        destination.id = R.id.test
                     }
                 }
             }
