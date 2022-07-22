@@ -2,15 +2,11 @@ package com.and2t2.secondhand.ui.uiakun
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import com.and2t2.secondhand.AuthActivity
 import com.and2t2.secondhand.MainActivity
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.viewModelsFactory
@@ -23,6 +19,10 @@ import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 class AkunFragment : Fragment() {
@@ -54,6 +54,7 @@ class AkunFragment : Fragment() {
         buttonEditOnPressed()
         buttonPengaturanOnPressed()
         logoutButtonOnPressed()
+        wishlistButtonPressed()
     }
 
     private fun observeData() {
@@ -85,14 +86,28 @@ class AkunFragment : Fragment() {
         }
     }
 
-    private fun logoutButtonOnPressed() {
-        binding.logout.setOnClickListener {
-            startActivity(Intent(requireContext(), MainActivity::class.java))
-            datastoreViewModel.apply {
-                saveLoginState(false)
-                deleteAllData()
-            }
+    private fun wishlistButtonPressed(){
+        binding.wishlist.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_akun_to_wishlistFragment)
         }
     }
 
+    private fun logoutButtonOnPressed() {
+        binding.logout.setOnClickListener {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                DatabaseSecondHand.getInstance(requireContext())?.clearAllTables()
+//            }
+//            Handler(Looper.getMainLooper()).postDelayed({
+                startActivity(Intent(requireContext(), MainActivity::class.java))
+//            }, 2000)
+            clearLoginState()
+        }
+    }
+
+    private fun clearLoginState() {
+        datastoreViewModel.apply {
+            saveLoginState(false)
+            deleteAllData()
+        }
+    }
 }

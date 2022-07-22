@@ -15,6 +15,7 @@ import com.and2t2.secondhand.common.toFormatDate
 import com.and2t2.secondhand.common.toRp
 import com.and2t2.secondhand.domain.model.SellerOrder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
@@ -60,8 +61,9 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
         private val btnTerima = view.findViewById<MaterialButton>(R.id.btn_terima)
         private val btnStatus = view.findViewById<MaterialButton>(R.id.btn_status)
         private val btnHubungi = view.findViewById<MaterialButton>(R.id.btn_hubungi)
+        private val bgOptions = RequestOptions().placeholder(R.drawable.ic_baseline_image_24)
         fun bind(sellerOrder: SellerOrder){
-            Glide.with(itemView.context).load(sellerOrder.imageProduct).into(gambar)
+            Glide.with(itemView.context).load(sellerOrder.imageProduct).apply(bgOptions).into(gambar)
             namaBarang.text = sellerOrder.productName
             updateDate.text = sellerOrder.updatedAt
             if(sellerOrder.status=="success"){
@@ -79,19 +81,19 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
             if(sellerOrder.status=="pending" && selectedItem == adapterPosition){
                 btnTolakTerima.isVisible = true
                 btnTolak.setOnClickListener {
-                    onStatus.invoke("declined",sellerOrder.id!!)
+                    onStatus.invoke("declined", sellerOrder.id)
                 }
                 btnTerima.setOnClickListener {
-                    onStatus.invoke("accepted",sellerOrder.id!!)
+                    onStatus.invoke("accepted", sellerOrder.id)
                 }
             }else if(sellerOrder.status=="accepted"){
                 btnStatusHubungi.isVisible = true
                 btnTolakTerima.isGone = true
                 btnStatus.setOnClickListener {
-                    onStatus.invoke("status",sellerOrder.id!!)
+                    onStatus.invoke("status", sellerOrder.id)
                 }
                 btnHubungi.setOnClickListener {
-                    onStatus.invoke("hubungi",sellerOrder.id!!)
+                    onStatus.invoke("hubungi", sellerOrder.id)
                 }
             }else{
                 btnTolakTerima.isGone = true
@@ -104,8 +106,6 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
                     notifyItemChanged(selectedItem)
                 }
             }
-
-
         }
     }
 }

@@ -5,21 +5,18 @@ import com.and2t2.secondhand.common.networkBoundResource
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.BuyerService
 import com.and2t2.secondhand.data.remote.SellerService
-import com.and2t2.secondhand.domain.model.BuyerProduct
-import com.and2t2.secondhand.domain.model.BuyerProductMapper
-import com.and2t2.secondhand.domain.model.SellerCategory
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
+import com.and2t2.secondhand.domain.model.*
 
 class HomeRepo(
     private val sellerService: SellerService,
     private val buyerService: BuyerService,
     private val buyerMapper : BuyerProductMapper,
-    private val sellerCategoryMapper: SellerCategoryMapper,
+    private val sellerCategoryHomeMapper: SellerCategoryHomeMapper,
     private val mDb : DatabaseSecondHand
 ) {
     suspend fun getKategori() : List<SellerCategory>{
         val result = sellerService.getSellerCategory()
-        return sellerCategoryMapper.toDomainList(result)
+        return sellerCategoryHomeMapper.toDomainList(result)
     }
     private val sellerCategoryDao = mDb.sellerDao()
     fun getSellerKategori() = networkBoundResource(

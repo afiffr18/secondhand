@@ -9,9 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.hideKeyboard
 import com.and2t2.secondhand.common.onDone
-import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentHomeBinding
@@ -19,20 +19,18 @@ import com.and2t2.secondhand.domain.model.BuyerProductMapper
 import com.and2t2.secondhand.domain.model.SellerCategory
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.repository.HomeRepo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class Home : Fragment() {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val listOfCategory: MutableList<SellerCategory> = mutableListOf()
     private lateinit var kategoriAdapter: KategoriAdapter
     private lateinit var productAdapter: ProductAdapter
-    private val listOfCategory: MutableList<SellerCategory> = mutableListOf()
 
-    private val homeRepo : HomeRepo by lazy { HomeRepo(ApiClient.instanceSeller,ApiClient.instanceBuyer,
-    BuyerProductMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!
-    ) }
-    private val viewModel : HomeViewModel by viewModelsFactory { HomeViewModel(homeRepo) }
+    private val viewModel : HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +58,6 @@ class Home : Fragment() {
 
     private fun initKategoriRecycler(){
         val linearLayoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-
         kategoriAdapter = KategoriAdapter{ id ->
             if (id == 0){
                 getDataProduct()
@@ -76,13 +73,11 @@ class Home : Fragment() {
 
     }
     private fun getKategori(){
-    val newKategori = SellerCategory(0,"Semua")
         viewModel.getKategori().observe(viewLifecycleOwner){
-            listOfCategory.add(newKategori)
-            it.data?.map { dataKategori ->
-                listOfCategory.add(dataKategori)
+            it.data?.let{ dataKategori ->
+                kategoriAdapter.updateDataKategori(dataKategori)
             }
-            kategoriAdapter.updateDataKategori(listOfCategory)
+
         }
     }
 

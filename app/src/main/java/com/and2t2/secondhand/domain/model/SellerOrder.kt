@@ -19,8 +19,8 @@ data class SellerOrder(
     @ColumnInfo (name = "createdAt") val createdAt: String? = null,
     @ColumnInfo (name = "Product") val Product: String? = null,
     @ColumnInfo (name = "buyer_name") val buyerName: String? = null,
-    @ColumnInfo (name = "phone_number") val phoneNumber : String,
-    @ColumnInfo (name = "buyer_location") val buyerLocation : String,
+    @ColumnInfo (name = "phone_number") val phoneNumber : String?=null,
+    @ColumnInfo (name = "buyer_location") val buyerLocation : String?=null,
 //    @ColumnInfo (name = "user") val User: User? = null
 )
 

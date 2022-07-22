@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isGone
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -55,7 +56,8 @@ class Diminati : Fragment() {
     private fun initRecyclerView() {
         diminatiAdapter = DiminatiAdapter { id ->
             val bundle = Bundle()
-            bundle.putInt("orderId", id)
+            bundle.putInt("buyerId", id)
+            findNavController().navigate(R.id.action_navigation_daftarjual_to_infoPenawarFragment2,bundle)
         }
         binding.apply {
             rvDataOrder.adapter = diminatiAdapter
