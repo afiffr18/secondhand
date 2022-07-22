@@ -135,7 +135,7 @@ class Login : Fragment() {
                 if (data.city != null && data.phoneNumber != null) {
                     // Pindah ke Home
                     startActivity(Intent(requireContext(), MainActivity::class.java))
-                    requireActivity().finish()
+//                    requireActivity().finish()
                 } else {
                     // Pindah ke Lengkapi Profile
                     val intent = Intent(requireContext(), LengkapiProfileActivity::class.java)

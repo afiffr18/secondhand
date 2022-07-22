@@ -15,8 +15,10 @@ import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentAkunBinding
 import com.and2t2.secondhand.domain.model.AuthUserMapper
 import com.and2t2.secondhand.domain.repository.AuthRepo
+import com.and2t2.secondhand.domain.repository.CommonRepo
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
+import com.and2t2.secondhand.ui.uiprofile.Profile
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 import com.bumptech.glide.Glide
 
@@ -30,6 +32,9 @@ class AkunFragment : Fragment() {
 
     private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
     private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
+
+    private val commonRepo: CommonRepo by lazy { CommonRepo(requireContext()) }
+    private val akunViewModel: AkunViewModel by viewModelsFactory { AkunViewModel(commonRepo) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +56,6 @@ class AkunFragment : Fragment() {
         buttonEditOnPressed()
         buttonPengaturanOnPressed()
         logoutButtonOnPressed()
-        wishlistButtonPressed()
     }
 
     private fun observeData() {
@@ -98,8 +102,8 @@ class AkunFragment : Fragment() {
     private fun logoutButtonOnPressed() {
         binding.logout.setOnClickListener {
             startActivity(Intent(requireContext(), MainActivity::class.java))
-            requireActivity().finish()
             clearLoginState()
+            akunViewModel.deleteTable()
         }
     }
 
