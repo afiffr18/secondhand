@@ -56,7 +56,6 @@ class Diminati : Fragment() {
         diminatiAdapter = DiminatiAdapter { id ->
             val bundle = Bundle()
             bundle.putInt("orderId", id)
-            Toast.makeText(requireContext(), "INi item ID $id", Toast.LENGTH_SHORT).show()
         }
         binding.apply {
             rvDataOrder.adapter = diminatiAdapter
