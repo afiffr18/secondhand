@@ -30,12 +30,11 @@ class NotifikasiFragment : Fragment() {
     private var _binding : FragmentNotifikasiBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var tes : String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentNotifikasiBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -48,18 +47,8 @@ class NotifikasiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
-        tes = "sdfasfd"
         getData()
-//        addBadge()
     }
-
-
-//    private fun addBadge() {
-//        var badge = bottomNav.getOrCreateBadge(menuItemId)
-//        badge.isVisible = true
-//// An icon only badge will be displayed unless a number is set:
-//        badge.number = 99
-//    }
 
     private fun initRecycler(){
         val linearLayoutManager = LinearLayoutManager(requireContext())

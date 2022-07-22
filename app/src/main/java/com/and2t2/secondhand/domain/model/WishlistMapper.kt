@@ -10,7 +10,12 @@ class WishlistMapper : DomainMapper<WishlistDtoItem,Wishlist> {
             productId = modelDto.productId,
             product_image = modelDto.product.imageUrl,
             product_name = modelDto.product.name,
-            base_price = modelDto.product.basePrice
+            base_price = modelDto.product.basePrice,
+            categories = if(modelDto.product.categories.isNullOrEmpty()){
+                "Kategori"
+            }else{
+                modelDto.product.categories[0].name
+            }
         )
     }
 

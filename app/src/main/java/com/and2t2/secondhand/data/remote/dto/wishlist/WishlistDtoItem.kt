@@ -9,7 +9,7 @@ data class WishlistDtoItem(
     @SerializedName("id")
     val id: Int,
     @SerializedName("Product")
-    val product: Product,
+    val product: ProductX,
     @SerializedName("product_id")
     val productId: Int,
     @SerializedName("updatedAt")

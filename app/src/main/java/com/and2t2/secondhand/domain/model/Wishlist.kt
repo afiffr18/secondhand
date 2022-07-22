@@ -5,5 +5,6 @@ data class Wishlist(
     val productId : Int? = null,
     val product_image : String? = null,
     val product_name : String? = null,
-    val base_price : Int ? = null
+    val base_price : Int ? = null,
+    val categories : String? = null
 )

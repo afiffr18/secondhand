@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="24dp"
     android:paddingTop="24dp"
-    tools:context=".ui.uiwishlist.WishlistFragment">
+    tools:context=".ui.uiwishlist.WishlistFragment"
+    tools:ignore = "HardCodedText">
 
     <ImageView
         android:id="@+id/back_btn"

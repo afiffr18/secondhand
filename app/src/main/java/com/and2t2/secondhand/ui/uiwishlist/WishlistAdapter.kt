@@ -46,10 +46,12 @@ class WishlistAdapter(private val onClick : (id : Int) -> Unit) : RecyclerView.A
         private val namaBarang = view.findViewById<MaterialTextView>(R.id.tv_product_name)
         private val hargaBarang = view.findViewById<MaterialTextView>(R.id.tv_product_price)
         private val cardWishlist = view.findViewById<MaterialCardView>(R.id.card_wishlist)
+        private val kategori = view.findViewById<MaterialTextView>(R.id.tv_kategori)
         fun bind(wishlist: Wishlist){
             Glide.with(itemView.context).load(wishlist.product_image).into(gambarProduct)
             namaBarang.text = wishlist.product_name
             hargaBarang.text = wishlist.base_price?.toRp()
+            kategori.text = wishlist.categories
             cardWishlist.setOnClickListener {
                 wishlist.productId?.let { it1 -> onClick.invoke(it1) }
             }
