@@ -19,7 +19,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
@@ -171,7 +170,7 @@ class Profile : Fragment() {
                 setImageURI(result)
             }
             // Mendapatkan path
-            val imgPath = result.let { fileUtil.getPath(requireContext(), it) }
+            val imgPath = result?.let { fileUtil.getPath(requireContext(), it) }
             // Simpan ke variable global
             uri = Uri.parse(imgPath)
         }

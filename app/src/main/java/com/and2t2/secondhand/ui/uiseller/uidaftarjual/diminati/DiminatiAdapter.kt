@@ -59,7 +59,7 @@ class DiminatiAdapter(private val onClick: (id: Int) -> Unit): RecyclerView.Adap
                 tvHargaPenawaran.text = "Ditawar "+item.price?.toRp()
 
                 itemDaftarjualDiminati.setOnClickListener {
-                    onClick.invoke(item.id)
+                    item.buyerId?.let { it1 -> onClick.invoke(it1) }
                 }
             }
         }
