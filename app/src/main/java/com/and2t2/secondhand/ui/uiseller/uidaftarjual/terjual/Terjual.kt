@@ -72,6 +72,7 @@ class Terjual : Fragment() {
                     data.status == "accepted"
                 }
                 terjualAdapter.updateDataRecycler(filterData!!)
+                terjualAdapter.notifyDataSetChanged()
             }
         }
     }

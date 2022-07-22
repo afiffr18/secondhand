@@ -76,6 +76,7 @@ class Diminati : Fragment() {
                         diminatiAdapter.updateDataRecycler(data)
                         binding.ivNoProduk.isGone = false
                     }
+                    diminatiAdapter.notifyDataSetChanged()
                 }
             }
         }
