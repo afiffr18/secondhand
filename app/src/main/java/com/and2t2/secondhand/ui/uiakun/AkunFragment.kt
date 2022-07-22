@@ -93,15 +93,10 @@ class AkunFragment : Fragment() {
         }
     }
 
-    private fun wishlistButtonPressed(){
-        binding.wishlist.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_akun_to_wishlistFragment)
-        }
-    }
-
     private fun logoutButtonOnPressed() {
         binding.logout.setOnClickListener {
             startActivity(Intent(requireContext(), MainActivity::class.java))
+            requireActivity().finish()
             clearLoginState()
             akunViewModel.deleteTable()
         }

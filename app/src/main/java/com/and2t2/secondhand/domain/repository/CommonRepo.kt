@@ -10,8 +10,9 @@ class CommonRepo(context: Context) {
 
     suspend fun deleteTable(){
         mDb?.withTransaction {
-//            mDb.sellerDao().deleteProductDetail()
+            mDb.sellerDao().deleteProductDetail()
             mDb.notifikasiDao().deleteNotifikasi()
+            mDb.authDao().deleteUserDetail()
         }
     }
 }
