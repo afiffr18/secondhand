@@ -104,6 +104,13 @@ interface SellerService {
         @Path("id") id : Int
     ) : Response<SellerProductDtoDelete>
 
+    @PATCH("seller/product/{id}")
+    suspend fun updateProductStatus(
+        @Header("access_token") access_token: String,
+        @Path("id") id : Int,
+        @Body status: SellerOrderStatusBody
+    ) : SellerProductPatchDto
+
     /** Seller Order **//** Status : Delayed for @PATCH(seller/order/{id}) and @GET(seller/order/product/{product_id})**/
 
     @GET("seller/order")

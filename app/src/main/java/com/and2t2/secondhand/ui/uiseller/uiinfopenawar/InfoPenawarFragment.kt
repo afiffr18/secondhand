@@ -82,7 +82,6 @@ class InfoPenawarFragment : Fragment() {
             }
             "declined" -> {
                 onStatusDeclined(access_token, id)
-                infoPenawarAdapter.notifyDataSetChanged()
             }
             "status" -> {
                 statusButtonOnPressed(access_token, id)
@@ -201,18 +200,18 @@ class InfoPenawarFragment : Fragment() {
             var tes : String? = null
             buttonSuccess?.setOnClickListener{
                 buttonKirim?.isEnabled = true
-                tes = ""
+                tes = "sold"
             }
 
             buttonCancel?.setOnClickListener{
                 buttonKirim?.isEnabled = true
-                tes = "declined"
+                tes = "available"
             }
 
             buttonKirim?.setOnClickListener {
                 if(tes != ""){
                     val body = SellerOrderStatusBody(tes!!)
-                    infoPenawarViewModel.updateSellerOrderStatus(access_token,id,body).observe(viewLifecycleOwner){
+                    infoPenawarViewModel.updateSellerProductStatus(access_token,id,body).observe(viewLifecycleOwner){
                         when(it.status){
                             Status.LOADING ->{
                                 showLoading(requireActivity())

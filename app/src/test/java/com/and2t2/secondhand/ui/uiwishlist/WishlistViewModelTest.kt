@@ -6,12 +6,14 @@ import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.domain.model.Wishlist
 import com.and2t2.secondhand.domain.model.WishlistMapper
 import com.and2t2.secondhand.domain.repository.WishlistRepo
+import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
+import io.mockk.mockkStatic
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Test
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.koinApplication
@@ -19,16 +21,17 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.check.checkModules
 import org.koin.test.inject
-import org.mockito.Mock
-import org.mockito.Mockito
+import kotlin.test.assertEquals
 
 class WishlistViewModelTest : KoinTest{
     private val wishlistRepo : WishlistRepo by inject()
     private val wishlistViewModel : WishlistViewModel by inject()
 
-    @Mock
+
+    @MockK
     lateinit var observer : Observer<Resource<List<Wishlist>>>
-    @Mock
+
+    @MockK
     lateinit var wishlist: List<Wishlist>
 
     val moduleWishlist = module {
@@ -42,6 +45,8 @@ class WishlistViewModelTest : KoinTest{
         startKoin {
             modules(listOf(moduleWishlist))
         }
+        MockKAnnotations.init(this, relaxUnitFun = true)
+        mockkStatic(Wishlist::class)
     }
 
     @Test
@@ -54,9 +59,12 @@ class WishlistViewModelTest : KoinTest{
 
     @Test
     fun getBuyerWishlist() = runBlocking {
-        Mockito.`when`(wishlistRepo.getBuyerWishlist("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZmdWppYXJhaG1hbjIwMDBAZ21haWwuY29tIiwiaWF0IjoxNjU4MjI4MDA1fQ.hJsLEsCzRJngk231JExyb4FPF3J1lPGajwjvxDaYv-4")).thenReturn(wishlist)
-        val test = wishlistViewModel.getBuyerWishlist("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZmdWppYXJhaG1hbjIwMDBAZ21haWwuY29tIiwiaWF0IjoxNjU4MjI4MDA1fQ.hJsLEsCzRJngk231JExyb4FPF3J1lPGajwjvxDaYv-4").observeForever(observer)
-
+//        val datarepo = mockk<List<Wishlist>>()
+////        val buyerWishlist = wishlistRepo.getBuyerWishlist("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZmdWppYXJhaG1hbjIwMDBAZ21haWwuY29tIiwiaWF0IjoxNjU4MjI4MDA1fQ.hJsLEsCzRJngk231JExyb4FPF3J1lPGajwjvxDaYv-4")
+////        every { buyerWishlist } returns datarepo
+////        val test = wishlistViewModel.getBuyerWishlist("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFmaWZmdWppYXJhaG1hbjIwMDBAZ21haWwuY29tIiwiaWF0IjoxNjU4MjI4MDA1fQ.hJsLEsCzRJngk231JExyb4FPF3J1lPGajwjvxDaYv-4").observeForever(observer)
+//    val dataTes = listOf<Wishlist>()
+//        assertEquals(dataTes,datarepo)
     }
 
     fun getKategori() = runBlocking {

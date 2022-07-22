@@ -129,5 +129,9 @@ class SellerRepo(
         return sellerService.updateSellerOrderStatus(accessToken,id, status)
     }
 
+    suspend fun updateSellerProductStatus(accessToken: String,id: Int,status: SellerOrderStatusBody) : SellerProductPatchDto{
+        return sellerService.updateProductStatus(accessToken,id, status)
+    }
+
 
 }

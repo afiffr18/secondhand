@@ -90,7 +90,7 @@ class InfoPenawarAdapter(private val onStatus : (status : String,id : Int) -> Un
                 btnStatusHubungi.isVisible = true
                 btnTolakTerima.isGone = true
                 btnStatus.setOnClickListener {
-                    onStatus.invoke("status", sellerOrder.id)
+                    onStatus.invoke("status", sellerOrder.productId!!)
                 }
                 btnHubungi.setOnClickListener {
                     onStatus.invoke("hubungi", sellerOrder.id)

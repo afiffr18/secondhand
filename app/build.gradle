@@ -86,6 +86,9 @@ dependencies {
     testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
     testImplementation 'org.mockito:mockito-inline:3.1.0'
 
+    testImplementation "io.mockk:mockk:1.9.3"
+
+
     // Koin Test features
     testImplementation "io.insert-koin:koin-test:$koin_version"
     // Koin for JUnit 4
