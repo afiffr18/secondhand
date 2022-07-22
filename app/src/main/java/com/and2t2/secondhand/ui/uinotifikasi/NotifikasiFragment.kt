@@ -11,14 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
-import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentNotifikasiBinding
 import com.and2t2.secondhand.domain.model.NotifikasiMapper
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.NotifikasiRepo
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class NotifikasiFragment : Fragment() {
@@ -26,15 +25,12 @@ class NotifikasiFragment : Fragment() {
     private  var accessToken : String = ""
 
     private lateinit var notifAdapter: NotifikasiAdapter
-    private val notifikasiRepo : NotifikasiRepo by lazy { NotifikasiRepo(ApiClient.instanceNotifikasi,
-        NotifikasiMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val viewModel : NotifikasiViewModel by viewModelsFactory { NotifikasiViewModel(notifikasiRepo) }
-
-    private val pref : DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val dataStore : DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val viewModel : NotifikasiViewModel by viewModel()
+    private val dataStore : DatastoreViewModel by viewModel()
     private var _binding : FragmentNotifikasiBinding? = null
     private val binding get() = _binding!!
 
+    lateinit var tes : String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,27 +47,19 @@ class NotifikasiFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataStore.getLoginState().observe(requireActivity()) {
-            if (it) {
-                test()
-            }
-        }
-//        onSwipeRefreshLayout()
-    }
-
-//    private fun onSwipeRefreshLayout(){
-//        binding.swipe.setOnRefreshListener {
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                binding.swipe.isRefreshing = false
-//            },2000)
-//        }
-//    }
-
-    private fun test(){
         initRecycler()
+        tes = "sdfasfd"
         getData()
+//        addBadge()
     }
 
+
+//    private fun addBadge() {
+//        var badge = bottomNav.getOrCreateBadge(menuItemId)
+//        badge.isVisible = true
+//// An icon only badge will be displayed unless a number is set:
+//        badge.number = 99
+//    }
 
     private fun initRecycler(){
         val linearLayoutManager = LinearLayoutManager(requireContext())

@@ -2,6 +2,7 @@ package com.and2t2.secondhand.ui.uiseller.uiinfopenawar
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,19 +14,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.data.remote.dto.seller.SellerOrderStatusBody
 import com.and2t2.secondhand.databinding.FragmentInfoPenawarBinding
 import com.and2t2.secondhand.databinding.Seller30Binding
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.model.SellerOrderMapper
-import com.and2t2.secondhand.domain.model.SellerProductMapper
 import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class InfoPenawarFragment : Fragment() {
@@ -34,14 +30,9 @@ class InfoPenawarFragment : Fragment() {
 
     private lateinit var infoPenawarAdapter: InfoPenawarAdapter
 
-    private val sellerRepo : SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller,
-        SellerProductMapper(), SellerOrderMapper(),SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!
-    ) }
+    private val dataStore : DatastoreViewModel by viewModel()
 
-    private val pref : DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val dataStore : DatastoreViewModel by lazy { DatastoreViewModel(pref) }
-
-    private val infoPenawarViewModel : InfoPenawarViewModel by viewModelsFactory { InfoPenawarViewModel(sellerRepo) }
+    private val infoPenawarViewModel : InfoPenawarViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,7 +55,9 @@ class InfoPenawarFragment : Fragment() {
 
     private fun getAccessToken(){
         dataStore.getAccessToken().observe(viewLifecycleOwner){
-            getDataOrder(it)
+            val buyerId = arguments?.getInt("buyerId")
+            Log.e("id",buyerId.toString())
+            buyerId?.let { it1 -> getDataOrder(it, it1) }
         }
     }
 
@@ -89,6 +82,7 @@ class InfoPenawarFragment : Fragment() {
             }
             "declined" -> {
                 onStatusDeclined(access_token, id)
+                infoPenawarAdapter.notifyDataSetChanged()
             }
             "status" -> {
                 statusButtonOnPressed(access_token, id)
@@ -159,7 +153,7 @@ class InfoPenawarFragment : Fragment() {
                    it.data?.let{ data ->
                        Glide.with(requireContext()).load(data.imageProduct).into(binding.ivProductImage)
                        binding.tvProductName.text = data.productName
-                       binding.tvProductPrice.text = data.basePrice?.toInt()?.toRp()
+                       binding.tvProductPrice.text = data.basePrice?.toRp()
                        binding.tvProductBid.text = data.price?.toRp()
                        binding.tvName.text = data.buyerName
                        binding.tvCity.text = data.buyerLocation
@@ -245,14 +239,21 @@ class InfoPenawarFragment : Fragment() {
 
     }
 
-    private fun getDataOrder(accessToken : String){
+    private fun getDataOrder(accessToken : String,buyerId: Int){
         infoPenawarViewModel.getSellerOrder(accessToken,null).observe(viewLifecycleOwner){
             when(it.status){
                 Status.LOADING ->{
 
                 }
                 Status.SUCCESS ->{
-                    it.data?.let { it1 -> infoPenawarAdapter.updateDataOrder(it1) }
+                    val dataFilter = it.data?.filter {
+                        it.buyerId == buyerId
+                    }
+                    dataFilter?.let { data ->
+                        infoPenawarAdapter.updateDataOrder(data)
+                        binding.tvName.text = data.component1().buyerName ?: "Nama Pembeli"
+                        binding.tvCity.text = data.component1().buyerLocation ?: "Kota"
+                    }
                 }
                 Status.ERROR ->{
                     Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()

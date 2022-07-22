@@ -51,6 +51,7 @@ class AkunFragment : Fragment() {
         buttonEditOnPressed()
         buttonPengaturanOnPressed()
         logoutButtonOnPressed()
+        wishlistButtonPressed()
     }
 
     private fun observeData() {
@@ -85,6 +86,12 @@ class AkunFragment : Fragment() {
     private fun buttonPengaturanOnPressed() {
         binding.pengaturanAkun.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_akun_to_pengaturanAkunFragment)
+        }
+    }
+
+    private fun wishlistButtonPressed(){
+        binding.wishlist.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_akun_to_wishlistFragment)
         }
     }
 

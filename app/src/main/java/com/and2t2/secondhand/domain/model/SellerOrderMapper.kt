@@ -14,12 +14,11 @@ class SellerOrderMapper: DomainMapper<SellerOrderDtoItem, SellerOrder> {
             price = modelDto.price,
             productName = modelDto.productName,
             basePrice = modelDto.product.basePrice,
-            imageProduct = modelDto.product.imageUrl,
+            imageProduct = modelDto.imageProduct,
             status = modelDto.status,
             updatedAt = modelDto.updatedAt.toFormatDate(),
             createdAt = modelDto.createdAt,
             Product = modelDto.product.name,
-            transactionDate = modelDto.transactionDate.toFormatDate(),
             phoneNumber = modelDto.user.phoneNumber,
             buyerName = modelDto.user.fullName,
             buyerLocation = modelDto.user.city

@@ -196,11 +196,29 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_nego"
-        android:layout_width="328dp"
+        android:id="@+id/btn_favorites"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:paddingVertical="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="@color/neutral02"
+        android:fontFamily="@font/poppins_medium"
         android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_baseline_favorite_border_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_nego"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:paddingVertical="16dp"
         android:backgroundTint="@color/darkblue04"
         android:text="Saya Tertarik dan Ingin Nego"
         android:fontFamily="@font/poppins_medium"
@@ -209,30 +227,28 @@
         android:textAllCaps="false"
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_favorites"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="24dp"
         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_nego_success"
-        android:layout_width="328dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="16dp"
-        android:paddingHorizontal="24dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/neutral02"
-        android:text="Menunggu respon penjual"
         android:fontFamily="@font/poppins_medium"
-        android:textSize="14sp"
-        android:textColor="@color/white"
+        android:paddingVertical="16dp"
+        android:text="Menunggu respon penjual"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="24dp"
-        android:visibility="gone"
-        />
+        app:layout_constraintStart_toEndOf="@+id/btn_favorites" />
 
 
 

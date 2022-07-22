@@ -255,7 +255,7 @@ class DetailProdukFragment : Fragment() {
                 editImage.setText(R.string.app_name)
             }
             // Mendapatkan path
-            val imgPath = result.let { fileUtil.getPath(requireContext(), it) }
+            val imgPath = result?.let { fileUtil.getPath(requireContext(), it) }
             // Simpan ke variable global
             uri = Uri.parse(imgPath)
         }
