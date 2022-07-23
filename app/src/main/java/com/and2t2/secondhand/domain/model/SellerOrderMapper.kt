@@ -21,7 +21,8 @@ class SellerOrderMapper: DomainMapper<SellerOrderDtoItem, SellerOrder> {
             Product = modelDto.product.name,
             phoneNumber = modelDto.user.phoneNumber,
             buyerName = modelDto.user.fullName,
-            buyerLocation = modelDto.user.city
+            buyerLocation = modelDto.user.city,
+            productStatus = modelDto.product.status
         )
     }
 

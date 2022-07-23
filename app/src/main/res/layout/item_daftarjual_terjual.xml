@@ -44,7 +44,7 @@
             android:maxLines="2"
             android:text="Produk Terjual"
             android:textColor="@color/neutral03"
-            android:textSize="10sp"
+            android:textSize="11sp"
             app:layout_constraintStart_toEndOf="@+id/materialCardView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,9 +56,8 @@
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/neutral03"
-            android:textSize="10sp"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_produk_terjual"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

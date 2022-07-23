@@ -1,5 +1,6 @@
 package com.and2t2.secondhand.ui.uiseller.uidaftarjual.terjual
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -55,23 +56,30 @@ class Terjual : Fragment() {
     }
 
     private fun initRecyclerView() {
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
         terjualAdapter = TerjualAdapter { id ->
             val bundle = Bundle()
             bundle.putInt("orderId", id)
         }
         binding.apply {
             rvDataTerjual.adapter = terjualAdapter
-            rvDataTerjual.layoutManager = LinearLayoutManager(requireContext())
+            rvDataTerjual.layoutManager = linearLayoutManager
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllOrder(token,null).observe(viewLifecycleOwner) {
                 val filterData = it.data?.filter { data ->
-                    data.status == "accepted"
+                    data.productStatus == "sold"
                 }
-                terjualAdapter.updateDataRecycler(filterData!!)
+                val removeDuplicateProduct = filterData?.distinctBy {
+                    it.productId
+                }
+                terjualAdapter.updateDataRecycler(removeDuplicateProduct!!)
                 terjualAdapter.notifyDataSetChanged()
             }
         }
