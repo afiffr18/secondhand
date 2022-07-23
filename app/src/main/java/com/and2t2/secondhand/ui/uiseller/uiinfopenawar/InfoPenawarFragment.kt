@@ -11,6 +11,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
@@ -127,6 +128,7 @@ class InfoPenawarFragment : Fragment() {
                         showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
                     }
                     hideLoading()
+                    findNavController().navigate(R.id.action_infoPenawarFragment2_self)
                 }
                 Status.ERROR ->{
                     showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
@@ -221,6 +223,7 @@ class InfoPenawarFragment : Fragment() {
                                     showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
                                 }
                                 hideLoading()
+                                findNavController().navigate(R.id.action_infoPenawarFragment2_self)
                             }
                             Status.ERROR ->{
                                 showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)

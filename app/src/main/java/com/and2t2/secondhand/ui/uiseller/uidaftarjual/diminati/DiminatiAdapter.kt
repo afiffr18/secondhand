@@ -52,12 +52,7 @@ class DiminatiAdapter(private val onClick: (id: Int) -> Unit): RecyclerView.Adap
                     .load(item.imageProduct)
                     .apply(RequestOptions().placeholder(R.drawable.placeholder_image))
                     .into(binding.ivProductImage)
-                if(item.status == "declined") {
-                    tvHargaPenawaran.paintFlags = tvHargaPenawaran.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    tvHargaPenawaran.text = "Ditawar "+item.price?.toRp()
-                }else{
-                    tvHargaPenawaran.text = "Ditawar "+item.price?.toRp()
-                }
+                tvHargaPenawaran.text = "Ditawar "+item.price?.toRp()
                 tvNamaProduk.text = item.productName
                 tvWaktuDiminati.text = item.updatedAt
                 tvHargaBarang.text = item.basePrice?.toRp()

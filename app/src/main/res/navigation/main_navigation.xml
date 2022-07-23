@@ -121,7 +121,11 @@
         android:id="@+id/infoPenawarFragment2"
         android:name="com.and2t2.secondhand.ui.uiseller.uiinfopenawar.InfoPenawarFragment"
         android:label="fragment_info_penawar"
-        tools:layout="@layout/fragment_info_penawar" />
+        tools:layout="@layout/fragment_info_penawar" >
+        <action
+            android:id="@+id/action_infoPenawarFragment2_self"
+            app:destination="@id/infoPenawarFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/wishlistFragment"
         android:name="com.and2t2.secondhand.ui.uiwishlist.WishlistFragment"
