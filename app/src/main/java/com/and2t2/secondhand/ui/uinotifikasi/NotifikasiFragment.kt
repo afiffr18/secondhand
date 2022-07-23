@@ -1,5 +1,6 @@
 package com.and2t2.secondhand.ui.uinotifikasi
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,9 +56,9 @@ class NotifikasiFragment : Fragment() {
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
 
-        notifAdapter = NotifikasiAdapter{ id: Int ->
+        notifAdapter = NotifikasiAdapter{ id ->
             updateDataNotifikasi(accessToken,id)
-            findNavController().navigate(R.id.action_navigation_notifikasi_to_infoPenawarFragment2)
+            findNavController().navigate(R.id.action_navigation_notifikasi_self2)
         }
 
         binding.rvNotifikasi.apply {
@@ -95,7 +96,8 @@ class NotifikasiFragment : Fragment() {
         }
     }
 
-    private fun updateDataNotifikasi(access_token: String,id : Int){
+    @SuppressLint("NotifyDataSetChanged")
+    private fun updateDataNotifikasi(access_token: String, id : Int){
         viewModel.updateNotifikasiRead(access_token, id).observe(viewLifecycleOwner){
             when(it.status){
                 Status.LOADING ->{

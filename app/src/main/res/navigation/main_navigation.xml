@@ -21,8 +21,8 @@
         android:label="Notifikasi"
         tools:layout="@layout/fragment_notifikasi" >
         <action
-            android:id="@+id/action_navigation_notifikasi_to_infoPenawarFragment2"
-            app:destination="@id/infoPenawarFragment2" />
+            android:id="@+id/action_navigation_notifikasi_self2"
+            app:destination="@id/navigation_notifikasi" />
     </fragment>
 
     <fragment
