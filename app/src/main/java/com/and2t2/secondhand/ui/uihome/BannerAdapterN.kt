@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.data.remote.dto.seller.SellerBannerDtoItemX
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class BannerAdapterN : RecyclerView.Adapter<BannerAdapterN.BannerNViewHolder>() {
 
@@ -50,7 +51,7 @@ class BannerAdapterN : RecyclerView.Adapter<BannerAdapterN.BannerNViewHolder>() 
     inner class BannerNViewHolder(view : View) : RecyclerView.ViewHolder(view){
         private val bannerImage = view.findViewById<ImageView>(R.id.iv_banner)
         fun bind(banner : SellerBannerDtoItemX){
-            Glide.with(itemView.context).load(banner.imageUrl).into(bannerImage)
+            Glide.with(itemView.context).load(banner.imageUrl).diskCacheStrategy(DiskCacheStrategy.DATA).into(bannerImage)
         }
 
     }
