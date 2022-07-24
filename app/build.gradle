@@ -82,12 +82,9 @@ dependencies {
     //KOIN
     implementation "io.insert-koin:koin-core:3.2.0"
     implementation "io.insert-koin:koin-android:3.2.0"
-//
-////    //PageIndicatorView
-//    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 
+    //carousel
     implementation 'com.mig35:carousellayoutmanager:1.4.6'
-//    implementation 'com.github.jama5262:CarouselView:1.2.2'
 
 
     //mockito
