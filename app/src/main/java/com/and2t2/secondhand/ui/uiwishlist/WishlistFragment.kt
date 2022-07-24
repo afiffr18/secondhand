@@ -44,7 +44,6 @@ class WishlistFragment : Fragment() {
     private fun initRecycler(){
         val gridLayoutManager = GridLayoutManager(requireContext(),2)
         gridLayoutManager.reverseLayout = true
-        gridLayoutManager.stackFromEnd = true
         wishlistAdapter = WishlistAdapter{ id ->
             val bundle = Bundle()
             bundle.putInt("product_key",id)

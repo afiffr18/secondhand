@@ -3,6 +3,7 @@ package com.and2t2.secondhand.common
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
 import java.text.NumberFormat
@@ -17,6 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import java.io.ByteArrayOutputStream
 
 
@@ -75,6 +79,48 @@ fun EditText.onDone(callback: () -> Unit) {
             false
 
     }
+}
+
+fun ViewPager2.autoScroll(interval: Long) {
+
+    val handler = Handler()
+    var scrollPosition = 1
+
+    val runnable = object : Runnable {
+
+        override fun run() {
+
+            /**
+             * Calculate "scroll position" with
+             * adapter pages count and current
+             * value of scrollPosition.
+             */
+            setCurrentItem(scrollPosition++, true)
+
+            handler.postDelayed(this, interval)
+        }
+    }
+
+    registerOnPageChangeCallback(object: OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            // Updating "scroll position" when user scrolls manually
+            scrollPosition = position + 1
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {
+            // Not necessary
+        }
+
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+            // Not necessary
+        }
+    })
+
+    handler.post(runnable)
 }
 
 inline fun <reified T : ViewModel> ComponentActivity.viewModelsFactory(crossinline viewModelInitialization: () -> T): Lazy<T> {

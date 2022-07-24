@@ -24,16 +24,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/rv_banner"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="350dp"-->
-<!--                    tools:listitem="@layout/item_banner_list"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    android:scaleType="centerCrop"-->
-<!--                    android:backgroundTint="@color/limegreen01"-->
-<!--                    />-->
+
 
                 <androidx.viewpager2.widget.ViewPager2
                     app:layout_constraintTop_toTopOf="parent"
@@ -50,6 +41,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/carouselViewPager"
                     app:tabBackground="@drawable/tab_selector"
                     app:tabGravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:background="@android:color/transparent"
                     />
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
@@ -78,6 +71,7 @@
                             android:textColor="@color/neutral03"
                             android:hint="Cari di Second Chance"
                             android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
                             android:maxLines="1"
                             android:background="@color/neutral01"
                             android:textSize="14sp"
@@ -101,80 +95,6 @@
 
 
                 </com.google.android.material.card.MaterialCardView>
-
-
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/tv_titleHeadlineHomeProduct"-->
-<!--                android:layout_width="200dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:layout_marginTop="120dp"-->
-<!--                android:text="Bulan Ramadhan Banyak Diskon!"-->
-<!--                android:fontFamily="@font/poppins_bold"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textSize="20sp"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:ellipsize="end"-->
-<!--                android:textColor="@color/neutral05"-->
-<!--                />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/tv_promoHomeProduct"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_titleHeadlineHomeProduct"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:fontFamily="@font/poppins_regular"-->
-<!--                android:text="Diskon Hingga"-->
-<!--                android:textSize="11sp"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:ellipsize="end"-->
-<!--                android:textColor="@color/neutral05"-->
-<!--                />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_promoHomeProduct"-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                android:fontFamily="@font/poppins_medium"-->
-<!--                android:text="60%"-->
-<!--                android:textSize="18sp"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:ellipsize="end"-->
-<!--                android:textColor="@color/danger"-->
-<!--                />-->
-
-<!--            <com.google.android.material.imageview.ShapeableImageView-->
-<!--                android:layout_width="140dp"-->
-<!--                android:layout_height="140dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:layout_marginTop="130dp"-->
-<!--                android:src="@drawable/png_gift_88837"-->
-<!--                android:layout_marginEnd="28dp"-->
-<!--                android:scaleType="centerCrop"-->
-<!--                />-->
-
-<!--            <com.google.android.material.textview.MaterialTextView-->
-<!--                android:id="@+id/tv_TelusuriCategory"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                android:layout_marginTop="300dp"-->
-<!--                android:fontFamily="@font/poppins_medium"-->
-<!--                android:text="Telusuri Kategori"-->
-<!--                android:textSize="14sp"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:ellipsize="end"-->
-<!--                android:textColor="@color/neutral05"-->
-<!--                />-->
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

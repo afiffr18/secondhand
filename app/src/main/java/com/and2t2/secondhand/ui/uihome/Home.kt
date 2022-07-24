@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
+import com.and2t2.secondhand.common.autoScroll
 import com.and2t2.secondhand.common.hideKeyboard
 import com.and2t2.secondhand.common.onDone
 import com.and2t2.secondhand.databinding.FragmentHomeBinding
-import com.and2t2.secondhand.domain.model.SellerCategory
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,6 +55,7 @@ class Home : Fragment() {
 
     private fun initTablayout(){
         val viewPager = initBannerViewPager()
+        viewPager.autoScroll(3000)
         val tabLayout = binding.indicatorTabLayout
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
     }

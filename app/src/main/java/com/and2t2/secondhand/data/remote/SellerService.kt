@@ -11,18 +11,6 @@ interface SellerService {
 
     /** seller banner **/
 
-    @GET("seller/banner")
-    fun getSellerBanner(
-        @Header("access_token") token : String
-    ) : SellerBannerDto
-
-    @Multipart
-    @POST("seller/banner")
-    fun setSellerBanner(
-        @Header("access_token") token : String,
-        @Part("name") name : RequestBody,
-        @Part file : MultipartBody.Part?
-    ) : SellerBannerDtoItem
 
     @GET("seller/banner")
     suspend fun getSellerBanner() : SellerBannerDtoX
