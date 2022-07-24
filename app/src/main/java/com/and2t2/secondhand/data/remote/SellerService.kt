@@ -24,11 +24,8 @@ interface SellerService {
         @Part file : MultipartBody.Part?
     ) : SellerBannerDtoItem
 
-    @GET("seller/banner/{id}")
-    fun getSellerBannerId(
-        @Header("access_token") token : String,
-        @Path("id") id : Int
-    ) : SellerBannerDtoItem
+    @GET("seller/banner")
+    suspend fun getSellerBanner() : SellerBannerDtoX
 
     //need review
     @DELETE("seller/banner/{id}")

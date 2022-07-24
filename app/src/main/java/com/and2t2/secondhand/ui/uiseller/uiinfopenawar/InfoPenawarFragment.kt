@@ -128,7 +128,6 @@ class InfoPenawarFragment : Fragment() {
                         showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
                     }
                     hideLoading()
-                    findNavController().navigate(R.id.action_infoPenawarFragment2_self)
                 }
                 Status.ERROR ->{
                     showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
@@ -223,7 +222,6 @@ class InfoPenawarFragment : Fragment() {
                                     showSnackbar(requireContext(),requireView(),"Status produk berhasil diperbarui(${data.status})",R.color.success)
                                 }
                                 hideLoading()
-                                findNavController().navigate(R.id.action_infoPenawarFragment2_self)
                             }
                             Status.ERROR ->{
                                 showSnackbar(requireContext(),requireView(),it.message.toString(),R.color.danger)
