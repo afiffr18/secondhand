@@ -1,23 +1,16 @@
 package com.and2t2.secondhand.common
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import android.os.Handler
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.activity.ComponentActivity
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import java.io.ByteArrayOutputStream
+import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 fun Int.toRp() : String{
@@ -77,22 +70,44 @@ fun EditText.onDone(callback: () -> Unit) {
     }
 }
 
-inline fun <reified T : ViewModel> ComponentActivity.viewModelsFactory(crossinline viewModelInitialization: () -> T): Lazy<T> {
-    return viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return viewModelInitialization.invoke() as T
-            }
-        }
-    }
-}
+fun ViewPager2.autoScroll(interval: Long,) {
 
-inline fun <reified T : ViewModel> Fragment.viewModelsFactory(crossinline viewModelInitialization: () -> T): Lazy<T> {
-    return viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return viewModelInitialization.invoke() as T
-            }
+    val handler = Handler()
+    var scrollPosition = 0
+
+    val runnable = object : Runnable {
+
+        override fun run() {
+
+            /**
+             * Calculate "scroll position" with
+             * adapter pages count and current
+             * value of scrollPosition.
+             */
+            setCurrentItem(scrollPosition++ % adapter?.itemCount!!, true)
+
+            handler.postDelayed(this, interval)
         }
     }
+
+    registerOnPageChangeCallback(object: OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            // Updating "scroll position" when user scrolls manually
+            scrollPosition = position + 1
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {
+            // Not necessary
+        }
+
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+            // Not necessary
+        }
+    })
+
+    handler.post(runnable)
 }

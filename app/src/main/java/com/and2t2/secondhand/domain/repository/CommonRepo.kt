@@ -13,6 +13,7 @@ class CommonRepo(context: Context) {
             mDb.sellerDao().deleteProductDetail()
             mDb.notifikasiDao().deleteNotifikasi()
             mDb.authDao().deleteUserDetail()
+            mDb.wishlistDao().deleteWishlist()
         }
     }
 }

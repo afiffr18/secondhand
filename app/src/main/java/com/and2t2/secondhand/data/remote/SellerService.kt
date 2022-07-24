@@ -11,24 +11,9 @@ interface SellerService {
 
     /** seller banner **/
 
+
     @GET("seller/banner")
-    fun getSellerBanner(
-        @Header("access_token") token : String
-    ) : SellerBannerDto
-
-    @Multipart
-    @POST("seller/banner")
-    fun setSellerBanner(
-        @Header("access_token") token : String,
-        @Part("name") name : RequestBody,
-        @Part file : MultipartBody.Part?
-    ) : SellerBannerDtoItem
-
-    @GET("seller/banner/{id}")
-    fun getSellerBannerId(
-        @Header("access_token") token : String,
-        @Path("id") id : Int
-    ) : SellerBannerDtoItem
+    suspend fun getSellerBanner() : SellerBannerDtoX
 
     //need review
     @DELETE("seller/banner/{id}")
@@ -103,6 +88,13 @@ interface SellerService {
         @Header("access_token") token : String,
         @Path("id") id : Int
     ) : Response<SellerProductDtoDelete>
+
+    @PATCH("seller/product/{id}")
+    suspend fun updateProductStatus(
+        @Header("access_token") access_token: String,
+        @Path("id") id : Int,
+        @Body status: SellerOrderStatusBody
+    ) : SellerProductPatchDto
 
     /** Seller Order **//** Status : Delayed for @PATCH(seller/order/{id}) and @GET(seller/order/product/{product_id})**/
 

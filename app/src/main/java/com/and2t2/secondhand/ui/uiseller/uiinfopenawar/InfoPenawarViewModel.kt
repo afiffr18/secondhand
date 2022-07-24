@@ -49,4 +49,18 @@ class InfoPenawarViewModel(private val sellerRepo: SellerRepo) : ViewModel() {
             emit(Resource.error(null,ex.message.toString()))
         }
     }
+
+    fun updateSellerProductStatus(access_token : String,id : Int,status: SellerOrderStatusBody) = liveData(Dispatchers.IO){
+        emit(Resource.loading(null))
+        try {
+            emit(Resource.success(sellerRepo.updateSellerProductStatus(access_token,id, status)))
+        }catch (ex : IOException){
+            emit(Resource.error(null,ex.message.toString()))
+        }catch (ex : HttpException){
+            emit(Resource.error(null,ex.message.toString()))
+        }catch (ex : Exception){
+            emit(Resource.error(null,ex.message.toString()))
+        }
+    }
+
 }

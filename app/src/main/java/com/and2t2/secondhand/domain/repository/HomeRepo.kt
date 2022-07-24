@@ -5,6 +5,7 @@ import com.and2t2.secondhand.common.networkBoundResource
 import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.BuyerService
 import com.and2t2.secondhand.data.remote.SellerService
+import com.and2t2.secondhand.data.remote.dto.seller.SellerBannerDtoX
 import com.and2t2.secondhand.domain.model.*
 
 class HomeRepo(
@@ -32,8 +33,6 @@ class HomeRepo(
                 sellerCategoryDao.insertSellerCategory(it)
             }
         }
-
-
     )
 
     suspend fun getBuyerMapper(status : String?,categoryId : Int?,search : String?) : List<BuyerProduct>{
@@ -55,6 +54,10 @@ class HomeRepo(
             }
         }
     )
+
+    suspend fun getBanner() : SellerBannerDtoX {
+        return sellerService.getSellerBanner()
+    }
 
 
 }

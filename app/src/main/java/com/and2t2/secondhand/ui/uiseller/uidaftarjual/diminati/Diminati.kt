@@ -1,5 +1,6 @@
 package com.and2t2.secondhand.ui.uiseller.uidaftarjual.diminati
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,6 +55,9 @@ class Diminati : Fragment() {
     }
 
     private fun initRecyclerView() {
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
         diminatiAdapter = DiminatiAdapter { id ->
             val bundle = Bundle()
             bundle.putInt("buyerId", id)
@@ -61,22 +65,18 @@ class Diminati : Fragment() {
         }
         binding.apply {
             rvDataOrder.adapter = diminatiAdapter
-            rvDataOrder.layoutManager = LinearLayoutManager(requireContext())
+            rvDataOrder.layoutManager = linearLayoutManager
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun observeData() {
         datastoreViewModel.getAccessToken().observe(viewLifecycleOwner) { token ->
             sellerProductViewModel.getAllOrder(token,null).observe(viewLifecycleOwner) {
                 it.data?.let { data ->
-                    if (!data.isNullOrEmpty()) {
-                        diminatiAdapter.updateDataRecycler(data)
-                        binding.ivNoProduk.isGone = true
-                    } else {
-                        diminatiAdapter.updateDataRecycler(data)
-                        binding.ivNoProduk.isGone = false
-                    }
+                    diminatiAdapter.updateDataRecycler(data)
                     diminatiAdapter.notifyDataSetChanged()
+                    binding.ivNoProduk.isGone = !data.isNullOrEmpty()
                 }
             }
         }

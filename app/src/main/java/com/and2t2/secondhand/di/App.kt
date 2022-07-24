@@ -5,11 +5,13 @@ import com.and2t2.secondhand.data.local.DatabaseSecondHand
 import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.domain.model.*
 import com.and2t2.secondhand.domain.repository.*
+import com.and2t2.secondhand.ui.uiakun.AkunViewModel
 import com.and2t2.secondhand.ui.uiwishlist.WishlistViewModel
 import com.and2t2.secondhand.ui.uibuyer.BuyerViewModel
 import com.and2t2.secondhand.ui.uihome.HomeViewModel
 import com.and2t2.secondhand.ui.uilogin.LoginViewModel
 import com.and2t2.secondhand.ui.uinotifikasi.NotifikasiViewModel
+import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 import com.and2t2.secondhand.ui.uiseller.uiinfopenawar.InfoPenawarViewModel
 import com.and2t2.secondhand.ui.uiwishlist.WishlistDBViewModel
 import org.koin.android.ext.koin.androidContext
@@ -61,6 +63,7 @@ class App : Application() {
         single { AuthRepo(get(),get(),get())}
         single { WishlistRepo(get(),get())}
         single { WishlistDBRepo(get())}
+        single { CommonRepo(get())}
     }
 
     private val viewModelModule = module{
@@ -72,6 +75,8 @@ class App : Application() {
         viewModel { LoginViewModel(get()) }
         viewModel { WishlistViewModel(get()) }
         viewModel { WishlistDBViewModel(get()) }
+        viewModel { AkunViewModel(get()) }
+        viewModel { ProfileViewModel(get())}
     }
 
 }

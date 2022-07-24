@@ -2,17 +2,12 @@ package com.and2t2.secondhand
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.and2t2.secondhand.common.viewModelsFactory
 import com.and2t2.secondhand.databinding.ActivityMainBinding
-import com.and2t2.secondhand.domain.repository.CommonRepo
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.ui.uiakun.AkunViewModel
 import com.and2t2.secondhand.ui.uinotifikasi.NotifikasiViewModel
@@ -21,13 +16,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val pref: DatastoreManager by lazy { DatastoreManager(this) }
-    private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
-
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
     private val notifikasiViewModel : NotifikasiViewModel by viewModel()
-
-    private val commonRepo: CommonRepo by lazy { CommonRepo(this) }
-    private val akunViewModel: AkunViewModel by viewModelsFactory { AkunViewModel(commonRepo) }
+    private val akunViewModel: AkunViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,38 +37,41 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setBottomNav() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.navigation_home ||
-                destination.id == R.id.navigation_notifikasi ||
+            if (destination.id == R.id.profile ||
+                destination.id == R.id.navigation_jual ||
+                destination.id == R.id.previewProdukFragment ||
+                destination.id == R.id.detail ||
+                destination.id == R.id.buyerFragment ||
+                destination.id == R.id.pengaturanAkunFragment ||
+                destination.id == R.id.wishlistFragment
+            ) {
+                binding.bottomNavigationView.visibility = View.GONE
+            } else {
+                binding.bottomNavigationView.visibility = View.VISIBLE
+            }
+            if (destination.id == R.id.navigation_notifikasi ||
                 destination.id == R.id.navigation_jual ||
                 destination.id == R.id.navigation_daftarjual ||
-                destination.id == R.id.navigation_akun) {
-
-                binding.bottomNavigationView.visibility = View.VISIBLE
-
-                if (destination.id != R.id.navigation_home) {
-                    datastoreViewModel.getLoginState().observe(this) {
-                        if (!it) {
-                            akunViewModel.deleteTable()
-                            showAlertDialogWithAction()
-                        } else {
-                            if (destination.id == R.id.navigation_jual) {
-                                binding.bottomNavigationView.visibility = View.GONE
-                            }
-                        }
+                destination.id == R.id.navigation_akun
+            ) {
+                datastoreViewModel.getLoginState().observe(this) {
+                    if (!it) {
+                        akunViewModel.deleteTable()
+                        showAlertDialogWithAction()
                     }
                 }
-            } else {
-                binding.bottomNavigationView.visibility = View.GONE
             }
         }
         binding.bottomNavigationView.setupWithNavController(navController)
     }
+
 
     private fun showAlertDialogWithAction() {
         val navHostFragment =

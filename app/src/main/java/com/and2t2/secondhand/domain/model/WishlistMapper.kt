@@ -20,7 +20,10 @@ class WishlistMapper : DomainMapper<WishlistDtoItem,Wishlist> {
     }
 
     fun toDomainList(initial : List<WishlistDtoItem>) : List<Wishlist>{
-        return initial.map{
+        val dataWishlist =  initial.filter {
+            it.product != null
+        }
+        return dataWishlist.map {
             mapToDomainModel(it)
         }
     }
