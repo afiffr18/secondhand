@@ -2,27 +2,19 @@ package com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentDetailBinding
-import com.and2t2.secondhand.domain.model.AuthUserMapper
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.model.SellerOrderMapper
-import com.and2t2.secondhand.domain.model.SellerProductMapper
-import com.and2t2.secondhand.domain.repository.AuthRepo
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 import com.and2t2.secondhand.ui.uiseller.SellerProductViewModel
 import com.bumptech.glide.Glide
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Detail : Fragment() {
     private var accessToken : String? = null
@@ -30,14 +22,9 @@ class Detail : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
-
-    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val profileViewModel: ProfileViewModel by lazy { ProfileViewModel(authRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val sellerProductViewModel: SellerProductViewModel by viewModel()
+    private val profileViewModel: ProfileViewModel by viewModel()
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

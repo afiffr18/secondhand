@@ -2,24 +2,15 @@ package com.and2t2.secondhand.ui.uiseller.uidaftarjual.terjual
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isGone
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentTerjualBinding
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.model.SellerOrderMapper
-import com.and2t2.secondhand.domain.model.SellerProductMapper
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.and2t2.secondhand.ui.uiseller.SellerProductViewModel
-import com.and2t2.secondhand.ui.uiseller.uidaftarjual.diminati.DiminatiAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Terjual : Fragment() {
     private var _binding: FragmentTerjualBinding? = null
@@ -27,13 +18,8 @@ class Terjual : Fragment() {
 
     private lateinit var terjualAdapter: TerjualAdapter
 
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(
-        ApiClient.instanceSeller, SellerProductMapper(),
-        SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val sellerProductViewModel: SellerProductViewModel by viewModel()
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

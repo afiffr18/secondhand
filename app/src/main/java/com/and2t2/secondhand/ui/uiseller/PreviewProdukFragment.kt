@@ -3,33 +3,27 @@ package com.and2t2.secondhand.ui.uiseller
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentPreviewProdukBinding
 import com.and2t2.secondhand.domain.model.PreviewSellerProduct
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.model.SellerOrderMapper
-import com.and2t2.secondhand.domain.model.SellerProductMapper
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 
@@ -48,11 +42,8 @@ class PreviewProdukFragment : Fragment() {
     private var _binding: FragmentPreviewProdukBinding? = null
     private val binding get() = _binding!!
 
-    private val sellerRepo: SellerRepo by lazy {SellerRepo(ApiClient.instanceSeller, SellerProductMapper(),SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!)}
-    private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val sellerProductViewModel: SellerProductViewModel by viewModel()
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

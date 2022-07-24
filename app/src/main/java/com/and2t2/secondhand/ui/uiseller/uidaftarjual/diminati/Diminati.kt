@@ -21,18 +21,15 @@ import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.and2t2.secondhand.ui.uiseller.SellerProductViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Diminati : Fragment() {
     private var _binding: FragmentDiminatiBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var diminatiAdapter: DiminatiAdapter
-
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(),SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val sellerProductViewModel: SellerProductViewModel by viewModel()
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

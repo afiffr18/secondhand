@@ -1,9 +1,11 @@
 package com.and2t2.secondhand.ui.uiwishlist
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.and2t2.secondhand.data.local.WishlistId
 import com.and2t2.secondhand.domain.repository.WishlistDBRepo
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class WishlistDBViewModel(private val wishlistDBRepo: WishlistDBRepo) :ViewModel() {

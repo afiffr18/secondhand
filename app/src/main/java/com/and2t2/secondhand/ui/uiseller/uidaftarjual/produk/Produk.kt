@@ -2,23 +2,17 @@ package com.and2t2.secondhand.ui.uiseller.uidaftarjual.produk
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.and2t2.secondhand.R
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentProdukBinding
-import com.and2t2.secondhand.domain.model.SellerOrderMapper
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.model.SellerProductMapper
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.and2t2.secondhand.ui.uiseller.SellerProductViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Produk : Fragment() {
     private var _binding: FragmentProdukBinding? = null
@@ -26,11 +20,8 @@ class Produk : Fragment() {
 
     private lateinit var produkAdapter: ProdukAdapter
 
-    private val sellerRepo: SellerRepo by lazy { SellerRepo(ApiClient.instanceSeller, SellerProductMapper(),SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val sellerProductViewModel: SellerProductViewModel by viewModel()
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

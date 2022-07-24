@@ -12,6 +12,9 @@ import com.and2t2.secondhand.ui.uihome.HomeViewModel
 import com.and2t2.secondhand.ui.uilogin.LoginViewModel
 import com.and2t2.secondhand.ui.uinotifikasi.NotifikasiViewModel
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
+import com.and2t2.secondhand.ui.uiregister.RegisterViewModel
+import com.and2t2.secondhand.ui.uiseller.SellerCategoryViewModel
+import com.and2t2.secondhand.ui.uiseller.SellerProductViewModel
 import com.and2t2.secondhand.ui.uiseller.uiinfopenawar.InfoPenawarViewModel
 import com.and2t2.secondhand.ui.uiwishlist.WishlistDBViewModel
 import org.koin.android.ext.koin.androidContext
@@ -77,6 +80,9 @@ class App : Application() {
         viewModel { WishlistDBViewModel(get()) }
         viewModel { AkunViewModel(get()) }
         viewModel { ProfileViewModel(get())}
+        viewModel { RegisterViewModel(get())}
+        viewModel { SellerCategoryViewModel(get())}
+        viewModel { SellerProductViewModel(get())}
     }
 
 }

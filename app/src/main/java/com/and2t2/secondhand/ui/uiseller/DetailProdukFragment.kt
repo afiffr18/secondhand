@@ -28,14 +28,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.*
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentDetailProdukBinding
-import com.and2t2.secondhand.domain.model.*
-import com.and2t2.secondhand.domain.repository.AuthRepo
-import com.and2t2.secondhand.domain.repository.DatastoreManager
+import com.and2t2.secondhand.domain.model.PreviewSellerProduct
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.SellerRepo
 import com.and2t2.secondhand.ui.uiprofile.Profile
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 import com.bumptech.glide.Glide
@@ -48,6 +43,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 class DetailProdukFragment : Fragment() {
@@ -63,15 +59,11 @@ class DetailProdukFragment : Fragment() {
     private var _binding : FragmentDetailProdukBinding? = null
     private val binding get() = _binding!!
 
-    private val sellerRepo: SellerRepo by lazy {SellerRepo(ApiClient.instanceSeller, SellerProductMapper(), SellerOrderMapper(), SellerCategoryMapper(), DatabaseSecondHand.getInstance(requireContext())!!)}
-    private val sellerCategoryViewModel: SellerCategoryViewModel by lazy { SellerCategoryViewModel(sellerRepo) }
-    private val sellerProductViewModel: SellerProductViewModel by lazy { SellerProductViewModel(sellerRepo) }
+    private val sellerCategoryViewModel: SellerCategoryViewModel by viewModel()
+    private val sellerProductViewModel: SellerProductViewModel by viewModel()
+    private val profileViewModel: ProfileViewModel by viewModel()
 
-    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val profileViewModel: ProfileViewModel by lazy { ProfileViewModel(authRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
