@@ -8,31 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.and2t2.secondhand.R
 import com.and2t2.secondhand.MainActivity
-import com.and2t2.secondhand.common.*
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
+import com.and2t2.secondhand.R
+import com.and2t2.secondhand.common.Status
+import com.and2t2.secondhand.common.hideLoading
+import com.and2t2.secondhand.common.showLoading
+import com.and2t2.secondhand.common.showSnackbar
 import com.and2t2.secondhand.data.remote.dto.auth.AuthLoginBody
 import com.and2t2.secondhand.databinding.FragmentLoginBinding
-import com.and2t2.secondhand.domain.model.AuthUserMapper
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.domain.repository.AuthRepo
 import com.and2t2.secondhand.ui.uiprofile.LengkapiProfileActivity
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class Login : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val loginViewModel: LoginViewModel by viewModelsFactory { LoginViewModel(authRepo) }
-    private val profileViewModel: ProfileViewModel by viewModelsFactory { ProfileViewModel(authRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
+    private val loginViewModel: LoginViewModel by viewModel()
+    private val profileViewModel: ProfileViewModel by viewModel()
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

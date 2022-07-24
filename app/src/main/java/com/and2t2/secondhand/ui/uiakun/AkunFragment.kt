@@ -2,39 +2,27 @@ package com.and2t2.secondhand.ui.uiakun
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.MainActivity
 import com.and2t2.secondhand.R
-import com.and2t2.secondhand.common.viewModelsFactory
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentAkunBinding
-import com.and2t2.secondhand.domain.model.AuthUserMapper
-import com.and2t2.secondhand.domain.repository.AuthRepo
-import com.and2t2.secondhand.domain.repository.CommonRepo
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
-import com.and2t2.secondhand.ui.uiprofile.Profile
 import com.and2t2.secondhand.ui.uiprofile.ProfileViewModel
 import com.bumptech.glide.Glide
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class AkunFragment : Fragment() {
     private var _binding : FragmentAkunBinding? = null
     private val binding get() = _binding!!
 
-    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val profileViewModel: ProfileViewModel by lazy { ProfileViewModel(authRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by viewModelsFactory { DatastoreViewModel(pref) }
-
-    private val commonRepo: CommonRepo by lazy { CommonRepo(requireContext()) }
-    private val akunViewModel: AkunViewModel by viewModelsFactory { AkunViewModel(commonRepo) }
+    private val profileViewModel: ProfileViewModel by viewModel()
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
+    private val akunViewModel: AkunViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

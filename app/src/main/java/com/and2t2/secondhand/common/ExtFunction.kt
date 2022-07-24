@@ -122,23 +122,3 @@ fun ViewPager2.autoScroll(interval: Long,) {
 
     handler.post(runnable)
 }
-
-inline fun <reified T : ViewModel> ComponentActivity.viewModelsFactory(crossinline viewModelInitialization: () -> T): Lazy<T> {
-    return viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return viewModelInitialization.invoke() as T
-            }
-        }
-    }
-}
-
-inline fun <reified T : ViewModel> Fragment.viewModelsFactory(crossinline viewModelInitialization: () -> T): Lazy<T> {
-    return viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return viewModelInitialization.invoke() as T
-            }
-        }
-    }
-}

@@ -9,26 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.and2t2.secondhand.R
-import com.and2t2.secondhand.common.*
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
+import com.and2t2.secondhand.common.Status
+import com.and2t2.secondhand.common.hideLoading
+import com.and2t2.secondhand.common.showLoading
+import com.and2t2.secondhand.common.showSnackbar
 import com.and2t2.secondhand.databinding.FragmentRegisterBinding
-import com.and2t2.secondhand.domain.model.AuthUserMapper
-import com.and2t2.secondhand.domain.repository.AuthRepo
-import com.and2t2.secondhand.domain.repository.DatastoreManager
 import com.and2t2.secondhand.domain.repository.DatastoreViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Register : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val authRepo: AuthRepo by lazy { AuthRepo(ApiClient.INSTANCE_AUTH, AuthUserMapper(), DatabaseSecondHand.getInstance(requireContext())!!) }
-    private val registerViewModel: RegisterViewModel by viewModelsFactory { RegisterViewModel(authRepo) }
-
-    private val pref: DatastoreManager by lazy { DatastoreManager(requireContext()) }
-    private val datastoreViewModel: DatastoreViewModel by lazy { DatastoreViewModel(pref) }
+    private val registerViewModel: RegisterViewModel by viewModel()
+    private val datastoreViewModel: DatastoreViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
