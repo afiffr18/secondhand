@@ -97,8 +97,8 @@ class AkunFragment : Fragment() {
         binding.logout.setOnClickListener {
             startActivity(Intent(requireContext(), MainActivity::class.java))
             requireActivity().finish()
-            clearLoginState()
             akunViewModel.deleteTable()
+            clearLoginState()
         }
     }
 
