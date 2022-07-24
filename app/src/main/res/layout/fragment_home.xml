@@ -24,17 +24,33 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    tools:listitem="@layout/item_banner_list"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:scaleType="centerCrop"
-                    android:backgroundTint="@color/limegreen01"
-                    />
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/rv_banner"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="350dp"-->
+<!--                    tools:listitem="@layout/item_banner_list"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:backgroundTint="@color/limegreen01"-->
+<!--                    />-->
 
+                <androidx.viewpager2.widget.ViewPager2
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/carouselViewPager"
+                    android:layout_width="match_parent"
+                    android:background="@color/limegreen01"
+                    android:layout_height="350dp" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/indicatorTabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/carouselViewPager"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    />
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="48dp"

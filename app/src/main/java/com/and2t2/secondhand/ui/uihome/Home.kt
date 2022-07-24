@@ -19,6 +19,7 @@ import com.and2t2.secondhand.domain.model.BuyerProductMapper
 import com.and2t2.secondhand.domain.model.SellerCategory
 import com.and2t2.secondhand.domain.model.SellerCategoryMapper
 import com.and2t2.secondhand.domain.repository.HomeRepo
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mig35.carousellayoutmanager.CarouselLayoutManager
 import com.mig35.carousellayoutmanager.CenterScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,7 +32,7 @@ class Home : Fragment() {
     private val listOfCategory: MutableList<SellerCategory> = mutableListOf()
     private lateinit var kategoriAdapter: KategoriAdapter
     private lateinit var productAdapter: ProductAdapter
-    private lateinit var bannerAdapter : BannerAdapter
+    private lateinit var bannerAdapter : BannerAdapterN
     private val viewModel : HomeViewModel by viewModel()
 
     override fun onCreateView(
@@ -50,25 +51,29 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initKategoriRecycler()
-        initBanner()
+        initTablayout()
         getDataBanner()
         getKategori()
         initProduct()
         getDataProduct()
         getDataBySearch()
         onTopofListClicked()
+
     }
 
-    private fun initBanner(){
-        val carousel = CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL,true)
-        bannerAdapter = BannerAdapter()
-        binding.rvBanner.apply {
-            layoutManager = carousel
+    private fun initTablayout(){
+        val viewPager = initBannerViewPager()
+        val tabLayout = binding.indicatorTabLayout
+        TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
+    }
+
+    private fun initBannerViewPager() = binding.carouselViewPager.apply{
+        bannerAdapter = BannerAdapterN()
+        binding.carouselViewPager.apply {
             adapter = bannerAdapter
-            setHasFixedSize(true)
-            addOnScrollListener(CenterScrollListener())
         }
     }
+
 
     private fun getDataBanner(){
         viewModel.getSellerBanner().observe(viewLifecycleOwner){
