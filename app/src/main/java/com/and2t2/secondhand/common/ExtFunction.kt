@@ -81,10 +81,10 @@ fun EditText.onDone(callback: () -> Unit) {
     }
 }
 
-fun ViewPager2.autoScroll(interval: Long) {
+fun ViewPager2.autoScroll(interval: Long,) {
 
     val handler = Handler()
-    var scrollPosition = 1
+    var scrollPosition = 0
 
     val runnable = object : Runnable {
 
@@ -95,7 +95,7 @@ fun ViewPager2.autoScroll(interval: Long) {
              * adapter pages count and current
              * value of scrollPosition.
              */
-            setCurrentItem(scrollPosition++, true)
+            setCurrentItem(scrollPosition++ % adapter?.itemCount!!, true)
 
             handler.postDelayed(this, interval)
         }

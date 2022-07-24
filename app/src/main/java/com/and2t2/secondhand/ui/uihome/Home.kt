@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.autoScroll
@@ -25,7 +26,9 @@ class Home : Fragment() {
     private lateinit var kategoriAdapter: KategoriAdapter
     private lateinit var productAdapter: ProductAdapter
     private lateinit var bannerAdapter : BannerAdapterN
+    private lateinit var viewPager2: ViewPager2
     private val viewModel : HomeViewModel by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +57,9 @@ class Home : Fragment() {
     }
 
     private fun initTablayout(){
-        val viewPager = initBannerViewPager()
-        viewPager.autoScroll(3000)
+        viewPager2 = initBannerViewPager()
         val tabLayout = binding.indicatorTabLayout
-        TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
+        TabLayoutMediator(tabLayout, viewPager2) { _, _ -> }.attach()
     }
 
     private fun initBannerViewPager() = binding.carouselViewPager.apply{
@@ -78,6 +80,7 @@ class Home : Fragment() {
                     it.data?.let{ dataBanner ->
                         bannerAdapter.updateDataBanner(dataBanner)
                     }
+                    viewPager2.autoScroll(3000)
                 }
                 Status.ERROR ->{
 
