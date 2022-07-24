@@ -14,7 +14,13 @@ import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.autoScroll
 import com.and2t2.secondhand.common.hideKeyboard
 import com.and2t2.secondhand.common.onDone
+import com.and2t2.secondhand.data.local.WishlistId
 import com.and2t2.secondhand.databinding.FragmentHomeBinding
+import com.and2t2.secondhand.domain.model.BuyerProduct
+import com.and2t2.secondhand.domain.repository.DatastoreManager
+import com.and2t2.secondhand.domain.repository.DatastoreViewModel
+import com.and2t2.secondhand.ui.uiwishlist.WishlistDBViewModel
+import com.and2t2.secondhand.ui.uiwishlist.WishlistViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,8 +33,12 @@ class Home : Fragment() {
     private lateinit var productAdapter: ProductAdapter
     private lateinit var bannerAdapter : BannerAdapterN
     private lateinit var viewPager2: ViewPager2
+    private lateinit var dataWishlist : List<BuyerProduct>
     private val viewModel : HomeViewModel by viewModel()
+    private val datastoreViewModel : DatastoreViewModel by viewModel()
 
+    private val wishlistViewModel : WishlistViewModel by viewModel()
+    private val wishlistDBViewModel : WishlistDBViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +60,7 @@ class Home : Fragment() {
         getDataBanner()
         getKategori()
         initProduct()
+        importDataWishlistIdToDb()
         getDataProduct()
         getDataBySearch()
         onTopofListClicked()
@@ -172,6 +183,31 @@ class Home : Fragment() {
     private fun onTopofListClicked(){
         binding.fabToTopList.setOnClickListener {
             binding.rvListProductHomeProduct.smoothScrollToPosition(0)
+        }
+    }
+
+    private fun importDataWishlistIdToDb(){
+        datastoreViewModel.getLoginState().observe(viewLifecycleOwner){ loginState->
+            if(loginState){
+                datastoreViewModel.getAccessToken().observe(viewLifecycleOwner){ access_token ->
+                    wishlistViewModel.getBuyerWishlist(access_token).observe(viewLifecycleOwner){
+                        when(it.status){
+                            Status.LOADING ->{
+
+                            }
+                            Status.SUCCESS ->{
+                                it.data?.map { dataWishlist ->
+                                    val wishlistId = WishlistId(dataWishlist.productId!!)
+                                    wishlistDBViewModel.insertWishlist(wishlistId)
+                                }
+                            }
+                            Status.ERROR ->{
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
