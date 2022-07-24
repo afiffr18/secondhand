@@ -12,16 +12,9 @@ import com.and2t2.secondhand.R
 import com.and2t2.secondhand.common.Status
 import com.and2t2.secondhand.common.hideKeyboard
 import com.and2t2.secondhand.common.onDone
-import com.and2t2.secondhand.data.local.DatabaseSecondHand
-import com.and2t2.secondhand.data.remote.ApiClient
 import com.and2t2.secondhand.databinding.FragmentHomeBinding
-import com.and2t2.secondhand.domain.model.BuyerProductMapper
 import com.and2t2.secondhand.domain.model.SellerCategory
-import com.and2t2.secondhand.domain.model.SellerCategoryMapper
-import com.and2t2.secondhand.domain.repository.HomeRepo
 import com.google.android.material.tabs.TabLayoutMediator
-import com.mig35.carousellayoutmanager.CarouselLayoutManager
-import com.mig35.carousellayoutmanager.CenterScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -29,7 +22,6 @@ class Home : Fragment() {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val listOfCategory: MutableList<SellerCategory> = mutableListOf()
     private lateinit var kategoriAdapter: KategoriAdapter
     private lateinit var productAdapter: ProductAdapter
     private lateinit var bannerAdapter : BannerAdapterN
